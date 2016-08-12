@@ -1,0 +1,188 @@
+<#include "../layout/header.html" >
+
+<div class="pageheader">
+  <h2><i class="fa fa-tasks"></i><@spring.message "device.text" /></h2>
+</div>
+
+<!-- main content -->
+<div class="contentpanel">
+  <div class="row">
+    <div class="col-md-12">
+      <p class="toolbar">
+        <span class="alert"></span>
+      </p>
+
+      <table id="table" class="table table-no-bordered table-inverse" data-show-refresh="true"
+             data-show-columns="true" data-striped="true" data-show-toggle="true"
+             data-query-params-type="" data-query-params="queryParams" data-toolbar=".toolbar"
+             data-page-list="[10, 20, 50]" data-pagination="true" data-side-pagination="server"
+             data-search='true' data-search-time-out='500' data-trim-on-search='true'
+             data-search-on-enter-key='true'>
+        <thead>
+        <th data-formatter="runningFormatter">No.</th>
+        <th data-field="mac" data-align="center" data-sortable="true">MAC</th>
+        <th data-field="online" data-align="center" data-sortable="true" data-formatter="onlineFormatter">
+          <@spring.message "device.ap.status.text" /></th>
+        <th data-field="ip" data-align="center" data-visible="false">IP</th>
+        <th data-field="updatedAt" data-align="center" data-visible="false" data-sortable="true"
+            data-sort-order="desc"><@spring.message "common.update.text" /></th>
+        <th data-field="createdAt" data-align="center" data-visible="false" data-sortable="true"
+            data-sort-order="desc"><@spring.message "common.create.text" /></th>
+        <th data-field="action" data-align="center" data-formatter="actionFormatter" data-events="actionEvents"><@spring.message "common.action.text" /></th>
+        </thead>
+      </table>
+
+    </div><!-- /.col-md-12 -->
+  </div><!-- /.row -->
+</div><!-- /.contentpanel -->
+
+
+<script type='text/javascript'>
+
+  var DEVICE_BASE = "${viewHelper.getPath()}/device/ap"
+  var DEVICE_SHOW = DEVICE_BASE + "/show";
+  var _csrf = "${_csrf.token ?if_exists}";
+
+  var $alert = $('.alert').hide();
+
+  var $table = $('#table').bootstrapTable({
+    sortOrder: "desc",
+    url: DEVICE_SHOW,
+    formatShowingRows : formatShowingRows,
+    formatRecordsPerPage : formatRecordsPerPage
+  })
+
+  $(function () {
+
+    $table.on('post-body.bs.table', function () {
+      var $search = $table.data('bootstrap.table')
+        .$toolbar.find('.search input');
+      $search.attr('placeholder', '<@spring.message "device.ap.search.text" />');
+    });
+  })
+
+  function queryParams(params) {
+    return {
+      page: params.pageNumber,
+      size: params.pageSize,
+      sortName: params.sortName || "updatedAt",
+      sortOrder: params.sortOrder || "desc",
+      search: params.searchText,
+      _r: Math.floor(Math.random()*10000)
+    };
+  }
+
+  window.actionEvents = {
+    'click .remove': function (e, value, row) {
+      if(confirm('<@spring.message "common.msg.delete.text" />')) {
+        $.ajax({
+          url: DEVICE_BASE + "/" + row.id + "/delete",
+          type: 'post',
+          data: "_csrf=" + _csrf,
+          success: function (result) {
+            if(result.result == "success") {
+              $table.bootstrapTable('refresh');
+              showAlert('<@spring.message "common.msg.delete.success" />', 'success');
+            }
+            else {
+              showAlert('<@spring.message "common.msg.delete.error" />' + result.msg, 'danger');
+            }
+          },
+          error: function () {
+            showAlert('<@spring.message "common.msg.delete.error" />', 'danger');
+          }
+        })
+      }
+    },
+    'click .reboot': function (e, value, row) {
+      if(confirm('<@spring.message "device.ap.reboot.confirm.text" />')) {
+        $.ajax({
+          url: DEVICE_BASE + "/" + row.id + "/reboot",
+          type: 'post',
+          data: "_csrf=" + _csrf,
+          success: function (result) {
+            if(result.result == "success") {
+              showAlert('<@spring.message "device.ap.msg.success.text" />', 'success');
+            }
+            else {
+              showAlert('<@spring.message "device.ap.msg.error.text" />' + result.msg, 'danger');
+            }
+          },
+          error: function () {
+            showAlert('<@spring.message "device.ap.msg.error.text" />', 'danger');
+          }
+        })
+      }
+    },
+    'click .reset': function (e, value, row) {
+      if(confirm('<@spring.message "device.ap.reset.confirm.text" />')) {
+        $.ajax({
+          url: DEVICE_BASE + "/" + row.id + "/reset",
+          type: 'post',
+          data: "_csrf=" + _csrf,
+          success: function (result) {
+            if(result.result == "success") {
+              showAlert('<@spring.message "device.ap.msg.success.text" />', 'success');
+            }
+            else {
+              showAlert('<@spring.message "device.ap.msg.error.text" />' + result.msg, 'danger');
+            }
+          },
+          error: function () {
+            showAlert('<@spring.message "device.ap.msg.error.text" />', 'danger');
+          }
+        })
+      }
+    }
+  };
+
+
+  function actionFormatter(value, row, index) {
+    var status = DEVICE_BASE + "/" + row.id;
+    var settings = DEVICE_BASE + "/" + row.id + "/settings";
+
+    return [
+      '<div class="btn-group" role="group">',
+      '<a class="btn btn-default btn-xs" href="' + status + '" target="_blank" ><i class="fa fa-info">&nbsp;&nbsp;</i><@spring.message "device.ap.action.status" /></a>',
+      '<a class="btn btn-default btn-xs" href="' + settings + '" target="_blank" ><i class="fa fa-cog">&nbsp;&nbsp;</i><@spring.message "device.ap.action.setup" /></a>',
+      '<a class="btn btn-default btn-xs reboot" href="javascript:"><i class="fa fa-power-off">&nbsp;&nbsp;</i><@spring.message "device.ap.action.reboot" /></a>',
+      '<a class="btn btn-warning btn-xs reset"  href="javascript:"><i class="fa fa-refresh">&nbsp;&nbsp;</i><@spring.message "device.ap.action.reset" /></a>',
+      '<a class="btn btn-danger btn-xs remove " href="javascript:"><i class="fa fa-trash">&nbsp;&nbsp;</i><@spring.message "common.action.delete" /></a>',
+      '</div>'
+    ].join('');
+  }
+
+
+
+  function onlineFormatter(value) {
+    if(value == true || value == "true") {
+      return "<img title='<@spring.message "device.ap.status.online" />' style='height:24px;' src='${viewHelper.getPath()}/images/status/connected.png' >";
+    }
+    else {
+      return "<img title='<@spring.message "device.ap.status.offline" />' style='height:24px;' src='${viewHelper.getPath()}/images/status/disconnected.png' >";
+    }
+  }
+
+  /* alert */
+  function showAlert(title, type) {
+    $alert.attr('class', 'alert alert-' + type || 'success').html('<i class="fa fa-check"></i> ' + title).show();
+    setTimeout(function(){$alert.hide();}, 3000);
+  }
+
+  /* page formatter */
+  function formatRecordsPerPage(pageNumber) {
+    return '&nbsp;' + pageNumber;
+  }
+
+  function formatShowingRows(pageFrom, pageTo, totalRows) {
+    return totalRows + ' <@spring.message "common.msg.page.total" />';
+  }
+
+  function runningFormatter(value, row, index) {
+    return index + 1;
+  }
+  /* page formatter - end */
+
+</script>
+
+<#include "../layout/footer.html" >

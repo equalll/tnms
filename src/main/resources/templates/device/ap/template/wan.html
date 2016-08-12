@@ -1,0 +1,497 @@
+<#include "../../../layout/header.html" >
+
+<div class="pageheader">
+  <h2><i class="fa fa-tasks"></i><@spring.message "temp.wan.text" /></h2>
+</div><!-- pageheader -->
+
+
+<!-- main content -->
+<div class="contentpanel">
+  <div class="row">
+    <div class="col-md-12">
+      <p class="toolbar">
+        <a class="create btn btn-success" href="javascript:" >
+          <i class="fa fa-plus">&nbsp;&nbsp;</i><@spring.message "common.action.add" />
+        </a>
+        <span class="alert"></span>
+      </p>
+
+      <table id="table" class="table table-no-bordered table-inverse" data-show-refresh="true"
+        data-show-columns="true" data-striped="true" data-show-toggle="true"
+        data-query-params-type="" data-query-params="queryParams" data-toolbar=".toolbar"
+        data-page-list="[10, 20, 50]" data-pagination="true" data-side-pagination="server"
+        data-search='true' data-search-time-out='3000' data-trim-on-search='true'
+        data-search-on-enter-key='true'>
+        <thead>
+          <th data-formatter="runningFormatter">No.</th>
+          <th data-field="id" data-align="center" data-visible="false">ID</th>
+          <th data-field="templateName" data-align="center" data-sortable="true"><@spring.message "temp.common.name" /></th>
+          <th data-field="templateDescription" data-align="center" data-visible="false"><@spring.message "common.description.text" /></th>
+          <th data-field="updatedAt" data-align="center" data-visible="true" data-sortable="true"
+            data-sort-order="desc"><@spring.message "common.update.text" /></th>
+          <th data-field="createdAt" data-align="center" data-visible="false" data-sortable="true"
+            data-sort-order="desc"><@spring.message "common.create.text" /></th>
+          <th data-field="action" data-align="center" data-formatter="actionFormatter" data-events="actionEvents"><@spring.message "common.action.text" /></th>
+        </thead>
+      </table>
+
+      <div class="row">
+        <div id="modal" class="modal fade">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <form class="form-horizontal m-t required-validate" id="config" autocomplete="off" novalidate="novalidate">
+                <div class="modal-header">
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                  <h4 class="modal-title"></h4>
+                </div>
+                <div class="modal-body form-horizontal m-t required-validate">
+
+                  <div class="form-group">
+                    <label class="col-sm-3 control-label"><@spring.message "temp.common.name" /></label>
+                    <div class="col-sm-7">
+                      <input type="text" name="templateName" class="form-control" />
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label class="col-sm-3 control-label"><@spring.message "common.description.text" /></label>
+                    <div class="col-sm-7">
+                      <input type="text" name="templateDescription" class="form-control" />
+                    </div>
+                  </div>
+
+                  <div class="form-group">
+                    <label class="col-sm-3 control-label"><@spring.message "ap.wan.protocol" /></label>
+                    <div class="col-sm-7">
+                      <select name="protocol" class="form-control">
+                        <option value="dhcp" selected>DHCP</option>
+                        <option value="static">STATIC</option>
+                        <option value="pppoe">PPPOE</option>
+                        <option value="3g">3/4G</option>
+                      </select>
+                    </div>
+                  </div>
+
+                  <!-- static -->
+                  <div class="form-group2" id="static">
+                    <div class="form-group">
+                      <label class="col-sm-3 control-label">IP</label>
+                      <div class="col-sm-7">
+                        <input type="text" name="address" class="form-control" />
+                      </div>
+                    </div>
+                    <div class="form-group">
+                      <label class="col-sm-3 control-label"><@spring.message "ap.wan.static.netmask" /></label>
+                      <div class="col-sm-7">
+                        <input type="text" name="netmask" class="form-control" />
+                      </div>
+                    </div>
+                    <div class="form-group">
+                      <label class="col-sm-3 control-label"><@spring.message "ap.wan.static.gateway" /></label>
+                      <div class="col-sm-7">
+                        <input type="text" name="gateway" class="form-control" />
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- pppoe -->
+                  <div class="form-group2" id="pppoe">
+                    <div class="form-group">
+                      <label class="col-sm-3 control-label"><@spring.message "ap.wan.pppoe.username" /></label>
+                      <div class="col-sm-7">
+                        <input type="text" name="username" class="form-control" />
+                      </div>
+                    </div>
+                    <div class="form-group">
+                      <label class="col-sm-3 control-label"><@spring.message "ap.wan.pppoe.password" /></label>
+                      <div class="col-sm-7">
+                        <input type="text" name="password" class="form-control" />
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- 3/4g -->
+                  <div class="form-group2" id="3a4g">
+                    <div class="form-group">
+                      <label class="col-sm-3 control-label"><@spring.message "ap.wan.g3.modem" /></label>
+                      <div class="col-sm-7">
+                        <input type="text" name="modemDevice" class="form-control" />
+                      </div>
+                    </div>
+                    <div class="form-group">
+                      <label class="col-sm-3 control-label"><@spring.message "ap.wan.g3.service" /></label>
+                      <div class="col-sm-7" class="form-control">
+                        <select name="serviceType" class="form-control">
+                          <option value="auto"><@spring.message "ap.wan.g3.sv.auto" /></option>
+                          <option value="lte_only"><@spring.message "ap.wan.g3.sv.lte" /></option>
+                          <option value="umts_only"><@spring.message "ap.wan.g3.sv.umts" /></option>
+                          <option value="gprs_only"><@spring.message "ap.wan.g3.sv.gprs" /></option>
+                          <option value="evdo"><@spring.message "ap.wan.g3.sv.evdo" /></option>
+                        </select>
+                      </div>
+                    </div>
+                    <div class="form-group">
+                      <label class="col-sm-3 control-label">APN</label>
+                      <div class="col-sm-7">
+                        <input type="text" name="APN" class="form-control" />
+                      </div>
+                    </div>
+                    <div class="form-group">
+                      <label class="col-sm-3 control-label">Dial Number</label>
+                      <div class="col-sm-7">
+                        <input type="text" name="dialNumber" class="form-control" />
+                      </div>
+                    </div>
+                  </div>
+
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-default" data-dismiss="modal"><@spring.message "common.action.close" /></button>
+                  <button type="button" class="btn btn-success submit"><@spring.message "common.action.submit" /></button>
+                </div>
+              </form>
+            </div><!-- /.modal-content -->
+          </div><!-- /.modal-dialog -->
+        </div><!-- /.modal -->
+      </div><!-- /.row -->
+    </div>
+  </div>
+</div><!-- main content -->
+
+<script type='text/javascript' src='${viewHelper.getPath()}/js/jquery-validation/additional/ipv4.js'></script>
+
+<script type="text/javascript">
+  var TEMPLATE_WAN_BASE = "${viewHelper.getPath()}/device/ap/template/wan";
+  var TEMPLATE_WAN_SHOW = TEMPLATE_WAN_BASE + "/show";
+  var TEMPLATE_WAN_EDIT = TEMPLATE_WAN_BASE + "/edit";
+  var TEMPLATE_WAN_DEL = TEMPLATE_WAN_BASE + "/delete";
+
+  var _csrf = "${_csrf.token ?if_exists}";
+  var $alert = $('.alert').hide();
+  var $modal = $('#modal').modal({show: false});
+  var $table = $('#table').bootstrapTable({
+    sortOrder: "desc",
+    url: TEMPLATE_WAN_SHOW,
+    formatShowingRows : formatShowingRows,
+    formatRecordsPerPage : formatRecordsPerPage
+  })
+
+
+  $(function() {
+
+
+    var validator = $("#config").validate({
+      rules: {
+        templateName: {
+          maxlength: 32,
+          required: true
+        },
+        templateDescription: {
+          maxlength: 256
+        },
+        /* wan */
+        protocol: {
+          required: true
+        },
+        address: {
+          ipv4: true,
+          required: function() {
+            return $("select[name='protocol']").val() == "static";
+          }
+        },
+        netmask: {
+          ipv4: true,
+          required: function() {
+            return $("select[name='protocol']").val() == "static";
+          }
+        },
+        gateway: {
+          ipv4: true,
+          required: function() {
+            return $("select[name='protocol']").val() == "static";
+          }
+        },
+        username: {
+          maxlength: 64,
+          required: function() {
+            return $("select[name='protocol']").val() == "pppoe";
+          }
+        },
+        password: {
+          maxlength: 64,
+          required: function() {
+            return $("select[name='protocol']").val() == "pppoe";
+          }
+        },
+        modemDevice: {
+          maxlength: 32,
+          required: function() {
+            return $("select[name='protocol']").val() == "3g";
+          }
+        },
+        serviceType: {
+          required: function() {
+            return $("select[name='protocol']").val() == "3g";
+          }
+        },
+        APN: {
+          maxlength: 32,
+          required: function() {
+            return $("select[name='protocol']").val() == "3g";
+          }
+        },
+        dialNumber: {
+          maxlength: 32,
+          required: function() {
+            return $("select[name='protocol']").val() == "3g";
+          }
+        }
+      },
+      messages: {
+        templateName: {
+          maxlength: $.validator.format("<@spring.message "ap.msg.common.maxlen" />"),
+          required: "<@spring.message "ap.msg.common.required" />"
+        },
+        templateDescription: {
+          maxlength: $.validator.format("<@spring.message "ap.msg.common.maxlen" />")
+        },
+        /* wan */
+        protocol: {
+          required: "<@spring.message "ap.msg.wan.protocol.required" />"
+        },
+        address: {
+          ipv4: "<@spring.message "ap.msg.wan.addr.ipv4" />",
+          required: "<@spring.message "ap.msg.common.required" />"
+        },
+        netmask: {
+          ipv4: "<@spring.message "ap.msg.wan.netmask.ipv4" />",
+          required: "<@spring.message "ap.msg.common.required" />"
+        },
+        gateway: {
+          ipv4: "<@spring.message "ap.msg.wan.gateway.ipv4" />",
+          required: "<@spring.message "ap.msg.common.required" />"
+        },
+        username: {
+          maxlength: $.validator.format("<@spring.message "ap.msg.common.maxlen" />"),
+          required: "<@spring.message "ap.msg.common.required" />"
+        },
+        password: {
+          maxlength: $.validator.format("<@spring.message "ap.msg.common.maxlen" />"),
+          required: "<@spring.message "ap.msg.common.required" />"
+        },
+        modemDevice: {
+          maxlength: $.validator.format("<@spring.message "ap.msg.common.maxlen" />"),
+          required: "<@spring.message "ap.msg.common.required" />"
+        },
+        serviceType: {
+          required: "<@spring.message "ap.msg.common.required" />"
+        },
+        APN: {
+          maxlength: $.validator.format("<@spring.message "ap.msg.common.maxlen" />"),
+          required: "<@spring.message "ap.msg.common.required" />"
+        },
+        dialNumber: {
+          maxlength: $.validator.format("<@spring.message "ap.msg.common.maxlen" />"),
+          required: "<@spring.message "ap.msg.common.required" />"
+        }
+      }
+    });
+
+    $table.on('post-body.bs.table', function () {
+      var $search = $table.data('bootstrap.table')
+        .$toolbar.find('.search input');
+      $search.attr('placeholder', '<@spring.message "temp.common.search" />');
+    });
+
+    $('.create').click(function() {
+      showModal($(this).text());
+    });
+
+    //wan
+    $("select[name='protocol']").change(function() {
+      switch($("select[name='protocol']").val()) {
+        case "dhcp":
+          $("#pppoe").hide();
+          $("#static").hide();
+          $("#3a4g").hide();
+          break;
+
+        case "static":
+          $("#static").show();
+          $("#pppoe").hide();
+          $("#3a4g").hide();
+          break;
+
+        case "pppoe":
+          $("#static").hide();
+          $("#pppoe").show();
+          $("#3a4g").hide();
+          break;
+
+        case "3g":
+          $("#pppoe").hide();
+          $("#static").hide();
+          $("#3a4g").show();
+          break;
+
+        default:
+          break;
+      }
+    })
+
+
+    $modal.find('.submit').click(function() {
+      var data;
+      var title;
+      var url;
+
+      if(validator.form() == false) {
+        return false;
+      }
+
+      if($modal.data('id') && $modal.data('id') >=0) {
+        data = $("#config").serialize() + "&id=" + $modal.data('id') + '&_csrf=' + _csrf;
+        url = TEMPLATE_WAN_EDIT;
+        title = "<@spring.message "common.action.alter" />";
+      }
+      else {
+        data = $("#config").serialize() + '&_csrf=' + _csrf;
+        url = TEMPLATE_WAN_BASE;
+        title = "<@spring.message "common.action.add" />";
+      }
+      $.ajax({
+        url: url,
+        type: 'post',
+        data: data,
+        success: function (result) {
+          if(result.result == "success") {
+            $modal.modal('hide');
+            $table.bootstrapTable('refresh');
+            showAlert(title + '<@spring.message "common.msg.success" />', 'success');
+          }
+          else {
+            $modal.modal('hide');
+            showAlert(title + '<@spring.message "common.msg.failed" /> ' + result.msg, 'danger');
+          }
+        },
+        error: function () {
+          $modal.modal('hide');
+          showAlert(title + '<@spring.message "common.msg.failed" />', 'danger');
+        }
+      });
+    });
+
+  });
+
+
+  window.actionEvents = {
+    'click .update': function (e, value, row) {
+      showModal("<@spring.message "common.action.alter" />", row);
+    },
+    'click .remove': function (e, value, row) {
+      if (confirm('<@spring.message "common.msg.delete.text" />')) {
+        var data = "id=" + row.id + "&_csrf=" + _csrf;
+        $.ajax({
+          url: TEMPLATE_WAN_DEL,
+          type: 'post',
+          data: data,
+          success: function (result) {
+            if(result.result == "success") {
+              $table.bootstrapTable('refresh');
+              showAlert('<@spring.message "common.msg.delete.success" />', 'success');
+            }
+            else {
+              showAlert('<@spring.message "common.msg.delete.error" /> ' + result.msg, 'danger');
+            }
+          },
+          error: function () {
+            showAlert('<@spring.message "common.msg.delete.error" />', 'danger');
+          }
+        })
+      }
+    }
+  };
+
+  function showModal(title, row) {
+    row = row || {
+        protocol: 'dhcp',
+        address: '',
+        netmask: '',
+        gateway: '',
+        username: '',
+        password: '',
+        modemDevice: '',
+        serviceType: 'auto',
+        APN: '',
+        dialNumber: '',
+        templateName: '',
+        templateDescription: ''
+      };
+
+    if(typeof(row.id) == "undefined") {
+      $modal.data('id', -1);
+    }
+    else if(row.id >= 0){
+      $modal.data('id', row.id);
+      $modal.find('input[name][type="text"]').each(function () {
+        $(this).val("");
+      });
+    }
+
+    $modal.find('.modal-title').text(title);
+    for (var name in row) {
+      $modal.find('input[name="' + name + '"][type="text"]').val(row[name]);
+    }
+
+    $("select[name='protocol']").val(row['protocol']).change();
+    $("select[name='serviceType']").val(row['serviceType']);
+
+    $modal.modal('show');
+  }
+
+
+  /* static */
+  function actionFormatter(value) {
+    return [
+      '<div class="btn-group" role="group">',
+      '<a class="btn btn-success btn-xs update" href="javascript:"><i class="fa fa-cog">&nbsp;&nbsp;</i><@spring.message "common.action.alter" /></a>',
+      '<a class="btn btn-danger btn-xs remove " href="javascript:"><i class="fa fa-trash">&nbsp;&nbsp;</i><@spring.message "common.action.delete" /></a>',
+      '</div>'
+    ].join('');
+  }
+
+  function queryParams(params) {
+    return {
+      page: params.pageNumber,
+      size: params.pageSize,
+      sortName: params.sortName || "updatedAt",
+      sortOrder: params.sortOrder || "desc",
+      search: params.searchText,
+      _r: Math.floor(Math.random()*10000)
+    };
+  }
+
+  /* alert */
+  function showAlert(title, type) {
+    $alert.attr('class', 'alert alert-' + type || 'success').html('<i class="fa fa-check"></i> ' + title).show();
+    setTimeout(function(){$alert.hide();}, 3000);
+  }
+
+  /* page formatter */
+  function formatRecordsPerPage(pageNumber) {
+    return '&nbsp;' + pageNumber ;
+  }
+
+  function formatShowingRows(pageFrom, pageTo, totalRows) {
+    return totalRows + ' <@spring.message "common.msg.page.total" />';
+  }
+
+  function runningFormatter(value, row, index) {
+    return index + 1;
+  }
+  /* page formatter - end */
+
+</script>
+
+<#include "../../../layout/footer.html" >

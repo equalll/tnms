@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>${status ?if_exists} - Error</title>
+    <link href="${viewHelper.getPath()}/css/style.default.css" rel="stylesheet">
+    <link href="${viewHelper.getPath()}/css/style.custom.css" rel="stylesheet">
+
+    <style>
+        body {
+            background-color: #f3f3f4;
+            color: #676a6c;
+        }
+
+        .middle-box {
+            max-width: 400px;
+            z-index: 100;
+            margin: 0 auto;
+            padding-top: 40px;
+        }
+        .fadeInDown {
+            -webkit-animation-name: fadeInDown;
+            animation-name: fadeInDown;
+        }
+        .animated {
+            -webkit-animation-duration: 1s;
+            animation-duration: 1s;
+            -webkit-animation-fill-mode: both;
+            animation-fill-mode: both;
+            z-index: 100;
+        }
+        .text-center {
+            text-align: center;
+        }
+        .middle-box h1 {
+            font-size: 170px;
+        }
+
+        .m-t {
+            margin-top: 15px;
+        }
+    </style>
+
+</head>
+
+<body class="gray-bg">
+<div class="middle-box text-center animated fadeInDown">
+    <h1>${status ?if_exists}</h1>
+    <h3 class="font-bold">${error ?if_exists}</h3>
+    <div class="error-desc">
+        <a href="${viewHelper.getPath()}/device/ap" class="btn btn-success m-t">Home</a>
+    </div>
+</div>
+
+<!--script src="js/jquery-1.11.1.min.js"></script>
+<script src="js/jquery-migrate-1.2.1.min.js"></script>
+<script src="js/bootstrap.min.js"></script-->
+</body>
+</html>

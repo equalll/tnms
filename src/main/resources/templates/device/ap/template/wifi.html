@@ -1,0 +1,457 @@
+<#include "../../../layout/header.html" >
+
+<div class="pageheader">
+  <h2><i class="fa fa-tasks"></i><@spring.message "temp.wifi.text" /></h2>
+</div><!-- pageheader -->
+
+
+<!-- main content -->
+<div class="contentpanel">
+  <div class="row">
+    <div class="col-md-12">
+      <p class="toolbar">
+        <a class="create btn btn-success" href="javascript:" >
+          <i class="fa fa-plus">&nbsp;&nbsp;</i><@spring.message "common.action.add" />
+        </a>
+        <span class="alert"></span>
+      </p>
+
+      <table id="table" class="table table-no-bordered table-inverse" data-show-refresh="true"
+        data-show-columns="true" data-striped="true" data-show-toggle="true"
+        data-query-params-type="" data-query-params="queryParams" data-toolbar=".toolbar"
+        data-page-list="[10, 20, 50]" data-pagination="true" data-side-pagination="server"
+        data-search='true' data-search-time-out='500' data-trim-on-search='true'
+        data-search-on-enter-key='true'>
+        <thead>
+          <th data-formatter="runningFormatter">No.</th>
+          <th data-field="id" data-align="center" data-visible="false">ID</th>
+          <th data-field="templateName" data-align="center" data-sortable="true"><@spring.message "temp.common.name" /></th>
+          <th data-field="templateDescription" data-align="center" data-visible="false"><@spring.message "common.description.text" /></th>
+          <th data-field="updatedAt" data-align="center" data-visible="true" data-sortable="true"
+            data-sort-order="desc"><@spring.message "common.update.text" /></th>
+          <th data-field="createdAt" data-align="center" data-visible="false" data-sortable="true"
+            data-sort-order="desc"><@spring.message "common.create.text" /></th>
+          <th data-field="action" data-align="center" data-formatter="actionFormatter" data-events="actionEvents"><@spring.message "common.action.text" /></th>
+        </thead>
+      </table>
+
+      <div class="row">
+        <div id="modal" class="modal fade">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <form class="form-horizontal m-t required-validate" id="config" autocomplete="off" novalidate="novalidate">
+                <div class="modal-header">
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                  <h4 class="modal-title"></h4>
+                </div>
+                <div class="modal-body form-horizontal m-t required-validate">
+
+                  <div class="form-group">
+                    <label class="col-sm-3 control-label"><@spring.message "temp.common.name" /></label>
+                    <div class="col-sm-7">
+                      <input type="text" name="templateName" class="form-control" />
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label class="col-sm-3 control-label"><@spring.message "common.description.text" /></label>
+                    <div class="col-sm-7">
+                      <input type="text" name="templateDescription" class="form-control" />
+                    </div>
+                  </div>
+
+                  <div class="form-group">
+                    <label class="col-sm-3 control-label"><@spring.message "ap.wifi.text" /></label>
+                    <div class="col-sm-7">
+                      <div class="ckbox ckbox-success ">
+                        <input type="checkbox" id="wifi" name="wifi" checked="checked" value="1" />
+                        <label for="wifi"><@spring.message "ap.wifi.open.text" /></label>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label class="col-sm-3 control-label">SSID</label>
+                    <div class="col-sm-7">
+                      <input type="text" id="ssid" name="ssid" class="form-control" />
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label class="col-sm-3 control-label"><@spring.message "ap.wifi.channel" /></label>
+                    <div class="col-sm-7">
+                      <select  id="channel" name="channel" class="form-control">
+                          <option value="0" selected="selected"><@spring.message "ap.wifi.channel0" /></option>
+                          <option value="1">2412MHz (<@spring.message "ap.wifi.channel1" />)</option>
+                          <option value="2">2417MHz (<@spring.message "ap.wifi.channel2" />)</option>
+                          <option value="3">2422MHz (<@spring.message "ap.wifi.channel3" />)</option>
+                          <option value="4">2427MHz (<@spring.message "ap.wifi.channel4" />)</option>
+                          <option value="5">2432MHz (<@spring.message "ap.wifi.channel5" />)</option>
+                          <option value="6">2437MHz (<@spring.message "ap.wifi.channel6" />)</option>
+                          <option value="7">2442MHz (<@spring.message "ap.wifi.channel7" />)</option>
+                          <option value="8">2447MHz (<@spring.message "ap.wifi.channel8" />)</option>
+                          <option value="9">2452MHz (<@spring.message "ap.wifi.channel9" />)</option>
+                          <option value="10">2457MHz (<@spring.message "ap.wifi.channel10" />)</option>
+                          <option value="11">2462MHz (<@spring.message "ap.wifi.channel11" />)</option>
+                      </select>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label class="col-sm-3 control-label"><@spring.message "ap.wifi.maxconnection" /></label>
+                    <div class="col-sm-7">
+                      <input type="text" id="maxStation" name="maxStation" class="form-control" />
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label class="col-sm-3 control-label"><@spring.message "ap.wifi.encryption" /></label>
+                    <div class="col-sm-7">
+                      <select  id="encryption" name="encryption" class="form-control">
+                        <option value="none"><@spring.message "ap.wifi.enc.none" /></option>
+                        <option value="open">WEP</option>
+                        <option value="psk">WPA-PSK</option>
+                        <option value="psk2">WPA2-PSK</option>
+                        <option value="psk-mixed"><@spring.message "ap.wifi.enc.wpamixed" /></option>
+                      </select>
+                    </div>
+                  </div>
+                  <div class="form-group" id="wifi-encryption-cipher">
+                    <label class="col-sm-3 control-label"><@spring.message "ap.wifi.cipher" /></label>
+                    <div class="col-sm-7">
+                      <select id="cipher" name="cipher" class="form-control">
+                        <option value="aes">AES</option>
+                        <option value="tkip">TKIP</option>
+                        <option value="aes+tkip">AES+TKIP</option>
+                      </select>
+                    </div>
+                  </div>
+                  <div class="form-group" id="wifi-encryption-key">
+                    <label class="col-sm-3 control-label"><@spring.message "ap.wifi.key" /></label>
+                    <div class="col-sm-7">
+                      <input type="text" id="key" name="key" class="form-control" />
+                    </div>
+                  </div>
+
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-default" data-dismiss="modal"><@spring.message "common.action.close" /></button>
+                  <button type="button" class="btn btn-success submit"><@spring.message "common.action.submit" /></button>
+                </div>
+              </form>
+            </div><!-- /.modal-content -->
+          </div><!-- /.modal-dialog -->
+        </div><!-- /.modal -->
+      </div><!-- /.row -->
+    </div>
+  </div>
+</div><!-- main content -->
+
+<script type='text/javascript' src='${viewHelper.getPath()}/js/jquery-validation/additional/ipv4.js'></script>
+
+
+<script type="text/javascript">
+  var TEMPLATE_BASE = "${viewHelper.getPath()}/device/ap/template/wifi";
+  var TEMPLATE_SHOW = TEMPLATE_BASE + "/show";
+  var TEMPLATE_EDIT = TEMPLATE_BASE + "/edit";
+  var TEMPLATE_DEL = TEMPLATE_BASE + "/delete";
+
+  var _csrf = "${_csrf.token ?if_exists}";
+  var $alert = $('.alert').hide();
+  var $modal = $('#modal').modal({show: false});
+  var $table = $('#table').bootstrapTable({
+    sortOrder: "desc",
+    url: TEMPLATE_SHOW,
+    formatShowingRows : formatShowingRows,
+    formatRecordsPerPage : formatRecordsPerPage
+  })
+
+
+  $(function() {
+
+    var validator = $("#config").validate({
+      rules: {
+        templateName: {
+          maxlength: 32,
+          required: true
+        },
+        templateDescription: {
+          maxlength: 256
+        },
+        /* wifi */
+        ssid: {
+          maxlength: 64,
+          required: "#wifi:checked"
+        },
+        channel: {
+          digits: true,
+          required: "#wifi:checked"
+        },
+        maxStation: {
+          digits: true,
+          range: [0, 128],
+          required: "#wifi:checked"
+        },
+        encryption: {
+          required: "#wifi:checked"
+        },
+        cipher: {
+          required: function() {
+            return $("select[name='encryption']").val() != "none";
+          }
+        },
+        key: {
+          rangelength: function() {
+            var enc = $("select[name='encryption']").val();
+            var ret = [];
+
+            if(enc == "open") {
+              ret = [1, 128];
+            }
+            else if(enc == "psk" || enc == "psk2" || enc == "psk-mixed") {
+              ret = [8, 63];
+            }
+            else {
+              ret = [1, 128];
+            }
+
+            return ret;
+          },
+          required: function() {
+            return $("select[name='encryption']").val() != "none";
+          }
+        }
+      },
+      messages: {
+        templateName: {
+          maxlength: $.validator.format("<@spring.message "ap.msg.common.maxlen" />"),
+          required: "<@spring.message "ap.msg.common.required" />"
+        },
+        templateDescription: {
+          maxlength: $.validator.format("<@spring.message "ap.msg.common.maxlen" />")
+        },
+        /* wifi */
+        ssid: {
+          maxlength: $.validator.format("<@spring.message "ap.msg.common.maxlen" />"),
+          required: "<@spring.message "ap.msg.common.required" />"
+        },
+        channel: {
+          digits: "<@spring.message "ap.msg.wifi.channel.digits" />",
+          required: "<@spring.message "ap.msg.common.required" />"
+        },
+        maxStation: {
+          digits: "<@spring.message "ap.msg.common.digits" />",
+          range: $.validator.format("<@spring.message "ap.msg.common.range" />"),
+          required: "<@spring.message "ap.msg.common.required" />"
+        },
+        encryption: {
+          required: "<@spring.message "ap.msg.wifi.encryption.required" />"
+        },
+        cipher: {
+          required: "<@spring.message "ap.msg.wifi.cipher.required" />"
+        },
+        key: {
+          rangelength: $.validator.format("<@spring.message "ap.msg.wifi.key.ranglen" />"),
+          required: "<@spring.message "ap.msg.common.required" />"
+        }
+      }
+    });
+
+    $table.on('post-body.bs.table', function () {
+      var $search = $table.data('bootstrap.table')
+        .$toolbar.find('.search input');
+      $search.attr('placeholder', '<@spring.message "temp.common.search" />');
+    });
+
+    $('.create').click(function() {
+      showModal($(this).text());
+    });
+
+
+    //wifi
+    $("select[name='encryption']").change(function(){
+
+      switch($("select[name='encryption']").val()) {
+        case "none":
+          $("#wifi-encryption-cipher").hide();
+          $("#wifi-encryption-key").hide();
+          break;
+
+        case "open":
+          $("#wifi-encryption-cipher").hide();
+          $("#wifi-encryption-key").show();
+          break;
+
+        case "psk":
+          /* pass through */
+
+        case "psk2":
+          /* pass through */
+
+        case "psk-mixed":
+          $("#wifi-encryption-cipher").show();
+          $("#wifi-encryption-key").show();
+          break;
+
+        default:
+          break;
+      }
+    })
+
+    $modal.find('.submit').click(function() {
+      var data;
+      var title;
+      var url;
+
+      if(validator.form() == false) {
+        return false;
+      }
+
+      if($modal.data('id') && $modal.data('id') >=0) {
+        data = $("#config").serialize() + "&id=" + $modal.data('id') + '&_csrf=' + _csrf;
+        url = TEMPLATE_EDIT;
+        title = "<@spring.message "common.action.alter" />";
+      }
+      else {
+        data = $("#config").serialize() + '&_csrf=' + _csrf;
+        url = TEMPLATE_BASE;
+        title = "<@spring.message "common.action.add" />";
+      }
+      $.ajax({
+        url: url,
+        type: 'post',
+        data: data,
+        success: function (result) {
+          if(result.result == "success") {
+            $modal.modal('hide');
+            $table.bootstrapTable('refresh');
+            showAlert(title + '<@spring.message "common.msg.success" />', 'success');
+          }
+          else {
+            $modal.modal('hide');
+            showAlert(title + '<@spring.message "common.msg.failed" /> ' + result.msg, 'danger');
+          }
+        },
+        error: function () {
+          $modal.modal('hide');
+          showAlert(title + '<@spring.message "common.msg.failed" />', 'danger');
+        }
+      });
+    });
+
+  });
+
+
+  window.actionEvents = {
+    'click .update': function (e, value, row) {
+      showModal("<@spring.message "common.action.alter" />", row);
+    },
+    'click .remove': function (e, value, row) {
+      if (confirm('<@spring.message "common.msg.delete.text" />')) {
+        var data = "id=" + row.id + "&_csrf=" + _csrf;
+        $.ajax({
+          url: TEMPLATE_DEL,
+          type: 'post',
+          data: data,
+          success: function (result) {
+            if(result.result == "success") {
+              $table.bootstrapTable('refresh');
+              showAlert('<@spring.message "common.msg.delete.success" />', 'success');
+            }
+            else {
+              showAlert('<@spring.message "common.msg.delete.error" /> ' + result.msg, 'danger');
+            }
+          },
+          error: function () {
+            showAlert('<@spring.message "common.msg.delete.error" />', 'danger');
+          }
+        })
+      }
+    }
+  };
+
+  function showModal(title, row) {
+    row = row || {
+        wifi: '',
+        ssid: '',
+        channel: '0',
+        maxStation: '',
+        encryption: 'none',
+        cipher: 'aes+tkip',
+        key: '',
+        templateName: '',
+        templateDescription: ''
+      };
+
+    if(typeof(row.id) == "undefined") {
+      $modal.data('id', -1);
+    }
+    else if(row.id >= 0){
+      $modal.data('id', row.id);
+      $modal.find('input[name][type="text"]').each(function () {
+        $(this).val("");
+      });
+    }
+
+    $modal.find('.modal-title').text(title);
+    for (var name in row) {
+      $modal.find('input[name="' + name + '"][type="text"]').val(row[name]);
+    }
+
+    if(row['wifi'] == 0) {
+      $("#wifi").prop("checked", false);
+    }
+    else {
+      $("#wifi").prop("checked", true);
+    }
+
+    $("#cipher").val(row['cipher']);
+    $("select[name='encryption']").val(row['encryption']).change();
+
+    $modal.modal('show');
+  }
+
+
+  /* static */
+  function actionFormatter(value) {
+    return [
+      '<div class="btn-group" role="group">',
+      '<a class="btn btn-success btn-xs update" href="javascript:"><i class="fa fa-cog">&nbsp;&nbsp;</i><@spring.message "common.action.alter" /></a>',
+      '<a class="btn btn-danger btn-xs remove " href="javascript:"><i class="fa fa-trash">&nbsp;&nbsp;</i><@spring.message "common.action.delete" /></a>',
+      '</div>'
+    ].join('');
+  }
+
+  function queryParams(params) {
+    return {
+      page: params.pageNumber,
+      size: params.pageSize,
+      sortName: params.sortName || "updatedAt",
+      sortOrder: params.sortOrder || "desc",
+      search: params.searchText,
+      _r: Math.floor(Math.random()*10000)
+    };
+  }
+
+  /* alert */
+  function showAlert(title, type) {
+    $alert.attr('class', 'alert alert-' + type || 'success').html('<i class="fa fa-check"></i> ' + title).show();
+    setTimeout(function(){$alert.hide();}, 3000);
+  }
+
+  /* page formatter */
+  function formatRecordsPerPage(pageNumber) {
+    return '&nbsp;' + pageNumber;
+  }
+
+  function formatShowingRows(pageFrom, pageTo, totalRows) {
+    return totalRows + ' <@spring.message "common.msg.page.total" />';
+  }
+
+  function runningFormatter(value, row, index) {
+    return index + 1;
+  }
+  /* page formatter - end */
+
+</script>
+
+
+<#include "../../../layout/footer.html" >
+

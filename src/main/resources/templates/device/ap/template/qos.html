@@ -1,0 +1,67 @@
+<#include "../../../layout/header.html" >
+
+<div class="pageheader">
+  <h2><i class="fa fa-tasks"></i>QoS 模板</h2>
+</div><!-- pageheader -->
+
+
+<!-- main content -->
+<div class="contentpanel">
+  <div class="row">
+    <div class="col-md-12">
+      <p class="toolbar">
+        <a class="create btn btn-success" href="javascript:" >
+          <i class="fa fa-plus">&nbsp;&nbsp;</i>添加
+        </a>
+        <span class="alert"></span>
+      </p>
+
+      <table id="table" class="table table-no-bordered table-inverse" data-show-refresh="true"
+        data-show-columns="true" data-striped="true" data-show-toggle="true"
+        data-query-params-type="" data-query-params="queryParams" data-toolbar=".toolbar"
+        data-page-list="[10, 20, 50]" data-pagination="true" data-side-pagination="server"
+        data-search='true' data-search-time-out='500' data-trim-on-search='true'
+        data-search-on-enter-key='true'>
+        <thead>
+          <th data-formatter="runningFormatter">No.</th>
+          <th data-field="id" data-align="center" data-visible="false">ID</th>
+          <th data-field="templateName" data-align="center" data-sortable="true">名称</th>
+          <th data-field="templateDescription" data-align="center" data-visible="false">描述</th>
+          <th data-field="updatedAt" data-align="center" data-visible="true" data-sortable="true"
+            data-sort-order="desc">更新时间</th>
+          <th data-field="createdAt" data-align="center" data-visible="false" data-sortable="true"
+            data-sort-order="desc">创建时间</th>
+          <th data-field="action" data-align="center" data-formatter="actionFormatter" data-events="actionEvents">操作</th>
+        </thead>
+      </table>
+
+      <div class="row">
+        <div id="modal" class="modal fade">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <form class="form-horizontal m-t required-validate" id="config" autocomplete="off" novalidate="novalidate">
+                <div class="modal-header">
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                  <h4 class="modal-title"></h4>
+                </div>
+                <div class="modal-body form-horizontal m-t required-validate">
+
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                  <button type="button" class="btn btn-success submit">提交</button>
+                </div>
+              </form>
+            </div><!-- /.modal-content -->
+          </div><!-- /.modal-dialog -->
+        </div><!-- /.modal -->
+      </div><!-- /.row -->
+    </div>
+  </div>
+</div><!-- main content -->
+
+
+
+<#include "../../../layout/footer.html" >

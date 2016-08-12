@@ -1,0 +1,108 @@
+  </div><!-- mainpanel -->
+</section>
+
+
+<!-- MESSAGE BOX-->
+<div class="message-box animated fadeIn" data-sound="alert" id="mb-signout">
+  <div class="mb-container">
+    <div class="mb-middle">
+      <div class="mb-title">
+        <span class="fa fa-sign-out"></span>
+        <strong><@spring.message "logout.confirm" /></strong>
+      </div>
+      <div class="mb-content">
+      </div>
+      <div class="mb-footer">
+        <div class="pull-right">
+          <form name="logout" action="${viewHelper.getPath()}/logout" method="post" >
+            <input type="hidden" name="_csrf" value="${_csrf.token ?if_exists}" />
+            <button type="submit" class="btn btn-success btn-lg"><@spring.message "form.confirm" /></button>
+            <button class="btn btn-default btn-lg mb-control-close"><@spring.message "form.cancel" /></button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- END MESSAGE BOX-->
+
+<script src="${viewHelper.getPath()}/js/custom.js"></script>
+<script>
+  $('.leftpanel').addClass('sticky-leftpanel');
+
+  <#if menu ??>
+    var menu = "${menu}";
+
+    switch(menu) {
+      case "menuDevice":
+        $("#menuDevice").addClass("active");
+        break;
+
+      case "menuTemplateWAN":
+        $("#menuTemplate").addClass("active");
+        $("#menuTemplateWAN").addClass("active");
+        break;
+
+      case "menuTemplateLAN":
+        $("#menuTemplate").addClass("active");
+        $("#menuTemplateLAN").addClass("active");
+        break;
+
+      case "menuTemplateWiFi":
+        $("#menuTemplate").addClass("active");
+        $("#menuTemplateWiFi").addClass("active");
+        break;
+
+      case "menuTemplateFirewall":
+        $("#menuTemplate").addClass("active");
+        $("#menuTemplateFirewall").addClass("active");
+        break;
+
+      case "menuTemplateOTA":
+        $("#menuTemplate").addClass("active");
+        $("#menuTemplateOTA").addClass("active");
+        break;
+
+      case "menuTemplateQoS":
+        $("#menuTemplate").addClass("active");
+        $("#menuTemplateQoS").addClass("active");
+        break;
+
+      case "menuGroupList":
+        $("#menuGroup").addClass("active");
+        $("#menuGroupList").addClass("active");
+        break;
+
+      case "menuGroupNode":
+        $("#menuGroup").addClass("active");
+        $("#menuGroupNode").addClass("active");
+        break;
+
+      default:
+            break;
+    }
+  <#else>
+    $("#menuDevice").addClass("active");
+  </#if>
+
+
+  var curLang = "${viewHelper.getLanguage() ?if_exists}";
+  $("#changeLanguage").val(curLang);
+  $('#changeLanguage').selectpicker('render');
+  $("#changeLanguage").change(function() {
+    $.ajax({
+      cache: false,
+      url: "${viewHelper.getPath()}/language?lang=" +
+              ($("#changeLanguage").val() == "auto" ? "" : $("#changeLanguage").val()),
+      type: "get",
+      success: function (result) {
+        top.location.reload();
+      },
+      error: function() {
+        top.location.reload();
+      }
+    })
+  });
+</script>
+</body>
+</html>

@@ -1,0 +1,373 @@
+<#include "../../../layout/header.html" >
+
+<div class="pageheader">
+  <h2><i class="fa fa-tasks"></i><@spring.message "temp.lan.text" /></h2>
+</div><!-- pageheader -->
+
+
+<!-- main content -->
+<div class="contentpanel">
+  <div class="row">
+    <div class="col-md-12">
+      <p class="toolbar">
+        <a class="create btn btn-success" href="javascript:" >
+          <i class="fa fa-plus">&nbsp;&nbsp;</i><@spring.message "common.action.add" />
+        </a>
+        <span class="alert"></span>
+      </p>
+
+      <table id="table" class="table table-no-bordered table-inverse" data-show-refresh="true"
+        data-show-columns="true" data-striped="true" data-show-toggle="true"
+        data-query-params-type="" data-query-params="queryParams" data-toolbar=".toolbar"
+        data-page-list="[10, 20, 50]" data-pagination="true" data-side-pagination="server"
+        data-search='true' data-search-time-out='500' data-trim-on-search='true'
+        data-search-on-enter-key='true'>
+        <thead>
+          <th data-formatter="runningFormatter">No.</th>
+          <th data-field="id" data-align="center" data-visible="false">ID</th>
+          <th data-field="templateName" data-align="center" data-sortable="true"><@spring.message "temp.common.name" /></th>
+          <th data-field="templateDescription" data-align="center" data-visible="false"><@spring.message "common.description.text" /></th>
+          <th data-field="updatedAt" data-align="center" data-visible="true" data-sortable="true"
+            data-sort-order="desc"><@spring.message "common.update.text" /></th>
+          <th data-field="createdAt" data-align="center" data-visible="false" data-sortable="true"
+            data-sort-order="desc"><@spring.message "common.create.text" /></th>
+          <th data-field="action" data-align="center" data-formatter="actionFormatter" data-events="actionEvents"><@spring.message "common.action.text" /></th>
+        </thead>
+      </table>
+
+      <div class="row">
+        <div id="modal" class="modal fade">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <form class="form-horizontal m-t required-validate" id="config" autocomplete="off" novalidate="novalidate">
+                <div class="modal-header">
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                  <h4 class="modal-title"></h4>
+                </div>
+                <div class="modal-body form-horizontal m-t required-validate">
+
+                  <div class="form-group">
+                    <label class="col-sm-3 control-label"><@spring.message "temp.common.name" /></label>
+                    <div class="col-sm-7">
+                      <input type="text" name="templateName" class="form-control" />
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label class="col-sm-3 control-label"><@spring.message "common.description.text" /></label>
+                    <div class="col-sm-7">
+                      <input type="text" name="templateDescription" class="form-control" />
+                    </div>
+                  </div>
+
+                  <div class="form-group">
+                    <label class="col-sm-3 control-label">IP</label>
+                    <div class="col-sm-7">
+                      <input type="text" name="lanAddress" class="form-control" />
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label class="col-sm-3 control-label"><@spring.message "ap.lan.netmask" /></label>
+                    <div class="col-sm-7">
+                      <input type="text" name="lanNetmask" class="form-control" />
+                    </div>
+                  </div>
+                  <!-- dhcp -->
+                  <div class="form-group">
+                    <label class="col-sm-3 control-label">DHCP</label>
+                    <div class="col-sm-7">
+                      <div class="ckbox ckbox-success ">
+                        <input type="checkbox" id="dhcp" name="dhcp" checked="checked" value="1" />
+                        <label for="dhcp"><@spring.message "ap.lan.dhcp.text" /></label>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label class="col-sm-3 control-label"><@spring.message "ap.lan.dhcp.start" /></label>
+                    <div class="col-sm-7">
+                      <input type="text" name="start" class="form-control" />
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label class="col-sm-3 control-label"><@spring.message "ap.lan.dhcp.limit" /></label>
+                    <div class="col-sm-7">
+                      <input type="text" name="limit" class="form-control" />
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label class="col-sm-3 control-label"><@spring.message "ap.lan.dhcp.leasetime" /></label>
+                    <div class="col-sm-7">
+                      <input type="text" name="leaseTime" class="form-control" />
+                    </div>
+                  </div>
+
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-default" data-dismiss="modal"><@spring.message "common.action.close" /></button>
+                  <button type="button" class="btn btn-success submit"><@spring.message "common.action.submit" /></button>
+                </div>
+              </form>
+            </div><!-- /.modal-content -->
+          </div><!-- /.modal-dialog -->
+        </div><!-- /.modal -->
+      </div><!-- /.row -->
+    </div>
+  </div>
+</div><!-- main content -->
+
+<script type='text/javascript' src='${viewHelper.getPath()}/js/jquery-validation/additional/ipv4.js'></script>
+
+
+<script type="text/javascript">
+  var TEMPLATE_BASE = "${viewHelper.getPath()}/device/ap/template/lan";
+  var TEMPLATE_SHOW = TEMPLATE_BASE + "/show";
+  var TEMPLATE_EDIT = TEMPLATE_BASE + "/edit";
+  var TEMPLATE_DEL = TEMPLATE_BASE + "/delete";
+
+  var _csrf = "${_csrf.token ?if_exists}";
+  var $alert = $('.alert').hide();
+  var $modal = $('#modal').modal({show: false});
+  var $table = $('#table').bootstrapTable({
+    sortOrder: "desc",
+    url: TEMPLATE_SHOW,
+    formatShowingRows : formatShowingRows,
+    formatRecordsPerPage : formatRecordsPerPage
+  })
+
+
+  $(function() {
+
+    var validator = $("#config").validate({
+      rules: {
+        templateName: {
+          maxlength: 32,
+          required: true
+        },
+        templateDescription: {
+          maxlength: 256
+        },
+        /* lan */
+        lanAddress: {
+          ipv4: true,
+          required: true
+        },
+        lanNetmask: {
+          ipv4: true,
+          required: true
+        },
+        start: {
+          digits: true,
+          range: [1, 254],
+          required: "#dhcp:checked"
+        },
+        limit: {
+          digits: true,
+          range: function () {
+            return [1, 254 - $("input[name='start']").val()];
+          },
+          required: "#dhcp:checked"
+        },
+        leaseTime: {
+          required: "#dhcp:checked"
+        }
+      },
+      messages: {
+        templateName: {
+          maxlength: $.validator.format("<@spring.message "ap.msg.common.maxlen" />"),
+          required: "<@spring.message "ap.msg.common.required" />"
+        },
+        templateDescription: {
+          maxlength: $.validator.format("<@spring.message "ap.msg.common.maxlen" />")
+        },
+        /* lan */
+        lanAddress: {
+          ipv4: "<@spring.message "ap.msg.lan.lanaddr.ipv4" />",
+          required: "<@spring.message "ap.msg.common.required" />"
+        },
+        lanNetmask: {
+          ipv4: "<@spring.message "ap.msg.lan.lannetmask.ipv4" />",
+          required: "<@spring.message "ap.msg.common.required" />"
+        },
+        start: {
+          digits: "<@spring.message "ap.msg.common.digits" />",
+          range: $.validator.format("<@spring.message "ap.msg.common.range" />"),
+          required: "<@spring.message "ap.msg.common.required" />"
+        },
+        limit: {
+          digits: "<@spring.message "ap.msg.common.digits" />",
+          range: $.validator.format("<@spring.message "ap.msg.common.range" />"),
+          required: "<@spring.message "ap.msg.common.required" />"
+        },
+        leaseTime: {
+          required: "<@spring.message "ap.msg.common.required" />"
+        }
+      }
+    });
+
+
+    $table.on('post-body.bs.table', function () {
+      var $search = $table.data('bootstrap.table')
+        .$toolbar.find('.search input');
+      $search.attr('placeholder', '<@spring.message "temp.common.search" />');
+    });
+
+    $('.create').click(function() {
+      showModal($(this).text());
+    });
+
+
+    $modal.find('.submit').click(function() {
+      var data;
+      var title;
+      var url;
+
+      if(validator.form() == false) {
+        return false;
+      }
+
+      if($modal.data('id') && $modal.data('id') >=0) {
+        data = $("#config").serialize() + "&id=" + $modal.data('id') + '&_csrf=' + _csrf;
+        url = TEMPLATE_EDIT;
+        title = "<@spring.message "common.action.alter" />";
+      }
+      else {
+        data = $("#config").serialize() + '&_csrf=' + _csrf;
+        url = TEMPLATE_BASE;
+        title = "<@spring.message "common.action.add" />";
+      }
+      $.ajax({
+        url: url,
+        type: 'post',
+        data: data,
+        success: function (result) {
+          if(result.result == "success") {
+            $modal.modal('hide');
+            $table.bootstrapTable('refresh');
+            showAlert(title + '<@spring.message "common.msg.success" />', 'success');
+          }
+          else {
+            $modal.modal('hide');
+            showAlert(title + '<@spring.message "common.msg.failed" /> ' + result.msg, 'danger');
+          }
+        },
+        error: function () {
+          $modal.modal('hide');
+          showAlert(title + '<@spring.message "common.msg.failed" />', 'danger');
+        }
+      });
+    });
+
+  });
+
+
+  window.actionEvents = {
+    'click .update': function (e, value, row) {
+      showModal("<@spring.message "common.action.alter" />", row);
+    },
+    'click .remove': function (e, value, row) {
+      if (confirm('<@spring.message "common.msg.delete.text" />')) {
+        var data = "id=" + row.id + "&_csrf=" + _csrf;
+        $.ajax({
+          url: TEMPLATE_DEL,
+          type: 'post',
+          data: data,
+          success: function (result) {
+            if(result.result == "success") {
+              $table.bootstrapTable('refresh');
+              showAlert('<@spring.message "common.msg.delete.success" />', 'success');
+            }
+            else {
+              showAlert('<@spring.message "common.msg.delete.error" /> ' + result.msg, 'danger');
+            }
+          },
+          error: function () {
+            showAlert('<@spring.message "common.msg.delete.error" />', 'danger');
+          }
+        })
+      }
+    }
+  };
+
+  function showModal(title, row) {
+    row = row || {
+        lanAddress: '',
+        lanNetmask: '',
+        dhcp: '',
+        start: '',
+        limit: '',
+        templateName: '',
+        templateDescription: ''
+      };
+
+    if(typeof(row.id) == "undefined") {
+      $modal.data('id', -1);
+    }
+    else if(row.id >= 0){
+      $modal.data('id', row.id);
+      $modal.find('input[name][type="text"]').each(function () {
+        $(this).val("");
+      });
+    }
+
+    $modal.find('.modal-title').text(title);
+    for (var name in row) {
+      $modal.find('input[name="' + name + '"][type="text"]').val(row[name]);
+    }
+
+    if(row['dhcp'] == 0) {
+      $("#dhcp").prop("checked", false);
+    }
+    else {
+      $("#dhcp").prop("checked", true);
+    }
+
+    $modal.modal('show');
+  }
+
+
+  /* static */
+  function actionFormatter(value) {
+    return [
+      '<div class="btn-group" role="group">',
+      '<a class="btn btn-success btn-xs update" href="javascript:"><i class="fa fa-cog">&nbsp;&nbsp;</i><@spring.message "common.action.alter" /></a>',
+      '<a class="btn btn-danger btn-xs remove " href="javascript:"><i class="fa fa-trash">&nbsp;&nbsp;</i><@spring.message "common.action.delete" /></a>',
+      '</div>'
+    ].join('');
+  }
+
+  function queryParams(params) {
+    return {
+      page: params.pageNumber,
+      size: params.pageSize,
+      sortName: params.sortName || "updatedAt",
+      sortOrder: params.sortOrder || "desc",
+      search: params.searchText,
+      _r: Math.floor(Math.random()*10000)
+    };
+  }
+
+  /* alert */
+  function showAlert(title, type) {
+    $alert.attr('class', 'alert alert-' + type || 'success').html('<i class="fa fa-check"></i> ' + title).show();
+    setTimeout(function(){$alert.hide();}, 3000);
+  }
+
+  /* page formatter */
+  function formatRecordsPerPage(pageNumber) {
+    return '&nbsp;' + pageNumber;
+  }
+
+  function formatShowingRows(pageFrom, pageTo, totalRows) {
+    return totalRows + ' <@spring.message "common.msg.page.total" />';
+  }
+
+  function runningFormatter(value, row, index) {
+    return index + 1;
+  }
+  /* page formatter - end */
+
+</script>
+
+
+<#include "../../../layout/footer.html" >

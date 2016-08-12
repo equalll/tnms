@@ -1,0 +1,375 @@
+<#include "../../../layout/header.html" >
+
+<div class="pageheader">
+  <h2><i class="fa fa-tasks"></i><@spring.message "device.group.text" /></h2>
+</div><!-- pageheader -->
+
+
+<!-- main content -->
+<div class="contentpanel">
+  <div class="row">
+    <div class="col-md-12">
+      <p class="toolbar">
+        <a class="create btn btn-success" href="javascript:" >
+          <i class="fa fa-plus">&nbsp;&nbsp;</i><@spring.message "common.action.add" />
+        </a>
+        <span class="alert"></span>
+      </p>
+
+      <table id="table" class="table table-no-bordered table-inverse" data-show-refresh="true"
+        data-show-columns="true" data-striped="true" data-show-toggle="true"
+        data-query-params-type="" data-query-params="queryParams" data-toolbar=".toolbar"
+        data-page-list="[10, 20, 50]" data-pagination="true" data-side-pagination="server"
+        data-search='true' data-search-time-out='500' data-trim-on-search='true'
+        data-search-on-enter-key='true'>
+        <thead>
+          <th data-formatter="runningFormatter">No.</th>
+          <th data-field="groupId" data-align="center" data-visible="false"><@spring.message "device.group.groupid" /></th>
+          <th data-field="name" data-align="center" data-sortable="true" ><@spring.message "deivce.group.name" /></th>
+          <th data-field="groupWanName" data-align="center" ><@spring.message "temp.wan.text" /></th>
+          <th data-field="groupLanName" data-align="center" ><@spring.message "temp.lan.text" /></th>
+          <th data-field="groupWifiName" data-align="center" ><@spring.message "temp.wifi.text" /></th>
+          <th data-field="groupOTAName" data-align="center" ><@spring.message "temp.ota.text" /></th>
+          <th data-field="description" data-align="center" data-visible="false"><@spring.message "common.description.text" /></th>
+          <th data-field="updatedAt" data-align="center" data-visible="true" data-sortable="true"
+            data-sort-order="desc"><@spring.message "common.update.text" /></th>
+          <th data-field="createdAt" data-align="center" data-visible="false" data-sortable="true"
+            data-sort-order="desc"><@spring.message "common.create.text" /></th>
+          <th data-field="action" data-align="center" data-formatter="actionFormatter" data-events="actionEvents"><@spring.message "common.action.text" /></th>
+        </thead>
+      </table>
+
+      <div class="row">
+        <div id="modal" class="modal fade">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <form class="form-horizontal m-t required-validate" id="config" autocomplete="off" novalidate="novalidate">
+                <div class="modal-header">
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                  <h4 class="modal-title"></h4>
+                </div>
+                <div class="modal-body form-horizontal m-t required-validate">
+
+                  <div class="form-group">
+                    <label class="col-md-3 control-label"><@spring.message "deivce.group.name" /> </label>
+                    <div class="col-md-7">
+                      <input type="text" class="form-control" name="name" id="name" >
+                    </div>
+                  </div>
+
+                  <!-- wan -->
+                  <div class="form-group">
+                    <label class="col-md-3 control-label"><@spring.message "temp.wan.text" /></label>
+                    <div class="col-md-7">
+                      <select name="groupWanName" class="selectpicker show-menu-arrow form-control" data-size="6"
+                              data-live-search="true"  title="<@spring.message "device.group.temp.title" />" >
+                        <#if wans ??>
+                          <#list wans as wan>
+                            <option value="${wan.getTemplateName()}">${wan.getTemplateName()}</option>
+                          <#else>
+                            <option><@spring.message "device.group.temp.none" /></option>
+                          </#list>
+                        <#else>
+                          <option><@spring.message "device.group.temp.none" /></option>
+                        </#if>
+                      </select>
+                    </div>
+                  </div>
+
+                  <!-- lan -->
+                  <div class="form-group">
+                    <label class="col-md-3 control-label"><@spring.message "temp.lan.text" /></label>
+                    <div class="col-md-7">
+                      <select name="groupLanName" class="selectpicker show-menu-arrow form-control" data-size="6"
+                              data-live-search="true"  title="<@spring.message "device.group.temp.title" />" >
+                        <#if lans ??>
+                          <#list lans as lan>
+                            <option value="${lan.getTemplateName()}">${lan.getTemplateName()}</option>
+                          <#else>
+                            <option><@spring.message "device.group.temp.none" /></option>
+                          </#list>
+                        <#else>
+                          <option><@spring.message "device.group.temp.none" /></option>
+                        </#if>
+                      </select>
+                    </div>
+                  </div>
+
+                  <!-- wifi -->
+                  <div class="form-group">
+                    <label class="col-md-3 control-label"><@spring.message "temp.wifi.text" /></label>
+                    <div class="col-md-7">
+                      <select name="groupWifiName" class="selectpicker show-menu-arrow form-control" data-size="6"
+                              data-live-search="true"  title="<@spring.message "device.group.temp.title" />" >
+                        <#if wifis ??>
+                          <#list wifis as wifi>
+                            <option value="${wifi.getTemplateName()}">${wifi.getTemplateName()}</option>
+                          <#else>
+                            <option><@spring.message "device.group.temp.none" /></option>
+                          </#list>
+                        <#else>
+                          <option><@spring.message "device.group.temp.none" /></option>
+                        </#if>
+                      </select>
+                    </div>
+                  </div>
+
+                  <!-- ota -->
+                  <div class="form-group">
+                    <label class="col-md-3 control-label"><@spring.message "temp.ota.text" /></label>
+                    <div class="col-md-7">
+                      <select name="groupOTAName" class="selectpicker show-menu-arrow form-control" data-size="6"
+                              data-live-search="true"  title="<@spring.message "device.group.temp.title" />" >
+                        <#if otas ??>
+                          <#list otas as ota>
+                            <option value="${ota.getTemplateName()}">${ota.getTemplateName()}</option>
+                            <#else>
+                              <option><@spring.message "device.group.temp.none" /></option>
+                          </#list>
+                          <#else>
+                            <option><@spring.message "device.group.temp.none" /></option>
+                        </#if>
+                      </select>
+                    </div>
+                  </div>
+
+                  <div class="form-group">
+                    <label class="col-md-3 control-label"><@spring.message "common.description.text" /></label>
+                    <div class="col-md-7">
+                      <input type="text" class="form-control" name="description" id="description" >
+                    </div>
+                  </div>
+
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-default" data-dismiss="modal"><@spring.message "common.action.close" /></button>
+                  <button type="button" class="btn btn-success submit"><@spring.message "common.action.submit" /></button>
+                </div>
+              </form>
+            </div><!-- /.modal-content -->
+          </div><!-- /.modal-dialog -->
+        </div><!-- /.modal -->
+      </div><!-- /.row -->
+    </div>
+  </div>
+</div><!-- main content -->
+
+
+
+<script type="text/javascript">
+  var GROUP_BASE = "${viewHelper.getPath()}/device/ap/group";
+  var GROUP_SHOW = GROUP_BASE + "/show";
+  var GROUP_EDIT = GROUP_BASE + "/edit";
+  var GROUP_DEL = GROUP_BASE + "/delete";
+
+  var _csrf = "${_csrf.token ?if_exists}";
+  var $alert = $('.alert').hide();
+  var $modal = $('#modal').modal({show: false});
+  var $table = $('#table').bootstrapTable({
+    sortOrder: "desc",
+    url: GROUP_SHOW,
+    formatShowingRows : formatShowingRows,
+    formatRecordsPerPage : formatRecordsPerPage
+  })
+
+
+  $(function() {
+
+
+    var validator = $("#config").validate({
+      rules: {
+        name: {
+          maxlength: 32,
+          required: true
+        },
+        description: {
+          maxlength: 256
+        }
+      },
+      messages: {
+        name: {
+          maxlength: $.validator.format("<@spring.message "ap.msg.common.maxlen" />"),
+          required: "<@spring.message "ap.msg.common.required" />"
+        },
+        description: {
+          maxlength: $.validator.format("<@spring.message "ap.msg.common.maxlen" />")
+        }
+      }
+    });
+
+    $table.on('post-body.bs.table', function () {
+      var $search = $table.data('bootstrap.table')
+        .$toolbar.find('.search input');
+      $search.attr('placeholder', '<@spring.message "device.group.search" />');
+    });
+
+    $('.create').click(function() {
+      showModal($(this).text());
+    });
+
+    $modal.find('.submit').click(function() {
+      var data;
+      var title;
+      var url;
+
+      if(validator.form() == false) {
+        return false;
+      }
+
+      if($modal.data('id') && $modal.data('id') >=0) {
+        data = $("#config").serialize() + "&id=" + $modal.data('id') + '&_csrf=' + _csrf;
+        url = GROUP_EDIT;
+        title = "<@spring.message "common.action.alter" />";
+      }
+      else {
+        data = $("#config").serialize() + '&_csrf=' + _csrf;
+        url = GROUP_BASE;
+        title = "<@spring.message "common.action.add" />";
+      }
+      $.ajax({
+        url: url,
+        type: 'post',
+        data: data,
+        success: function (result) {
+          if(result.result == "success") {
+            $modal.modal('hide');
+            $table.bootstrapTable('refresh');
+            showAlert(title + '<@spring.message "common.msg.success" />', 'success');
+          }
+          else {
+            $modal.modal('hide');
+            showAlert(title + '<@spring.message "common.msg.failed" /> ' + result.msg, 'danger');
+          }
+        },
+        error: function () {
+          $modal.modal('hide');
+          showAlert(title + '<@spring.message "common.msg.failed" />', 'danger');
+        }
+      });
+    });
+
+  });
+
+
+  window.actionEvents = {
+    'click .update': function (e, value, row) {
+      showModal("<@spring.message "common.action.alter" />", row);
+    },
+    'click .remove': function (e, value, row) {
+      if (confirm('<@spring.message "common.msg.delete.text" />')) {
+        var data = "id=" + row.id + "&_csrf=" + _csrf;
+        $.ajax({
+          url: GROUP_DEL,
+          type: 'post',
+          data: data,
+          success: function (result) {
+            if(result.result == "success") {
+              $table.bootstrapTable('refresh');
+              showAlert('<@spring.message "common.msg.delete.success" />', 'success');
+            }
+            else {
+              showAlert('<@spring.message "common.msg.delete.error" /> ' + result.msg, 'danger');
+            }
+          },
+          error: function () {
+            showAlert('<@spring.message "common.msg.delete.error" />', 'danger');
+          }
+        })
+      }
+    }
+  };
+
+  function showModal(title, row) {
+    row = row || {
+        name: '',
+        groupWanName: '',
+        groupLanName: '',
+        groupWifiName: '',
+        groupOTAName: '',
+        description: ''
+      };
+
+    if(typeof(row.id) == "undefined") {
+      $modal.data('id', -1);
+    }
+    else if(row.id >= 0){
+      $modal.data('id', row.id);
+      $modal.find('input[name][type="text"]').each(function () {
+        $(this).val("");
+      });
+    }
+
+    $modal.find('.modal-title').text(title);
+    for (var name in row) {
+      $modal.find('input[name="' + name + '"][type="text"]').val(row[name]);
+    }
+
+    $('select[name="groupWanName"]').val(row['groupWanName']);
+    $('select[name="groupWanName"]').selectpicker('render');
+
+    $('select[name="groupLanName"]').val(row['groupLanName']);
+    $('select[name="groupLanName"]').selectpicker('render');
+
+    $('select[name="groupWifiName"]').val(row['groupWifiName']);
+    $('select[name="groupWifiName"]').selectpicker('render');
+
+    $('select[name="groupOTAName"]').val(row['groupOTAName']);
+    $('select[name="groupOTAName"]').selectpicker('render');
+
+    $modal.modal('show');
+  }
+
+
+  /* static */
+  function actionFormatter(value, row, index) {
+    var config = "${viewHelper.getPath()}/device/ap/group/" + row.id + "/configuration";
+    var node = "${viewHelper.getPath()}/device/ap/group/node?groupName=" + row.name;
+
+    return [
+      '<div class="btn-group" role="group">',
+      '<a class="btn btn-default btn-xs" href="'+config+'" target="_blank"><i class="fa fa-cog">&nbsp;&nbsp;</i><@spring.message "device.group.details" /></a>',
+      '<a class="btn btn-default btn-xs" href="'+node+'"><i class="fa fa-info">&nbsp;&nbsp;</i><@spring.message "menu.group.node.text" /></a>',
+      '<a class="btn btn-default btn-xs update" href="javascript:"><i class="fa fa-pencil">&nbsp;&nbsp;</i><@spring.message "common.action.alter" /></a>',
+      '<a class="btn btn-danger btn-xs remove " href="javascript:"><i class="fa fa-trash">&nbsp;&nbsp;</i><@spring.message "common.action.delete" /></a>',
+      '</div>'
+    ].join('');
+  }
+
+  function queryParams(params) {
+    return {
+      page: params.pageNumber,
+      size: params.pageSize,
+      sortName: params.sortName || "updatedAt",
+      sortOrder: params.sortOrder || "desc",
+      search: params.searchText,
+      _r: Math.floor(Math.random()*10000)
+    };
+  }
+
+  /* alert */
+  function showAlert(title, type) {
+    $alert.attr('class', 'alert alert-' + type || 'success').html('<i class="fa fa-check"></i> ' + title).show();
+    setTimeout(function(){$alert.hide();}, 3000);
+  }
+
+  /* page formatter */
+  function formatRecordsPerPage(pageNumber) {
+    return '&nbsp;' + pageNumber;
+  }
+
+  function formatShowingRows(pageFrom, pageTo, totalRows) {
+    return totalRows + ' <@spring.message "common.msg.page.total" />';
+  }
+
+  function runningFormatter(value, row, index) {
+    return index + 1;
+  }
+  /* page formatter - end */
+
+</script>
+
+
+<#include "../../../layout/footer.html" >
+

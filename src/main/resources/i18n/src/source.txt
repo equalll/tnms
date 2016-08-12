@@ -1,0 +1,257 @@
+account.text=账户
+account.settings=账户设置
+help.text=帮助
+logout.text=注销
+logout.confirm=确定退出登录 ?
+form.confirm=确定
+form.cancel=取消
+
+
+### menu ###
+menu.text=菜单
+menu.device.list=设备列表
+menu.template.text=模板
+menu.template.wan.text=广域网
+menu.template.lan.text=局域网
+menu.template.wifi.text=无线
+menu.template.ota.text=远程升级
+menu.template.firewall.text=防火墙
+menu.template.qos.text=QoS限速
+menu.group.text=分组
+menu.group.list.text=列表
+menu.group.node.text=节点
+
+
+### login ###
+login.text=登录
+login.failed.text=登录失败！
+login.failed.msg=请检查您的用户名和密码是否正确
+login.success=登出成功！
+login.password.change.success=修改密码成功！
+login.system.name=网管系统
+login.username.text=用户名
+login.password.text=密码
+
+
+### password ###
+password.title.text=账户设置
+password.change.text=更改密码
+password.change.error0.text=更改密码失败
+password.change.error1.text=用户不存在
+password.change.error2.text=旧密码错误
+password.old.text=旧密码
+password.new.text=新密码
+password.twice.text=再次输入新密码
+password.submit.text=提交
+password.old.msg=请输入旧密码
+password.new.msg0=请输入密码
+password.new.msg1=密码长度不能小于 5 个字母
+password.twice.msg0=请输入密码
+password.twice.msg1=密码长度不能小于 5 个字母
+password.twice.msg2=两次密码输入不一致
+password.strength.vweak.text=很弱
+password.strength.weak.text=弱
+password.strength.normale.text=正常
+password.strength.medium.text=中等
+password.strength.strong.text=强
+password.strength.vstrong.text=很强
+
+
+### device ###
+device.text=设备
+device.ap.status.text=连接状态
+device.ap.search.text=根据MAC搜索 ...
+device.ap.reboot.confirm.text=确定要重启吗?
+device.ap.msg.success.text=消息已发送!
+device.ap.msg.error.text=消息发送出错!
+device.ap.reset.confirm.text=确定要复位吗?
+device.ap.action.status=状态
+device.ap.action.setup=配置
+device.ap.action.reboot=重启
+device.ap.action.reset=复位
+device.ap.status.online=上线
+device.ap.status.offline=离线
+
+
+### ap ###
+ap.text=路由器
+ap.version.text=版本
+ap.system.text=系统
+ap.wan.text=广域网
+ap.lan.text=局域网
+ap.wifi.text=无线
+ap.ota.text=远程升级
+ap.client.text=局域网用户
+ap.info.error=获取信息失败
+
+
+### wifi ###
+ap.wifi.open.text=开启WiFi
+ap.wifi.on=开启
+ap.wifi.off=关闭
+ap.wifi.channel=信道
+ap.wifi.channel0=自动
+ap.wifi.channel1=信道 1
+ap.wifi.channel2=信道 2
+ap.wifi.channel3=信道 3
+ap.wifi.channel4=信道 4
+ap.wifi.channel5=信道 5
+ap.wifi.channel6=信道 6
+ap.wifi.channel7=信道 7
+ap.wifi.channel8=信道 8
+ap.wifi.channel9=信道 9
+ap.wifi.channel10=信道 10
+ap.wifi.channel11=信道 11
+ap.wifi.maxconnection=最大连接数
+ap.wifi.encryption=加密方式
+ap.wifi.enc.none=未加密
+ap.wifi.enc.wpamixed=WPA-PSK/WPA2-PSK 混合模式
+ap.wifi.key=密码
+ap.wifi.cipher=算法
+
+
+### lan ###
+ap.lan.gateway=网关
+ap.lan.netmask=子网掩码
+ap.lan.dhcp.text=开启DHCP
+ap.lan.dhcp.off=关闭
+ap.lan.dhcp.on=开启
+ap.lan.dhcp.start=开始
+ap.lan.dhcp.limit=客户数
+ap.lan.dhcp.leasetime=租用时间
+
+
+### wan ###
+ap.wan.protocol=模式
+ap.wan.static.netmask=子网掩码
+ap.wan.static.gateway=网关
+ap.wan.pppoe.username=用户名
+ap.wan.pppoe.password=密码
+ap.wan.g3.modem=调制解调器节点
+ap.wan.g3.service=服务类型
+ap.wan.g3.sv.auto=自动
+ap.wan.g3.sv.lte=仅LTE
+ap.wan.g3.sv.umts=仅UMTS(WCDMA)
+ap.wan.g3.sv.gprs=仅GPRS
+ap.wan.g3.sv.evdo=CDMA/EV-DO
+
+
+### ota ###
+ap.ota.mode.text=模式
+ap.ota.mode.m0=从不检查更新
+ap.ota.mode.m1=始终检查更新
+ap.ota.mode.m2=在时间窗口内检查更新
+ap.ota.url=OTA 服务器地址
+ap.ota.delay=升级检测间隔
+ap.ota.min=分钟
+ap.ota.reset.text=升级后是否还原出厂配置
+ap.ota.retst.test1=升级后复位
+ap.ota.reset.on=是
+ap.ota.reset.off=否
+ap.ota.window.start=时间窗口起始时间
+ap.ota.window.size=时间窗口大小
+ap.ota.hour=小时
+
+
+### version ###
+ap.version.product=产品
+ap.version.firmware=固件版本
+ap.version.hardware=硬件版本
+ap.version.kernel=内核版本
+ap.version.os=系统版本
+
+
+### system ###
+ap.system.uptime=已启动
+ap.system.load=负载
+ap.system.mem.total=总内存
+ap.system.mem.free=剩余内存
+ap.system.mem.cache=缓存
+ap.system.mem.buff=缓冲
+
+
+### jquery validate ###
+ap.msg.wan.protocol.required=请选择广域网连接模式
+ap.msg.wan.addr.ipv4=请输入有效的 IP
+ap.msg.wan.netmask.ipv4=请输入有效的子网掩码
+ap.msg.wan.gateway.ipv4=请输入有效的网关
+
+ap.msg.lan.lanaddr.ipv4=请输入有效的 IP
+ap.msg.lan.lannetmask.ipv4=请输入有效的子网掩码
+
+ap.msg.wifi.channel.digits=请选择信道
+ap.msg.wifi.encryption.required=请选择加密方式
+ap.msg.wifi.cipher.required=请选择算法
+ap.msg.wifi.key.ranglen=密码长度应在 {0} - {1} 之间
+
+ap.msg.ota.mode.digits=请选择 OTA 模式
+ap.msg.ota.server.url=请输入有效的URL地址
+ap.msg.ota.delay.min=最小{0}分钟
+
+ap.msg.common.range=请输入 {0} - {1} 整数
+ap.msg.common.digits=请输入正整数
+ap.msg.common.required=此项必填
+ap.msg.common.maxlen=最大长度{0}字节
+
+ap.msg.save.success=配置保存成功
+ap.msg.save.error=配置保存失败
+ap.msg.effect.success=配置下发成功
+ap.msg.effect.error=配置下发失败
+
+
+### settings ###
+ap.settings.setup=设置
+ap.settings.scope.text=选择域 ...
+ap.settings.scope.all=全部
+ap.settings.effect=下发配置
+ap.settings.save=保存配置
+ap.settings.refresh=刷新
+
+
+### template ###
+temp.lan.text=局域网模板
+temp.ota.text=OTA 模板
+temp.wan.text=广域网模板
+temp.wifi.text=无线模板
+
+temp.common.search=根据模板名字搜索 ...
+temp.common.name=名称
+
+
+### common ###
+common.update.text=更新时间
+common.create.text=创建时间
+common.description.text=描述
+common.action.text=操作
+common.action.alter=修改
+common.action.add=添加
+common.action.delete=删除
+common.action.close=关闭
+common.action.submit=提交
+common.msg.success=成功!
+common.msg.failed=失败!
+common.msg.delete.text=确定要删除这一项吗?
+common.msg.delete.success=删除成功!
+common.msg.delete.error=删除错误!
+common.msg.page.perpage=每页
+common.msg.page.total=项记录
+
+
+### group ###
+device.group.text=分组
+device.group.groupid=分组ID
+deivce.group.name=名称
+device.group.description=描述
+device.group.temp.title=选择模板 ...
+device.group.temp.none=目前还没有模板
+device.group.search=根据分组名搜索 ...
+device.group.details=查看
+device.group.configuration=分组配置
+
+device.group.node.text=节点信息
+device.group.effect=组内下发配置
+device.group.node.start=起始MAC地址
+device.group.node.end=结束MAC地址
+device.group.node.big=起始MAC地址必须不大于结束MAC地址
+
+

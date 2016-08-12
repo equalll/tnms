@@ -1,0 +1,257 @@
+account.text=\u8d26\u6237
+account.settings=\u8d26\u6237\u8bbe\u7f6e
+help.text=\u5e2e\u52a9
+logout.text=\u6ce8\u9500
+logout.confirm=\u786e\u5b9a\u9000\u51fa\u767b\u5f55 ?
+form.confirm=\u786e\u5b9a
+form.cancel=\u53d6\u6d88
+
+
+### menu ###
+menu.text=\u83dc\u5355
+menu.device.list=\u8bbe\u5907\u5217\u8868
+menu.template.text=\u6a21\u677f
+menu.template.wan.text=\u5e7f\u57df\u7f51
+menu.template.lan.text=\u5c40\u57df\u7f51
+menu.template.wifi.text=\u65e0\u7ebf
+menu.template.ota.text=\u8fdc\u7a0b\u5347\u7ea7
+menu.template.firewall.text=\u9632\u706b\u5899
+menu.template.qos.text=QoS\u9650\u901f
+menu.group.text=\u5206\u7ec4
+menu.group.list.text=\u5217\u8868
+menu.group.node.text=\u8282\u70b9
+
+
+### login ###
+login.text=\u767b\u5f55
+login.failed.text=\u767b\u5f55\u5931\u8d25\uff01
+login.failed.msg=\u8bf7\u68c0\u67e5\u60a8\u7684\u7528\u6237\u540d\u548c\u5bc6\u7801\u662f\u5426\u6b63\u786e
+login.success=\u767b\u51fa\u6210\u529f\uff01
+login.password.change.success=\u4fee\u6539\u5bc6\u7801\u6210\u529f\uff01
+login.system.name=\u7f51\u7ba1\u7cfb\u7edf
+login.username.text=\u7528\u6237\u540d
+login.password.text=\u5bc6\u7801
+
+
+### password ###
+password.title.text=\u8d26\u6237\u8bbe\u7f6e
+password.change.text=\u66f4\u6539\u5bc6\u7801
+password.change.error0.text=\u66f4\u6539\u5bc6\u7801\u5931\u8d25
+password.change.error1.text=\u7528\u6237\u4e0d\u5b58\u5728
+password.change.error2.text=\u65e7\u5bc6\u7801\u9519\u8bef
+password.old.text=\u65e7\u5bc6\u7801
+password.new.text=\u65b0\u5bc6\u7801
+password.twice.text=\u518d\u6b21\u8f93\u5165\u65b0\u5bc6\u7801
+password.submit.text=\u63d0\u4ea4
+password.old.msg=\u8bf7\u8f93\u5165\u65e7\u5bc6\u7801
+password.new.msg0=\u8bf7\u8f93\u5165\u5bc6\u7801
+password.new.msg1=\u5bc6\u7801\u957f\u5ea6\u4e0d\u80fd\u5c0f\u4e8e 5 \u4e2a\u5b57\u6bcd
+password.twice.msg0=\u8bf7\u8f93\u5165\u5bc6\u7801
+password.twice.msg1=\u5bc6\u7801\u957f\u5ea6\u4e0d\u80fd\u5c0f\u4e8e 5 \u4e2a\u5b57\u6bcd
+password.twice.msg2=\u4e24\u6b21\u5bc6\u7801\u8f93\u5165\u4e0d\u4e00\u81f4
+password.strength.vweak.text=\u5f88\u5f31
+password.strength.weak.text=\u5f31
+password.strength.normale.text=\u6b63\u5e38
+password.strength.medium.text=\u4e2d\u7b49
+password.strength.strong.text=\u5f3a
+password.strength.vstrong.text=\u5f88\u5f3a
+
+
+### device ###
+device.text=\u8bbe\u5907
+device.ap.status.text=\u8fde\u63a5\u72b6\u6001
+device.ap.search.text=\u6839\u636eMAC\u641c\u7d22 ...
+device.ap.reboot.confirm.text=\u786e\u5b9a\u8981\u91cd\u542f\u5417?
+device.ap.msg.success.text=\u6d88\u606f\u5df2\u53d1\u9001!
+device.ap.msg.error.text=\u6d88\u606f\u53d1\u9001\u51fa\u9519!
+device.ap.reset.confirm.text=\u786e\u5b9a\u8981\u590d\u4f4d\u5417?
+device.ap.action.status=\u72b6\u6001
+device.ap.action.setup=\u914d\u7f6e
+device.ap.action.reboot=\u91cd\u542f
+device.ap.action.reset=\u590d\u4f4d
+device.ap.status.online=\u4e0a\u7ebf
+device.ap.status.offline=\u79bb\u7ebf
+
+
+### ap ###
+ap.text=\u8def\u7531\u5668
+ap.version.text=\u7248\u672c
+ap.system.text=\u7cfb\u7edf
+ap.wan.text=\u5e7f\u57df\u7f51
+ap.lan.text=\u5c40\u57df\u7f51
+ap.wifi.text=\u65e0\u7ebf
+ap.ota.text=\u8fdc\u7a0b\u5347\u7ea7
+ap.client.text=\u5c40\u57df\u7f51\u7528\u6237
+ap.info.error=\u83b7\u53d6\u4fe1\u606f\u5931\u8d25
+
+
+### wifi ###
+ap.wifi.open.text=\u5f00\u542fWiFi
+ap.wifi.on=\u5f00\u542f
+ap.wifi.off=\u5173\u95ed
+ap.wifi.channel=\u4fe1\u9053
+ap.wifi.channel0=\u81ea\u52a8
+ap.wifi.channel1=\u4fe1\u9053 1
+ap.wifi.channel2=\u4fe1\u9053 2
+ap.wifi.channel3=\u4fe1\u9053 3
+ap.wifi.channel4=\u4fe1\u9053 4
+ap.wifi.channel5=\u4fe1\u9053 5
+ap.wifi.channel6=\u4fe1\u9053 6
+ap.wifi.channel7=\u4fe1\u9053 7
+ap.wifi.channel8=\u4fe1\u9053 8
+ap.wifi.channel9=\u4fe1\u9053 9
+ap.wifi.channel10=\u4fe1\u9053 10
+ap.wifi.channel11=\u4fe1\u9053 11
+ap.wifi.maxconnection=\u6700\u5927\u8fde\u63a5\u6570
+ap.wifi.encryption=\u52a0\u5bc6\u65b9\u5f0f
+ap.wifi.enc.none=\u672a\u52a0\u5bc6
+ap.wifi.enc.wpamixed=WPA-PSK/WPA2-PSK \u6df7\u5408\u6a21\u5f0f
+ap.wifi.key=\u5bc6\u7801
+ap.wifi.cipher=\u7b97\u6cd5
+
+
+### lan ###
+ap.lan.gateway=\u7f51\u5173
+ap.lan.netmask=\u5b50\u7f51\u63a9\u7801
+ap.lan.dhcp.text=\u5f00\u542fDHCP
+ap.lan.dhcp.off=\u5173\u95ed
+ap.lan.dhcp.on=\u5f00\u542f
+ap.lan.dhcp.start=\u5f00\u59cb
+ap.lan.dhcp.limit=\u5ba2\u6237\u6570
+ap.lan.dhcp.leasetime=\u79df\u7528\u65f6\u95f4
+
+
+### wan ###
+ap.wan.protocol=\u6a21\u5f0f
+ap.wan.static.netmask=\u5b50\u7f51\u63a9\u7801
+ap.wan.static.gateway=\u7f51\u5173
+ap.wan.pppoe.username=\u7528\u6237\u540d
+ap.wan.pppoe.password=\u5bc6\u7801
+ap.wan.g3.modem=\u8c03\u5236\u89e3\u8c03\u5668\u8282\u70b9
+ap.wan.g3.service=\u670d\u52a1\u7c7b\u578b
+ap.wan.g3.sv.auto=\u81ea\u52a8
+ap.wan.g3.sv.lte=\u4ec5LTE
+ap.wan.g3.sv.umts=\u4ec5UMTS(WCDMA)
+ap.wan.g3.sv.gprs=\u4ec5GPRS
+ap.wan.g3.sv.evdo=CDMA/EV-DO
+
+
+### ota ###
+ap.ota.mode.text=\u6a21\u5f0f
+ap.ota.mode.m0=\u4ece\u4e0d\u68c0\u67e5\u66f4\u65b0
+ap.ota.mode.m1=\u59cb\u7ec8\u68c0\u67e5\u66f4\u65b0
+ap.ota.mode.m2=\u5728\u65f6\u95f4\u7a97\u53e3\u5185\u68c0\u67e5\u66f4\u65b0
+ap.ota.url=OTA \u670d\u52a1\u5668\u5730\u5740
+ap.ota.delay=\u5347\u7ea7\u68c0\u6d4b\u95f4\u9694
+ap.ota.min=\u5206\u949f
+ap.ota.reset.text=\u5347\u7ea7\u540e\u662f\u5426\u8fd8\u539f\u51fa\u5382\u914d\u7f6e
+ap.ota.retst.test1=\u5347\u7ea7\u540e\u590d\u4f4d
+ap.ota.reset.on=\u662f
+ap.ota.reset.off=\u5426
+ap.ota.window.start=\u65f6\u95f4\u7a97\u53e3\u8d77\u59cb\u65f6\u95f4
+ap.ota.window.size=\u65f6\u95f4\u7a97\u53e3\u5927\u5c0f
+ap.ota.hour=\u5c0f\u65f6
+
+
+### version ###
+ap.version.product=\u4ea7\u54c1
+ap.version.firmware=\u56fa\u4ef6\u7248\u672c
+ap.version.hardware=\u786c\u4ef6\u7248\u672c
+ap.version.kernel=\u5185\u6838\u7248\u672c
+ap.version.os=\u7cfb\u7edf\u7248\u672c
+
+
+### system ###
+ap.system.uptime=\u5df2\u542f\u52a8
+ap.system.load=\u8d1f\u8f7d
+ap.system.mem.total=\u603b\u5185\u5b58
+ap.system.mem.free=\u5269\u4f59\u5185\u5b58
+ap.system.mem.cache=\u7f13\u5b58
+ap.system.mem.buff=\u7f13\u51b2
+
+
+### jquery validate ###
+ap.msg.wan.protocol.required=\u8bf7\u9009\u62e9\u5e7f\u57df\u7f51\u8fde\u63a5\u6a21\u5f0f
+ap.msg.wan.addr.ipv4=\u8bf7\u8f93\u5165\u6709\u6548\u7684 IP
+ap.msg.wan.netmask.ipv4=\u8bf7\u8f93\u5165\u6709\u6548\u7684\u5b50\u7f51\u63a9\u7801
+ap.msg.wan.gateway.ipv4=\u8bf7\u8f93\u5165\u6709\u6548\u7684\u7f51\u5173
+
+ap.msg.lan.lanaddr.ipv4=\u8bf7\u8f93\u5165\u6709\u6548\u7684 IP
+ap.msg.lan.lannetmask.ipv4=\u8bf7\u8f93\u5165\u6709\u6548\u7684\u5b50\u7f51\u63a9\u7801
+
+ap.msg.wifi.channel.digits=\u8bf7\u9009\u62e9\u4fe1\u9053
+ap.msg.wifi.encryption.required=\u8bf7\u9009\u62e9\u52a0\u5bc6\u65b9\u5f0f
+ap.msg.wifi.cipher.required=\u8bf7\u9009\u62e9\u7b97\u6cd5
+ap.msg.wifi.key.ranglen=\u5bc6\u7801\u957f\u5ea6\u5e94\u5728 {0} - {1} \u4e4b\u95f4
+
+ap.msg.ota.mode.digits=\u8bf7\u9009\u62e9 OTA \u6a21\u5f0f
+ap.msg.ota.server.url=\u8bf7\u8f93\u5165\u6709\u6548\u7684URL\u5730\u5740
+ap.msg.ota.delay.min=\u6700\u5c0f{0}\u5206\u949f
+
+ap.msg.common.range=\u8bf7\u8f93\u5165 {0} - {1} \u6574\u6570
+ap.msg.common.digits=\u8bf7\u8f93\u5165\u6b63\u6574\u6570
+ap.msg.common.required=\u6b64\u9879\u5fc5\u586b
+ap.msg.common.maxlen=\u6700\u5927\u957f\u5ea6{0}\u5b57\u8282
+
+ap.msg.save.success=\u914d\u7f6e\u4fdd\u5b58\u6210\u529f
+ap.msg.save.error=\u914d\u7f6e\u4fdd\u5b58\u5931\u8d25
+ap.msg.effect.success=\u914d\u7f6e\u4e0b\u53d1\u6210\u529f
+ap.msg.effect.error=\u914d\u7f6e\u4e0b\u53d1\u5931\u8d25
+
+
+### settings ###
+ap.settings.setup=\u8bbe\u7f6e
+ap.settings.scope.text=\u9009\u62e9\u57df ...
+ap.settings.scope.all=\u5168\u90e8
+ap.settings.effect=\u4e0b\u53d1\u914d\u7f6e
+ap.settings.save=\u4fdd\u5b58\u914d\u7f6e
+ap.settings.refresh=\u5237\u65b0
+
+
+### template ###
+temp.lan.text=\u5c40\u57df\u7f51\u6a21\u677f
+temp.ota.text=OTA \u6a21\u677f
+temp.wan.text=\u5e7f\u57df\u7f51\u6a21\u677f
+temp.wifi.text=\u65e0\u7ebf\u6a21\u677f
+
+temp.common.search=\u6839\u636e\u6a21\u677f\u540d\u5b57\u641c\u7d22 ...
+temp.common.name=\u540d\u79f0
+
+
+### common ###
+common.update.text=\u66f4\u65b0\u65f6\u95f4
+common.create.text=\u521b\u5efa\u65f6\u95f4
+common.description.text=\u63cf\u8ff0
+common.action.text=\u64cd\u4f5c
+common.action.alter=\u4fee\u6539
+common.action.add=\u6dfb\u52a0
+common.action.delete=\u5220\u9664
+common.action.close=\u5173\u95ed
+common.action.submit=\u63d0\u4ea4
+common.msg.success=\u6210\u529f!
+common.msg.failed=\u5931\u8d25!
+common.msg.delete.text=\u786e\u5b9a\u8981\u5220\u9664\u8fd9\u4e00\u9879\u5417?
+common.msg.delete.success=\u5220\u9664\u6210\u529f!
+common.msg.delete.error=\u5220\u9664\u9519\u8bef!
+common.msg.page.perpage=\u6bcf\u9875
+common.msg.page.total=\u9879\u8bb0\u5f55
+
+
+### group ###
+device.group.text=\u5206\u7ec4
+device.group.groupid=\u5206\u7ec4ID
+deivce.group.name=\u540d\u79f0
+device.group.description=\u63cf\u8ff0
+device.group.temp.title=\u9009\u62e9\u6a21\u677f ...
+device.group.temp.none=\u76ee\u524d\u8fd8\u6ca1\u6709\u6a21\u677f
+device.group.search=\u6839\u636e\u5206\u7ec4\u540d\u641c\u7d22 ...
+device.group.details=\u67e5\u770b
+device.group.configuration=\u5206\u7ec4\u914d\u7f6e
+
+device.group.node.text=\u8282\u70b9\u4fe1\u606f
+device.group.effect=\u7ec4\u5185\u4e0b\u53d1\u914d\u7f6e
+device.group.node.start=\u8d77\u59cbMAC\u5730\u5740
+device.group.node.end=\u7ed3\u675fMAC\u5730\u5740
+device.group.node.big=\u8d77\u59cbMAC\u5730\u5740\u5fc5\u987b\u4e0d\u5927\u4e8e\u7ed3\u675fMAC\u5730\u5740
+
+

@@ -1,0 +1,323 @@
+<#include "../../../layout/header.html" >
+
+<div class="pageheader">
+  <h2><i class="fa fa-tasks"></i><@spring.message "device.group.configuration" /></h2>
+</div>
+
+<!-- main content -->
+<div class="contentpanel">
+  <div class="row">
+    <div class="col-md-12">
+      <div class="panel">
+        <div class="panel-heading">
+          <h4 class="panel-title"><@spring.message "device.group.text" /> - <span class="groupName">N/A</span>
+            <div class="pull-right">
+              <button class="btn btn-default" type="button" name="refresh" title="Refresh">
+                <i class="fa fa-refresh icon-refresh"></i>
+              </button>
+            </div>
+          </h4>
+        </div>
+        <div class="panel-body">
+          <!-- Nav tabs -->
+          <ul class="nav nav-tabs nav-line">
+            <li class="active"><a href="#wan" data-toggle="tab"><strong><@spring.message "ap.wan.text" /></strong></a></li>
+            <li><a href="#lan" data-toggle="tab"><strong><@spring.message "ap.lan.text" /></strong></a></li>
+            <li><a href="#wifi" data-toggle="tab"><strong><@spring.message "ap.wifi.text" /></strong></a></li>
+            <li><a href="#ota" data-toggle="tab"><strong><@spring.message "ap.ota.text" /></strong></a></li>
+          </ul>
+
+          <div class="tab-content">
+
+            <!-- wan tab-pane -->
+            <div class="tab-pane active" id="wan">
+              <div class="row">
+                <div class="col-md-6">
+                  <ul class="list-group groupConfigInfo">
+                  </ul>
+                </div>
+              </div>
+            </div>
+
+            <!-- lan tab-pane -->
+            <div class="tab-pane" id="lan">
+              <div class="row">
+                <div class="col-md-6">
+                  <ul class="list-group groupConfigInfo">
+                  </ul>
+                </div>
+              </div>
+            </div>
+
+            <!-- wifi tab-pane -->
+            <div class="tab-pane" id="wifi">
+              <div class="row">
+                <div class="col-md-6">
+                  <ul class="list-group groupConfigInfo">
+                  </ul>
+                </div>
+              </div>
+            </div>
+
+            <!-- ota tab-pane -->
+            <div class="tab-pane" id="ota">
+              <div class="row">
+                <div class="col-md-6">
+                  <ul class="list-group groupConfigInfo">
+                  </ul>
+                </div>
+              </div>
+            </div>
+
+          </div><!-- /.tab-content -->
+        </div><!-- /.panel-body -->
+      </div><!-- /.panel -->
+    </div><!-- /.col-md-12 -->
+  </div>
+</div><!-- /.contentpanel -->
+
+<script>
+  var groupId = "${groupId ?if_exists}";
+  var GROUP_CONFIG_URL = "${viewHelper.getPath()}/device/ap/group/" + groupId + "/configuration/show";
+
+  $(function() {
+
+    loadGroupInfo();
+    $("button[name=refresh]").click(function() {
+      clearHistoryInfo();
+      loadGroupInfo();
+    });
+
+  })
+
+  function loadGroupInfo() {
+    $.ajax({
+      cache: false,
+      url: GROUP_CONFIG_URL,
+      type: "get",
+      success: function(result) {
+        processConfigInfo(result);
+      },
+      error: function() {
+        alert("<@spring.message "ap.info.error" />");
+      }
+    });
+  }
+
+  function clearHistoryInfo() {
+    $(".groupConfigInfo").empty();
+  }
+
+  function processConfigInfo(result) {
+
+    $(".groupName").html(result.group.name);
+    processConfigWanInfo(result.wan);
+    processConfigLanInfo(result.lan);
+    processConfigWiFiInfo(result.wifi);
+    processConfigOtaInfo(result.ota);
+  }
+
+  function processConfigOtaInfo(ota) {
+    var dom = "#ota .groupConfigInfo";
+
+    if(!ota) {
+      return;
+    }
+
+    switch(parseInt(ota.mode)) {
+      case 0:
+        appendDom(dom, "<@spring.message "ap.ota.mode.text" />", "<@spring.message "ap.ota.mode.m0" />");
+        break;
+
+      case 1:
+        appendDom(dom, "<@spring.message "ap.ota.mode.text" />", "<@spring.message "ap.ota.mode.m1" />");
+        break;
+
+      case 2:
+        appendDom(dom, "<@spring.message "ap.ota.mode.text" />", "<@spring.message "ap.ota.mode.m2" />");
+        break;
+
+      default:
+        appendDom(dom, "<@spring.message "ap.ota.mode.text" />", ota.mode);
+        break;
+    }
+
+    appendDom(dom, "<@spring.message "ap.ota.url" />", ota.server);
+    appendDom(dom, "<@spring.message "ap.ota.delay" />", ota.pridDelay + " <@spring.message "ap.ota.min" />");
+
+    if(ota.restoreFlag == 1) {
+      appendDom(dom, "<@spring.message "ap.ota.reset.text" />", "<@spring.message "ap.ota.reset.on" />");
+    }
+    else if(ota.restoreFlag == 0) {
+      appendDom(dom, "<@spring.message "ap.ota.reset.text" />", "<@spring.message "ap.ota.reset.off" />");
+    }
+    else {
+      appendDom(dom, "<@spring.message "ap.ota.reset.text" />", ota.restoreFlag);
+    }
+
+    if(ota.mode == 2) {
+      appendDom(dom, "<@spring.message "ap.ota.window.start" />", ota.windowStart);
+      appendDom(dom, "<@spring.message "ap.ota.window.size" />", ota.windowSize + " <@spring.message "ap.ota.hour" />");
+    }
+  }
+
+  function processConfigWiFiInfo(wifi) {
+    var dom = "#wifi .groupConfigInfo";
+
+    if(!wifi) {
+      return;
+    }
+
+    if(wifi.wifi == 1) {
+      appendDom(dom, "WiFi", "<@spring.message "ap.wifi.on" />");
+    }
+    else {
+      appendDom(dom, "WiFi", "<@spring.message "ap.wifi.off" />");
+    }
+
+    appendDom(dom, "SSID", wifi.ssid);
+    appendDom(dom, "<@spring.message "ap.wifi.channel" />", wifi.channel);
+    appendDom(dom, "<@spring.message "ap.wifi.maxconnection" />", wifi.maxStation);
+    appendDom(dom, "<@spring.message "ap.wifi.encryption" />", wifiEnc(wifi.encryption));
+
+    switch(wifi.encryption) {
+      case "none":
+        break;
+
+      case "open":
+        appendDom(dom, "<@spring.message "ap.wifi.key" />", wifi.key);
+        break;
+
+      case "psk":
+        /* pass through */
+
+      case "psk2":
+        /* pass through */
+
+      case "psk-mixed":
+        appendDom(dom, "<@spring.message "ap.wifi.cipher" />", wifi.cipher);
+        appendDom(dom, "<@spring.message "ap.wifi.key" />", wifi.key);
+        break;
+    }
+  }
+
+  function wifiEnc(enc) {
+    var ret = "";
+
+    if(enc == "none") {
+      ret = "<@spring.message "ap.wifi.enc.none" />";
+    }
+    else if(enc == "open") {
+      ret = "WEP";
+    }
+    else if(enc == "psk-mixed") {
+      ret = "<@spring.message "ap.wifi.enc.wpamixed" />";
+    }
+    else if(enc == "psk") {
+      ret = "WPA-PSK";
+    }
+    else if(enc == "psk2") {
+      ret = "WPA2-PSK";
+    }
+
+    return ret;
+  }
+
+
+  function processConfigLanInfo(lan) {
+    var dom = "#lan .groupConfigInfo";
+
+    if(!lan) {
+      return;
+    }
+
+    appendDom(dom, "IP", lan.lanAddress);
+    appendDom(dom, "<@spring.message "ap.lan.netmask" />", lan.lanNetmask);
+
+    if(lan.dhcp == 0) {
+      appendDom(dom, "DHCP", "<@spring.message "ap.lan.dhcp.off" />");
+      return;
+    }
+
+    appendDom(dom, "DHCP", "<@spring.message "ap.lan.dhcp.on" />");
+
+    appendDom(dom, "<@spring.message "ap.lan.dhcp.start" />", lan.start);
+    appendDom(dom, "<@spring.message "ap.lan.dhcp.limit" />", lan.limit);
+    appendDom(dom, "<@spring.message "ap.lan.dhcp.leasetime" />", lan.leaseTime);
+  }
+
+  function processConfigWanInfo(wan) {
+    var dom = "#wan .groupConfigInfo";
+
+    if(!wan || !wan.protocol) {
+      return;
+    }
+
+    appendDom(dom, "<@spring.message "ap.wan.protocol" />", wan.protocol);
+    switch(wan.protocol) {
+      case "dhcp":
+        break;
+
+      case "static":
+        appendDom(dom, "IP", wan.address);
+        appendDom(dom, "<@spring.message "ap.wan.static.netmask" />", wan.netmask);
+        appendDom(dom, "<@spring.message "ap.wan.static.gateway" />", wan.gateway);
+        break;
+
+      case "pppoe":
+        appendDom(dom, "<@spring.message "ap.wan.pppoe.username" />", wan.username);
+        appendDom(dom, "<@spring.message "ap.wan.pppoe.password" />", wan.password);
+        break;
+
+      case "3g":
+        appendDom(dom, "<@spring.message "ap.wan.g3.modem" />", wan.modemDevice);
+        appendDom(dom, "<@spring.message "ap.wan.g3.service" />", wanServiceType(wan.serviceType));
+        appendDom(dom, "APN", wan.APN);
+        appendDom(dom, "Dial Number", wan.dialNumber);
+        break;
+
+      default:
+        break;
+    }
+  }
+
+  function wanServiceType(type) {
+    var ret = "";
+
+    if(type == "auto") {
+      ret = "<@spring.message "ap.wan.g3.sv.auto" />";
+    }
+    else if(type == "lte_only") {
+      ret = "<@spring.message "ap.wan.g3.sv.lte" />";
+    }
+    else if(type == "umts_only") {
+      ret = "<@spring.message "ap.wan.g3.sv.umts" />";
+    }
+    else if(type == "gprs_only") {
+      ret = "<@spring.message "ap.wan.g3.sv.gprs" />";
+    }
+    else if(type == "evdo") {
+      ret = "<@spring.message "ap.wan.g3.sv.evdo" />";
+    }
+
+    return ret;
+  }
+
+  function appendDom(selector, key, value) {
+
+    if(!selector || !key || !value) {
+      return;
+    }
+
+    $(selector).append(
+        '<li class="list-group-item">'
+        + key
+        + '<span>'
+        + value
+        + '</span></li>');
+  }
+
+</script>
+
+
+<#include "../../../layout/footer.html" >

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/tnms.iml" filepath="$PROJECT_DIR$/.idea/modules/tnms.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/tnms_main.iml" filepath="$PROJECT_DIR$/.idea/modules/tnms_main.iml" group="tnms" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/tnms_test.iml" filepath="$PROJECT_DIR$/.idea/modules/tnms_test.iml" group="tnms" />
+    </modules>
+  </component>
+</project>

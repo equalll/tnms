@@ -1,0 +1,914 @@
+<#include "../../layout/header.html" >
+
+<div class="pageheader">
+  <h2><i class="fa fa-tasks"></i><@spring.message "device.text" /></h2>
+  <div class="breadcrumb-wrapper">
+    <ol class="breadcrumb">
+      <li><a href="${viewHelper.getPath()}/device/ap"><@spring.message "device.text" /></a></li>
+      <li>${router.getMac() ?if_exists}</a></li>
+      <li class="active"><@spring.message "ap.settings.setup" /></li>
+    </ol>
+  </div>
+</div>
+
+<!-- main content -->
+<div class="contentpanel">
+  <div class="row">
+    <div class="col-md-12">
+      <div class="panel">
+        <div class="panel-heading">
+          ${router.getMac() ?if_exists}
+        </div>
+        <div class="panel-body">
+          <div class="form-group">
+            <div class="col-sm-9">
+              <select id="scope" class="select2" data-placeholder="<@spring.message "ap.settings.scope.text" />" multiple="multiple">
+                <option value="all"><@spring.message "ap.settings.scope.all" /></option>
+                <option value="wan"><@spring.message "ap.wan.text" /></option>
+                <option value="lan"><@spring.message "ap.lan.text" /></option>
+                <option value="wifi"><@spring.message "ap.wifi.text" /></option>
+                <option value="ota"><@spring.message "ap.ota.text" /></option>
+              </select>
+            </div>
+            <div class="col-sm-3">
+              <input type="button" class="btn btn-success" name="config" value="<@spring.message "ap.settings.effect" />" />
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-12">
+    <form id="settings" action="settings" class="form-horizontal" novalidate="novalidate">
+      <div class="panel">
+        <div class="panel-heading">
+          <div class="row">
+            <div class="col-sm-9">
+              <h4 class="panel-title"><@spring.message "ap.settings.setup" /></h4>
+            </div>
+            <div class="col-sm-3">
+              <input type="button" class="btn btn-success" name="saveconfig" value="<@spring.message "ap.settings.save" />" />
+              <input type="button" class="btn btn-default" name="refresh" value="<@spring.message "ap.settings.refresh" />" />
+            </div>
+          </div>
+        </div>
+
+        <div class="panel-body">
+          <ul class="nav nav-tabs nav-line">
+            <li class="active"><a href="#wan" data-toggle="tab"><strong><@spring.message "ap.wan.text" /></strong></a></li>
+            <li><a href="#lan" data-toggle="tab"><strong><@spring.message "ap.lan.text" /></strong></a></li>
+            <li><a href="#wifi" data-toggle="tab"><strong><@spring.message "ap.wifi.text" /></strong></a></li>
+            <li><a href="#ota" data-toggle="tab"><strong><@spring.message "ap.ota.text" /></strong></a></li>
+          </ul>
+
+          <!-- Tab panes -->
+          <div class="tab-content">
+            <!-- wan -->
+            <div class="tab-pane active" id="wan">
+              <div class="row">
+                <div class="col-md-10">
+                  <div class="form-group">
+                    <label class="col-sm-3 control-label"><@spring.message "ap.wan.protocol" /></label>
+                    <div class="col-sm-7">
+                      <select name="protocol" class="form-control">
+                        <option value="dhcp" selected>DHCP</option>
+                        <option value="static">STATIC</option>
+                        <option value="pppoe">PPPOE</option>
+                        <option value="3g">3/4G</option>
+                      </select>
+                    </div>
+                  </div>
+
+                  <!-- static -->
+                  <div class="form-group2" id="static">
+                    <div class="form-group">
+                      <label class="col-sm-3 control-label">IP</label>
+                      <div class="col-sm-7">
+                        <input type="text" name="address" class="form-control" />
+                      </div>
+                    </div>
+                    <div class="form-group">
+                      <label class="col-sm-3 control-label"><@spring.message "ap.wan.static.netmask" /></label>
+                      <div class="col-sm-7">
+                        <input type="text" name="netmask" class="form-control" />
+                      </div>
+                    </div>
+                    <div class="form-group">
+                      <label class="col-sm-3 control-label"><@spring.message "ap.wan.static.gateway" /></label>
+                      <div class="col-sm-7">
+                        <input type="text" name="gateway" class="form-control" />
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- pppoe -->
+                  <div class="form-group2" id="pppoe">
+                    <div class="form-group">
+                      <label class="col-sm-3 control-label"><@spring.message "ap.wan.pppoe.username" /></label>
+                      <div class="col-sm-7">
+                        <input type="text" name="username" class="form-control" />
+                      </div>
+                    </div>
+                    <div class="form-group">
+                      <label class="col-sm-3 control-label"><@spring.message "ap.wan.pppoe.password" /></label>
+                      <div class="col-sm-7">
+                        <input type="text" name="password" class="form-control" />
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- 3/4g -->
+                  <div class="form-group2" id="3a4g">
+                    <div class="form-group">
+                      <label class="col-sm-3 control-label"><@spring.message "ap.wan.g3.modem" /></label>
+                      <div class="col-sm-7">
+                        <input type="text" name="modemDevice" class="form-control" />
+                      </div>
+                    </div>
+                    <div class="form-group">
+                      <label class="col-sm-3 control-label"><@spring.message "ap.wan.g3.service" /></label>
+                      <div class="col-sm-7">
+                        <select name="serviceType" class="form-control">
+                          <option value="auto">自动</option>
+                          <option value="lte_only">仅LTE</option>
+                          <option value="umts_only">仅UMTS(WCDMA)</option>
+                          <option value="gprs_only">仅GPRS</option>
+                          <option value="evdo">CDMA/EV-DO</option>
+                        </select>
+                      </div>
+                    </div>
+                    <div class="form-group">
+                      <label class="col-sm-3 control-label">APN</label>
+                      <div class="col-sm-7">
+                        <input type="text" name="APN" class="form-control" />
+                      </div>
+                    </div>
+                    <div class="form-group">
+                      <label class="col-sm-3 control-label">Dial Number</label>
+                      <div class="col-sm-7">
+                        <input type="text" name="dialNumber" class="form-control" />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div><!-- wan -->
+
+            <!-- lan -->
+            <div class="tab-pane" id="lan">
+              <div class="row">
+                <div class="col-md-10">
+                  <div class="form-group">
+                    <label class="col-sm-3 control-label">IP</label>
+                    <div class="col-sm-7">
+                      <input type="text" name="lanAddress" class="form-control" />
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label class="col-sm-3 control-label"><@spring.message "ap.lan.netmask" /></label>
+                    <div class="col-sm-7">
+                      <input type="text" name="lanNetmask" class="form-control" />
+                    </div>
+                  </div>
+                  <!-- dhcp -->
+                  <div class="form-group">
+                    <label class="col-sm-3 control-label">DHCP</label>
+                    <div class="col-sm-7">
+                      <div class="ckbox ckbox-success ">
+                        <input type="checkbox" id="dhcp" name="dhcp" checked="checked" value="1" />
+                        <label for="dhcp"><@spring.message "ap.lan.dhcp.text" /></label>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label class="col-sm-3 control-label"><@spring.message "ap.lan.dhcp.start" /></label>
+                    <div class="col-sm-7">
+                      <input type="text" name="start" class="form-control" />
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label class="col-sm-3 control-label"><@spring.message "ap.lan.dhcp.limit" /></label>
+                    <div class="col-sm-7">
+                      <input type="text" name="limit" class="form-control" />
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label class="col-sm-3 control-label"><@spring.message "ap.lan.dhcp.leasetime" /></label>
+                    <div class="col-sm-7">
+                      <input type="text" name="leaseTime" class="form-control" />
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div><!-- lan -->
+
+            <!-- wifi -->
+            <div class="tab-pane" id="wifi">
+              <div class="row">
+                <div class="col-md-10">
+                  <div class="form-group">
+                    <label class="col-sm-3 control-label"><@spring.message "ap.wifi.text" /></label>
+                    <div class="col-sm-7">
+                      <div class="ckbox ckbox-success ">
+                        <input type="checkbox" id="wifienable" name="wifi" checked="checked" value="1" />
+                        <label for="wifienable"><@spring.message "ap.wifi.open.text" /></label>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label class="col-sm-3 control-label">SSID</label>
+                    <div class="col-sm-7">
+                      <input type="text" id="ssid" name="ssid" class="form-control" />
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label class="col-sm-3 control-label"><@spring.message "ap.wifi.channel" /></label>
+                    <div class="col-sm-7">
+                      <select  id="channel" name="channel" class="form-control">
+                          <option value="0" selected="selected"><@spring.message "ap.wifi.channel0" /></option>
+                          <option value="1">2412MHz (<@spring.message "ap.wifi.channel1" />)</option>
+                          <option value="2">2417MHz (<@spring.message "ap.wifi.channel2" />)</option>
+                          <option value="3">2422MHz (<@spring.message "ap.wifi.channel3" />)</option>
+                          <option value="4">2427MHz (<@spring.message "ap.wifi.channel4" />)</option>
+                          <option value="5">2432MHz (<@spring.message "ap.wifi.channel5" />)</option>
+                          <option value="6">2437MHz (<@spring.message "ap.wifi.channel6" />)</option>
+                          <option value="7">2442MHz (<@spring.message "ap.wifi.channel7" />)</option>
+                          <option value="8">2447MHz (<@spring.message "ap.wifi.channel8" />)</option>
+                          <option value="9">2452MHz (<@spring.message "ap.wifi.channel9" />)</option>
+                          <option value="10">2457MHz (<@spring.message "ap.wifi.channel10" />)</option>
+                          <option value="11">2462MHz (<@spring.message "ap.wifi.channel11" />)</option>
+                      </select>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label class="col-sm-3 control-label"><@spring.message "ap.wifi.maxconnection" /></label>
+                    <div class="col-sm-7">
+                      <input type="text" id="maxStation" name="maxStation" class="form-control" />
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label class="col-sm-3 control-label"><@spring.message "ap.wifi.encryption" /></label>
+                    <div class="col-sm-7">
+                      <select  id="encryption" name="encryption" class="form-control">
+                        <option value="none"><@spring.message "ap.wifi.enc.none" /></option>
+                        <option value="open">WEP</option>
+                        <option value="psk">WPA-PSK</option>
+                        <option value="psk2">WPA2-PSK</option>
+                        <option value="psk-mixed"><@spring.message "ap.wifi.enc.wpamixed" /></option>
+                      </select>
+                    </div>
+                  </div>
+                  <div class="form-group" id="wifi-encryption-cipher">
+                    <label class="col-sm-3 control-label"><@spring.message "ap.wifi.cipher" /></label>
+                    <div class="col-sm-7">
+                      <select id="cipher" name="cipher" class="form-control">
+                        <option value="aes">AES</option>
+                        <option value="tkip">TKIP</option>
+                        <option value="aes+tkip">AES+TKIP</option>
+                      </select>
+                    </div>
+                  </div>
+                  <div class="form-group" id="wifi-encryption-key">
+                    <label class="col-sm-3 control-label"><@spring.message "ap.wifi.key" /></label>
+                    <div class="col-sm-7">
+                      <input type="text" id="key" name="key" class="form-control" />
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div><!-- wifi -->
+
+            <!-- ota -->
+            <div class="tab-pane" id="ota">
+              <div class="row">
+                <div class="col-md-10">
+
+                  <div class="form-group">
+                    <label class="col-sm-3 control-label"><@spring.message "ap.ota.mode.text" /></label>
+                    <div class="col-sm-7">
+                      <select name="mode" class="form-control">
+                        <option value="0" selected><@spring.message "ap.ota.mode.m0" /></option>
+                        <option value="1"><@spring.message "ap.ota.mode.m1" /></option>
+                        <option value="2"><@spring.message "ap.ota.mode.m2" /></option>
+                      </select>
+                    </div>
+                  </div>
+
+                  <div class="form-group">
+                    <label class="col-sm-3 control-label"><@spring.message "ap.ota.url" /></label>
+                    <div class="col-sm-7">
+                      <input type="text" name="server" class="form-control" />
+                    </div>
+                  </div>
+
+                  <div class="form-group">
+                    <label class="col-sm-3 control-label"><@spring.message "ap.ota.delay" /></label>
+                    <div class="col-sm-7">
+                      <input type="text" name="pridDelay" class="form-control" /> <@spring.message "ap.ota.min" />
+                    </div>
+                  </div>
+
+                  <div class="form-group">
+                    <label class="col-sm-3 control-label" for="restoreFlag">&nbsp;&nbsp;&nbsp;&nbsp;</label>
+                    <div class="col-sm-7">
+                      <div class="ckbox ckbox-success ">
+                        <input type="checkbox" id="restoreFlag" name="restoreFlag" checked="checked" value="1" />
+                        <label for="restoreFlag"><@spring.message "ap.ota.retst.test1" /></label>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="form-group2" id="windowOptions">
+                    <div class="form-group">
+                      <label class="col-sm-3 control-label"><@spring.message "ap.ota.window.start" /> </label>
+                      <div class="col-sm-7">
+                        <input type="text" name="windowStart" class="form-control" /> (0~23)
+                      </div>
+                    </div>
+                    <div class="form-group">
+                      <label class="col-sm-3 control-label"><@spring.message "ap.ota.window.size" /> </label>
+                      <div class="col-sm-7">
+                        <input type="text" name="windowSize" class="form-control" /> (1~23) <@spring.message "ap.ota.hour" />
+                      </div>
+                    </div>
+                  </div>
+
+                </div>
+              </div>
+            </div><!-- ota -->
+
+          </div><!-- Tab panes -->
+        </div>
+      </div><!-- panel -->
+      <input type="hidden" name="_csrf" value="${_csrf.token ?if_exists}" />
+    </form>
+    </div><!-- col-md-6 -->
+  </div>
+</div>
+
+<script type='text/javascript' src='${viewHelper.getPath()}/js/jquery-validation/additional/ipv4.js'></script>
+
+
+<script type="text/javascript">
+  var routerId = "${router.getId() ?if_exists}";
+  var ROUTER_SETTINGS_URL = "${viewHelper.getPath()}/device/ap/" + routerId + "/settings/show";
+  var ROUTER_SETTINGS_SAVE_URL = "${viewHelper.getPath()}/device/ap/" + routerId + "/settings/save";
+  var ROUTER_SETTINGS_CONFIG_URL = "${viewHelper.getPath()}/device/ap/" + routerId + "/settings/config";
+
+  $("#scope").select2({width: '100%'});
+
+  $(function() {
+    loadSettings();
+
+    var validator = $("#settings").validate({
+      rules: {
+        /* wan */
+        protocol: {
+          required: true
+        },
+        address: {
+          ipv4: true,
+          required: function() {
+            return $("select[name='protocol']").val() == "static";
+          }
+        },
+        netmask: {
+          ipv4: true,
+          required: function() {
+            return $("select[name='protocol']").val() == "static";
+          }
+        },
+        gateway: {
+          ipv4: true,
+          required: function() {
+            return $("select[name='protocol']").val() == "static";
+          }
+        },
+        username: {
+          maxlength: 64,
+          required: function() {
+            return $("select[name='protocol']").val() == "pppoe";
+          }
+        },
+        password: {
+          maxlength: 64,
+          required: function() {
+            return $("select[name='protocol']").val() == "pppoe";
+          }
+        },
+        modemDevice: {
+          maxlength: 32,
+          required: function() {
+            return $("select[name='protocol']").val() == "3g";
+          }
+        },
+        serviceType: {
+          required: function() {
+            return $("select[name='protocol']").val() == "3g";
+          }
+        },
+        APN: {
+          maxlength: 32,
+          required: function() {
+            return $("select[name='protocol']").val() == "3g";
+          }
+        },
+        dialNumber: {
+          maxlength: 32,
+          required: function() {
+            return $("select[name='protocol']").val() == "3g";
+          }
+        },
+        /* lan */
+        lanAddress: {
+          ipv4: true,
+          required: true
+        },
+        lanNetmask: {
+          ipv4: true,
+          required: true
+        },
+        start: {
+          digits: true,
+          range: [1, 254],
+          required: "#dhcp:checked"
+        },
+        limit: {
+          digits: true,
+          range: function() {
+            return [1, 254 - $("input[name='start']").val()];
+          },
+          required: "#dhcp:checked"
+        },
+        leaseTime: {
+          required: "#dhcp:checked"
+        },
+        /* wifi */
+        ssid: {
+          maxlength: 64,
+          required: "#wifienable:checked"
+        },
+        channel: {
+          digits: true,
+          required: "#wifienable:checked"
+        },
+        maxStation: {
+          digits: true,
+          range: [0, 128],
+          required: "#wifienable:checked"
+        },
+        encryption: {
+          required: "#wifienable:checked"
+        },
+        cipher: {
+          required: function() {
+            return $("select[name='encryption']").val() != "none";
+          }
+        },
+        key: {
+          rangelength: function() {
+            var enc = $("select[name='encryption']").val();
+            var ret = [];
+
+            if(enc == "open") {
+              ret = [1, 128];
+            }
+            else if(enc == "psk" || enc == "psk2" || enc == "psk-mixed") {
+              ret = [8, 63];
+            }
+            else {
+              ret = [1, 128];
+            }
+
+            return ret;
+          },
+          required: function() {
+            return $("select[name='encryption']").val() != "none";
+          }
+        },
+        /* ota */
+        mode: {
+          digits: true,
+          range: [0, 2],
+          required: true
+        },
+        server: {
+          url: true,
+          maxlength: 128,
+          required: true
+        },
+        pridDelay: {
+          digits: true,
+          min: 5,
+          required: true
+        },
+        windowStart: {
+          digits: true,
+          range: [0, 23],
+          required: function() {
+            return $("select[name='mode']").val() == "2";
+          }
+        },
+        windowSize: {
+          digits: true,
+          range: [1, 23],
+          required: function() {
+            return $("select[name='mode']").val() == "2";
+          }
+        }
+      },
+      messages: {
+        /* wan */
+        protocol: {
+          required: "<@spring.message "ap.msg.wan.protocol.required" />"
+        },
+        address: {
+          ipv4: "<@spring.message "ap.msg.wan.addr.ipv4" />",
+          required: "<@spring.message "ap.msg.common.required" />"
+        },
+        netmask: {
+          ipv4: "<@spring.message "ap.msg.wan.netmask.ipv4" />",
+          required: "<@spring.message "ap.msg.common.required" />"
+        },
+        gateway: {
+          ipv4: "<@spring.message "ap.msg.wan.gateway.ipv4" />",
+          required: "<@spring.message "ap.msg.common.required" />"
+        },
+        username: {
+          maxlength: $.validator.format("<@spring.message "ap.msg.common.maxlen" />"),
+          required: "<@spring.message "ap.msg.common.required" />"
+        },
+        password: {
+          maxlength: $.validator.format("<@spring.message "ap.msg.common.maxlen" />"),
+          required: "<@spring.message "ap.msg.common.required" />"
+        },
+        modemDevice: {
+          maxlength: $.validator.format("<@spring.message "ap.msg.common.maxlen" />"),
+          required: "<@spring.message "ap.msg.common.required" />"
+        },
+        serviceType: {
+          required: "<@spring.message "ap.msg.common.required" />"
+        },
+        APN: {
+          maxlength: $.validator.format("<@spring.message "ap.msg.common.maxlen" />"),
+          required: "<@spring.message "ap.msg.common.required" />"
+        },
+        dialNumber: {
+          maxlength: $.validator.format("<@spring.message "ap.msg.common.maxlen" />"),
+          required: "<@spring.message "ap.msg.common.required" />"
+        },
+        /* lan */
+        lanAddress: {
+          ipv4: "<@spring.message "ap.msg.lan.lanaddr.ipv4" />",
+          required: "<@spring.message "ap.msg.common.required" />"
+        },
+        lanNetmask: {
+          ipv4: "<@spring.message "ap.msg.lan.lannetmask.ipv4" />",
+          required: "<@spring.message "ap.msg.common.required" />"
+        },
+        start: {
+          digits: "<@spring.message "ap.msg.common.digits" />",
+          range: $.validator.format("<@spring.message "ap.msg.common.range" />"),
+          required: "<@spring.message "ap.msg.common.required" />"
+        },
+        limit: {
+          digits: "<@spring.message "ap.msg.common.digits" />",
+          range: $.validator.format("<@spring.message "ap.msg.common.range" />"),
+          required: "<@spring.message "ap.msg.common.required" />"
+        },
+        leaseTime: {
+          required: "<@spring.message "ap.msg.common.required" />"
+        },
+        /* wifi */
+        ssid: {
+          maxlength: $.validator.format("<@spring.message "ap.msg.common.maxlen" />"),
+          required: "<@spring.message "ap.msg.common.required" />"
+        },
+        channel: {
+          digits: "<@spring.message "ap.msg.wifi.channel.digits" />",
+          required: "<@spring.message "ap.msg.common.required" />"
+        },
+        maxStation: {
+          digits: "<@spring.message "ap.msg.common.digits" />",
+          range: $.validator.format("<@spring.message "ap.msg.common.range" />"),
+          required: "<@spring.message "ap.msg.common.required" />"
+        },
+        encryption: {
+          required: "<@spring.message "ap.msg.wifi.encryption.required" />"
+        },
+        cipher: {
+          required: "<@spring.message "ap.msg.wifi.cipher.required" />"
+        },
+        key: {
+          rangelength: $.validator.format("<@spring.message "ap.msg.wifi.key.ranglen" />"),
+          required: "<@spring.message "ap.msg.common.required" />"
+        },
+        /* ota */
+        mode: {
+          digits: "<@spring.message "ap.msg.ota.mode.digits" />",
+          range: $.validator.format("<@spring.message "ap.msg.common.range" />"),
+          required: "<@spring.message "ap.msg.common.required" />"
+        },
+        server: {
+          url: "<@spring.message "ap.msg.ota.server.url" />",
+          maxlength: $.validator.format("<@spring.message "ap.msg.common.maxlen" />"),
+          required: "<@spring.message "ap.msg.common.required" />"
+        },
+        pridDelay: {
+          digits: "<@spring.message "ap.msg.common.digits" />",
+          min: $.validator.format("<@spring.message "ap.msg.ota.delay.min" />"),
+          required: "<@spring.message "ap.msg.common.required" />"
+        },
+        windowStart: {
+          digits: "<@spring.message "ap.msg.common.digits" />",
+          range: $.validator.format("<@spring.message "ap.msg.common.range" />"),
+          required: "<@spring.message "ap.msg.common.required" />"
+        },
+        windowSize: {
+          digits: "<@spring.message "ap.msg.common.digits" />",
+          range: $.validator.format("<@spring.message "ap.msg.common.range" />"),
+          required: "<@spring.message "ap.msg.common.required" />"
+        }
+      }
+    });
+
+    $("input[name='refresh']").click(function() {
+      loadSettings();
+    });
+
+    $("input[name='saveconfig']").click(function() {
+
+      if(validator.form() == false) {
+        return false;
+      }
+
+      $.ajax({
+        url: ROUTER_SETTINGS_SAVE_URL,
+        type: "post",
+        data: $("#settings").serialize(),
+        success: function() {
+          popMessage("success", "<@spring.message "ap.msg.save.success" />");
+        },
+        error: function() {
+          popMessage("danger", "<@spring.message "ap.msg.save.error" />");
+        }
+      });
+    });
+
+    $("input[name='config']").click(function() {
+      if($("#scope").val() == null || $("#scope").val() == '') {
+        return false;
+      }
+
+      $.ajax({
+        url: ROUTER_SETTINGS_CONFIG_URL,
+        type: "post",
+        data: "scope=" + $("#scope").val() + "&_csrf=" + $("input[name='_csrf']").val(),
+        success: function() {
+          popMessage("success", "<@spring.message "ap.msg.effect.success" />")
+        },
+        error: function() {
+          popMessage("danger", "<@spring.message "ap.msg.effect.error" />");
+        }
+      });
+    });
+
+    //wan
+    $("select[name='protocol']").change(function() {
+      switch($("select[name='protocol']").val()) {
+        case "dhcp":
+          $("#pppoe").hide();
+          $("#static").hide();
+          $("#3a4g").hide();
+          break;
+
+        case "static":
+          $("#static").show();
+          $("#pppoe").hide();
+          $("#3a4g").hide();
+          break;
+
+        case "pppoe":
+          $("#static").hide();
+          $("#pppoe").show();
+          $("#3a4g").hide();
+          break;
+
+        case "3g":
+          $("#pppoe").hide();
+          $("#static").hide();
+          $("#3a4g").show();
+          break;
+
+        default:
+          break;
+      }
+    });
+
+    //wifi
+    $("select[name='encryption']").change(function(){
+
+      switch($("select[name='encryption']").val()) {
+        case "none":
+          $("#wifi-encryption-cipher").hide();
+          $("#wifi-encryption-key").hide();
+          break;
+
+        case "open":
+          $("#wifi-encryption-cipher").hide();
+          $("#wifi-encryption-key").show();
+          break;
+
+        case "psk":
+          /* pass through */
+
+        case "psk2":
+          /* pass through */
+
+        case "psk-mixed":
+          $("#wifi-encryption-cipher").show();
+          $("#wifi-encryption-key").show();
+          break;
+
+        default:
+          break;
+      }
+    });
+
+    //ota
+    $("select[name='mode']").change(function(){
+
+      switch($("select[name='mode']").val()) {
+        case "0":
+          /* pass through */
+
+        case "1":
+          $("#windowOptions").hide();
+          break;
+
+        case "2":
+          $("#windowOptions").show();
+          break;
+
+        default:
+          break;
+      }
+    });
+
+
+
+  });
+
+  function loadSettings() {
+    $.ajax({
+      cache: false,
+      url: ROUTER_SETTINGS_URL,
+      type: "get",
+      success: function(result) {
+        processSettings(result);
+      },
+      error: function() {
+        popMessage("danger", "<@spring.message "ap.info.error" />");
+      }
+    });
+  }
+
+  function processSettings(result) {
+    processSettingsWan(result.wan);
+    processSettingsLan(result.lan);
+    processSettingsWiFi(result.wifi);
+    processSettingsOTA(result.ota);
+  }
+
+  function processSettingsOTA(ota) {
+
+    if(!ota) {
+      return;
+    }
+
+    $("select[name='mode']").val(ota.mode).change();
+    $("input[name='server']").val(ota.server);
+    $("input[name='pridDelay']").val(ota.pridDelay);
+    $("input[name='windowStart']").val(ota.windowStart);
+    $("input[name='windowSize']").val(ota.windowSize);
+    if(ota.restoreFlag == 0) {
+      $("#restoreFlag").prop("checked", false);
+    }
+    else {
+      $("#restoreFlag").prop("checked", true);
+    }
+  }
+
+  function processSettingsWiFi(wifi) {
+
+    if(!wifi) {
+      return;
+    }
+
+    if(wifi.wifi == 0) {
+      $("input[name='wifi']").prop("checked", false);
+    }
+    else {
+      $("input[name='wifi']").prop("checked", true);
+    }
+
+    $("input[name='ssid']").val(wifi.ssid);
+    $("select[name='channel']").val(wifi.channel);
+    $("input[name='maxStation']").val(wifi.maxStation);
+    $("select[name='encryption']").val(wifi.encryption);
+    $("select[name='cipher']").val(wifi.cipher);
+    $("input[name='key']").val(wifi.key);
+
+    $("select[name='encryption']").change();
+  }
+
+  function processSettingsLan(lan) {
+
+    if(!lan) {
+      return;
+    }
+
+    $("input[name='lanAddress']").val(lan.lanAddress);
+    $("input[name='lanNetmask']").val(lan.lanNetmask);
+
+    if(lan.dhcp == 0) {
+      $("#dhcp").prop("checked", false);
+    }
+    else {
+      $("#dhcp").prop("checked", true);
+    }
+
+    $("input[name='start']").val(lan.start);
+    $("input[name='limit']").val(lan.limit);
+    $("input[name='leaseTime']").val(lan.leaseTime);
+  }
+
+  function processSettingsWan(wan) {
+
+    if(!wan || !wan.protocol) {
+      return;
+    }
+
+    $("select[name='protocol']").val(wan.protocol);
+
+    /* static */
+    $("input[name='address']").val(wan.address);
+    $("input[name='netmask']").val(wan.netmask);
+    $("input[name='gateway']").val(wan.gateway);
+
+    /* pppoe */
+    $("input[name='username']").val(wan.username);
+    $("input[name='password']").val(wan.password);
+
+    /* 3g */
+    $("input[name='modemDevice']").val(wan.modemDevice);
+    $("select[name='serviceType']").val(wan.serviceType);
+    $("input[name='APN']").val(wan.APN);
+    $("input[name='dialNumber']").val(wan.dialNumber);
+
+    $("select[name='protocol']").change();
+  }
+
+  function popMessage(type, msg) {
+    var msgClassName;
+
+    switch(type) {
+
+      case "primary":
+        msgClassName = "growl-primary";
+        break;
+
+      case "success":
+        msgClassName = "growl-success";
+        break;
+
+      case "warning":
+        msgClassName = "growl-warning";
+        break;
+
+      case "danger":
+        msgClassName = "growl-danger";
+        break;
+
+      case "info":
+        msgClassName = "growl-info";
+        break;
+
+      default:
+        msgClassName = "growl-primary";
+        break;
+    }
+
+    $.gritter.add({
+      text: msg,
+      class_name: msgClassName,
+      sticky: false,
+      time: ''
+    });
+  }
+
+</script>
+
+<#include "../../layout/footer.html" >

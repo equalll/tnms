@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+  <meta name="description" content="">
+  <meta name="author" content="">
+  <link rel="shortcut icon" href="${viewHelper.getPath()}/images/favicon.png" type="image/png">
+
+  <title><@spring.message "login.text" /></title>
+
+  <link href="${viewHelper.getPath()}/css/style.default.css" rel="stylesheet">
+  <link href="${viewHelper.getPath()}/css/style.custom.css" rel="stylesheet">
+
+  <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+  <!--[if lt IE 9]>
+  <script src="${viewHelper.getPath()}/js/html5shiv.js"></script>
+  <script src="${viewHelper.getPath()}/js/respond.min.js"></script>
+  <![endif]-->
+</head>
+
+<body class="signin">
+<section>
+    <!-- signin -->
+    <div class="signinpanel">
+        <div class="row">
+            <div class="col-md-6 col-md-offset-3">
+                <#if msg ??>
+                    <#if msg == "error">
+                        <div class="alert alert-danger">
+                            <strong><@spring.message "login.failed.text" /></strong>
+                            <@spring.message "login.failed.msg" />
+                        </div>
+                    <#elseif msg == "logout">
+                        <div class="alert alert-success">
+                            <strong><@spring.message "login.success" /></strong>
+                        </div>
+                    <#elseif msg == "password">
+                        <div class="alert alert-success">
+                            <strong><@spring.message "login.password.change.success" /></strong>
+                        </div>
+                    </#if>
+                </#if>
+            </div>
+        </div>
+        <div class="row">
+            <!-- login form -->
+            <div class="col-md-6 col-md-offset-3">
+                <form method="post" action="login" autocomplete="off">
+                    <h4 class="nomargin" style="text-align: center;"><@spring.message "login.system.name" /></h4>
+                    <input type="text" name="username" id="username" class="form-control uname" placeholder="<@spring.message "login.username.text" />">
+                    <input type="password" name="password" class="form-control pword" placeholder="<@spring.message "login.password.text" />">
+                    <input type="hidden" name="_csrf" value="${_csrf.token ?if_exists}" />
+                    <button class="btn btn-success btn-block"><@spring.message "login.text" /></button>
+                </form>
+            </div>
+        </div>
+
+        <div class="signup-footer">
+
+        </div>
+    </div>
+</section>
+
+<script src="${viewHelper.getPath()}/js/jquery-1.11.1.min.js"></script>
+<script src="${viewHelper.getPath()}/js/bootstrap.min.js"></script>
+<script>
+    document.getElementById("username").focus();
+</script>
+</body>
+</html>

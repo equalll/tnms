@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+  <title>${viewHelper.getAppName()?if_exists}</title>
+  <link rel="stylesheet" type="text/css" id="theme" href="${viewHelper.getPath()}/css/bootstrap-table.css"/>
+  <link href="${viewHelper.getPath()}/css/style.default.css" rel="stylesheet">
+  <link href="${viewHelper.getPath()}/css/style.custom.css" rel="stylesheet">
+  <link href="${viewHelper.getPath()}/css/bootstrap-select.min.css" rel="stylesheet" />
+  <link href="${viewHelper.getPath()}/css/jquery.gritter.css" rel="stylesheet">
+  <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+  <!--[if lt IE 9]>
+  <script src="${viewHelper.getPath()}/js/html5shiv.js"></script>
+  <script src="${viewHelper.getPath()}/js/respond.min.js"></script>
+  <![endif]-->
+
+  <script src="${viewHelper.getPath()}/js/jquery-1.11.1.min.js"></script>
+  <script src="${viewHelper.getPath()}/js/jquery-migrate-1.2.1.min.js"></script>
+  <script src="${viewHelper.getPath()}/js/bootstrap.min.js"></script>
+  <!--script src="${viewHelper.getPath()}/js/modernizr.min.js"></script-->
+  <!--script src="${viewHelper.getPath()}/js/jquery.sparkline.min.js"></script-->
+  <script src="${viewHelper.getPath()}/js/toggles.min.js"></script>
+  <script src="${viewHelper.getPath()}/js/jquery.gritter.min.js"></script>
+  <!--script src="${viewHelper.getPath()}/js/retina.min.js"></script-->
+  <script src="${viewHelper.getPath()}/js/select2.min.js"></script>
+  <script src="${viewHelper.getPath()}/js/jquery.cookies.js"></script>
+
+  <script type="text/javascript" src="${viewHelper.getPath()}/js/bootstrap-table.js"></script>
+  <script type="text/javascript" src="${viewHelper.getPath()}/js/bootstrap-select.min.js"></script>
+  <!-- jquery form validate -->
+  <script type='text/javascript' src='${viewHelper.getPath()}/js/jquery-validation/jquery.validate.min.js'></script>
+  <script type='text/javascript' src='${viewHelper.getPath()}/js/jquery-validation/messages_zh.js'></script>
+  <script type='text/javascript' src='${viewHelper.getPath()}/js/jquery-validation/additional-methods.js'></script>
+  <!-- end jquery form validate -->
+
+</head>
+<body>
+
+<!-- Preloader -->
+<div id="preloader">
+  <div id="status"><i class="fa fa-spinner fa-spin"></i></div>
+</div>
+
+<section>
+  <div class="leftpanel">
+    <!-- logopanel -->
+    <div class="logopanel" style="padding: 10px 20px 10px 40px;">
+      <h1 style="display:inline;vertical-align:sub; ">${viewHelper.getAppName()?if_exists}</h1>
+      &nbsp;&nbsp;&nbsp;&nbsp;
+      <span style="vertical-align:sub;color:white; ">${viewHelper.getAppVersion()?if_exists}</span>
+    </div>
+
+    <div class="leftpanelinner">
+      <!-- This is only visible to small devices -->
+      <div class="visible-xs hidden-sm hidden-md hidden-lg">
+        <div class="media userlogged">
+          <img alt="" src="${viewHelper.getPath()}/images/photos/loggeduser.png" class="media-object">
+          <div class="media-body">
+            <h4>${viewHelper.getUsername() ?if_exists}</h4>
+          </div>
+        </div>
+
+        <h5 class="sidebartitle actitle"><@spring.message "account.text" /></h5>
+        <ul class="nav nav-pills nav-stacked nav-bracket mb30">
+          <li>
+            <a href="${viewHelper.getPath()}/password">
+              <i class="fa fa-cog"></i>
+              <span><@spring.message "account.settings" /></span>
+            </a>
+          </li>
+          <li><a href="#"><i class="fa fa-question-circle"></i> <span><@spring.message "help.text" /></span></a></li>
+          <li>
+            <a href="#" class="mb-control" data-box="#mb-signout">
+              <i class="fa fa-sign-out"></i>
+              <span><@spring.message "logout.text" /></span>
+            </a>
+          </li>
+        </ul>
+      </div>
+
+      <h5 class="sidebartitle"><@spring.message "menu.text" /></h5>
+      <ul class="nav nav-pills nav-stacked nav-bracket">
+        <li id="menuDevice">
+          <a href="${viewHelper.getPath()}/device/ap">
+            <i class="fa fa-tasks"></i>
+            <span><@spring.message "menu.device.list" /></span>
+          </a>
+        </li>
+        <li id="menuTemplate" class="nav-parent">
+          <a href="">
+            <i class="fa fa-files-o"></i>
+            <span><@spring.message "menu.template.text" /></span>
+          </a>
+          <ul class="children">
+            <li id="menuTemplateWAN">
+              <a href="${viewHelper.getPath()}/device/ap/template/wan"><@spring.message "menu.template.wan.text" /></a>
+            </li>
+            <li id="menuTemplateLAN">
+              <a href="${viewHelper.getPath()}/device/ap/template/lan"><@spring.message "menu.template.lan.text" /></a>
+            </li>
+            <li id="menuTemplateWiFi">
+              <a href="${viewHelper.getPath()}/device/ap/template/wifi"><@spring.message "menu.template.wifi.text" /></a>
+            </li>
+            <li id="menuTemplateFirewall">
+              <a href="${viewHelper.getPath()}/device/ap/template/firewall"><@spring.message "menu.template.firewall.text" /></a>
+            </li>
+            <li id="menuTemplateOTA">
+              <a href="${viewHelper.getPath()}/device/ap/template/ota"><@spring.message "menu.template.ota.text" /></a>
+            </li>
+            <li id="menuTemplateQoS">
+              <a href="${viewHelper.getPath()}/device/ap/template/qos"><@spring.message "menu.template.qos.text" /></a>
+            </li>
+          </ul>
+        </li>
+        <li id="menuGroup" class="nav-parent">
+          <a href="">
+            <i class="fa fa-object-group"></i>
+            <span><@spring.message "menu.group.text" /></span>
+          </a>
+          <ul class="children">
+            <li id="menuGroupList">
+              <a href="${viewHelper.getPath()}/device/ap/group"><@spring.message "menu.group.list.text" /></a>
+            </li>
+            <li id="menuGroupNode">
+              <a href="${viewHelper.getPath()}/device/ap/group/node"><@spring.message "menu.group.node.text" /></a>
+            </li>
+          </ul>
+        </li>
+        <li class="nav-parent">
+        </li>
+        <li class="nav-parent">
+          <select id="changeLanguage" class="selectpicker show-tick">
+            <option value="auto">Auto</option>
+            <option value="en_US">English</option>
+            <option value="zh_CN">中文</option>
+          </select>
+        </li>
+      </ul>
+
+    </div><!-- leftpanelinner -->
+  </div><!-- leftpanel -->
+
+  <div class="mainpanel">
+    <div class="headerbar">
+      <a class="menutoggle"><i class="fa fa-bars"></i></a>
+      <div class="header-right">
+        <ul class="headermenu">
+          <li>
+            <div class="btn-group">
+              <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+                <img src="${viewHelper.getPath()}/images/photos/loggeduser.png" alt="" />
+                ${viewHelper.getUsername() ?if_exists}
+                <span class="caret"></span>
+              </button>
+              <ul class="dropdown-menu dropdown-menu-usermenu pull-right">
+                <li>
+                  <a href="${viewHelper.getPath()}/password">
+                    <i class="glyphicon glyphicon-cog"></i>
+                    <@spring.message "account.settings" />
+                  </a>
+                </li>
+                <li>
+                  <a href="#">
+                    <i class="glyphicon glyphicon-question-sign"></i>
+                    <@spring.message "help.text" />
+                  </a>
+                </li>
+                <li>
+                  <a href="#" class="mb-control" data-box="#mb-signout">
+                    <i class="glyphicon glyphicon-log-out"></i>
+                    <@spring.message "logout.text" />
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </li>
+        </ul>
+      </div><!-- header-right -->
+    </div><!-- headerbar -->
