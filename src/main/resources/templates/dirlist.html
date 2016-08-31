@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>${title ? if_exists}</title>
+
+    <link rel="stylesheet" type="text/css" href="${viewHelper.getPath()}/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="${viewHelper.getPath()}/css/widget.css">
+    <script src="${viewHelper.getPath()}/js/jquery-1.11.1.min.js"></script>
+    <script src="${viewHelper.getPath()}/js/bootstrap.min.js"></script>
+</head>
+<body>
+
+<div class="container">
+    <div class="utitle">
+        文件列表
+    </div>
+    <#if files ??>
+        <#list files as file>
+    <div class="file-content">
+        <div class="templatemo-content-widget white-bg">
+            <h4>
+                <a href="${viewHelper.getPath()}/upload/${title}/${file.getName()}" target="_blank">
+                    ${file.getName()}
+                </a>
+            </h4>
+            <p>
+                <label>
+                    <span>
+                        ${viewHelper.getFormattedSize(file.length())} ,
+                    </span>
+                </label>
+                <label>
+                    <span>
+                        ${viewHelper.getFormattedDate(file.lastModified())}
+                    </span>
+                </label>
+            </p>
+        </div>
+    </div>
+        </#list>
+    </#if>
+</div>
+
+</body>
+</html>

@@ -29,6 +29,7 @@ $RECYCLE.BIN/
 .LSOverride
 build
 .idea
+logs
 
 # Thumbnails
 ._*

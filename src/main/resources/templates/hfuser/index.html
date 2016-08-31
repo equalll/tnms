@@ -1,0 +1,114 @@
+<#include "../layout/header.html" >
+
+<div class="pageheader">
+    <h2><i class="fa fa-tasks"></i>Users</h2>
+</div><!-- pageheader -->
+
+
+<!-- main content -->
+<div class="contentpanel">
+    <div class="row">
+        <div class="col-md-12">
+            <p class="toolbar">
+                <span class="alert"></span>
+            </p>
+
+            <table id="table" class="table table-no-bordered table-inverse" data-show-refresh="true"
+                   data-show-columns="true" data-striped="true" data-show-toggle="true"
+                   data-query-params-type="" data-query-params="queryParams" data-toolbar=".toolbar"
+                   data-page-list="[10, 20, 50]" data-pagination="true" data-side-pagination="server"
+                   data-search='true' data-search-time-out='500' data-trim-on-search='true'
+                   data-search-on-enter-key='true'>
+                <thead>
+                <th data-formatter="runningFormatter">No.</th>
+                <th data-field="name" data-align="center" data-visible="true">Name</th>
+                <th data-field="token" data-align="center" data-sortable="false" >Token</th>
+                <th data-field="userCell" data-align="center" data-sortable="false">Phone Number</th>
+
+                <th data-field="username" data-align="center" data-visible="false">User Name</th>
+                <th data-field="userGender" data-align="center" data-visible="false">Gender</th>
+                <th data-field="userVid" data-align="center" data-visible="false">User VID</th>
+                <th data-field="description" data-align="center" data-visible="false"><@spring.message "common.description.text" /></th>
+                <th data-field="updatedAt" data-align="center" data-visible="true" data-sortable="true"
+                    data-sort-order="desc"><@spring.message "common.update.text" /></th>
+                <th data-field="createdAt" data-align="center" data-visible="false" data-sortable="true"
+                    data-sort-order="desc"><@spring.message "common.create.text" /></th>
+
+                <th data-field="action" data-align="center" data-formatter="actionFormatter" data-events="actionEvents"><@spring.message "common.action.text" /></th>
+
+                </thead>
+            </table>
+
+        </div>
+    </div>
+</div><!-- main content -->
+
+
+
+<script type="text/javascript">
+    var USER_BASE = "${viewHelper.getPath()}/hfuser";
+    var USER_SHOW = USER_BASE + "/users";
+
+    var $table = $('#table').bootstrapTable({
+        sortOrder: "desc",
+        url: USER_SHOW,
+        formatShowingRows : formatShowingRows,
+        formatRecordsPerPage : formatRecordsPerPage
+    })
+
+
+    $(function() {
+
+        $table.on('post-body.bs.table', function () {
+            var $search = $table.data('bootstrap.table')
+                    .$toolbar.find('.search input');
+            $search.attr('placeholder', 'name');
+        });
+
+    });
+
+
+
+
+    function actionFormatter(value, row, index) {
+        var details = "${viewHelper.getPath()}/hfuser/user/" + row.name + "/index";
+
+        return [
+            '<div class="btn-group" role="group">',
+            '<a class="btn btn-default btn-xs" href="'+ details +'" target="_blank"><i class="fa fa-info">&nbsp;&nbsp;</i>Details</a>',
+            '</div>'
+        ].join('');
+    }
+
+
+    function queryParams(params) {
+        return {
+            page: params.pageNumber,
+            size: params.pageSize,
+            sortName: params.sortName || "updatedAt",
+            sortOrder: params.sortOrder || "desc",
+            search: params.searchText,
+            _r: Math.floor(Math.random()*10000)
+        };
+    }
+
+    /* page formatter */
+    function formatRecordsPerPage(pageNumber) {
+        return '&nbsp;' + pageNumber;
+    }
+
+    function formatShowingRows(pageFrom, pageTo, totalRows) {
+        return totalRows + ' <@spring.message "common.msg.page.total" />';
+    }
+
+    function runningFormatter(value, row, index) {
+        return index + 1;
+    }
+    /* page formatter - end */
+
+
+</script>
+
+
+<#include "../layout/footer.html" >
+

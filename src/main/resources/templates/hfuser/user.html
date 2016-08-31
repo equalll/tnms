@@ -1,0 +1,157 @@
+<#include "../layout/header.html" >
+
+<div class="pageheader">
+    <h2><i class="fa fa-tasks"></i>User Info</h2>
+</div>
+
+<!-- main content -->
+<div class="contentpanel">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="panel">
+                <div class="panel-heading">
+                    <h4 class="panel-title">User Name: ${userName ?if_exists}
+                        <div class="pull-right">
+                            <button class="btn btn-default" type="button" name="refresh" title="Refresh">
+                                <i class="fa fa-refresh icon-refresh"></i>
+                            </button>
+                        </div>
+                    </h4>
+                </div>
+                <div class="panel-body">
+                    <!-- Nav tabs -->
+                    <ul class="nav nav-tabs nav-line">
+                        <li class="active"><a href="#basic" data-toggle="tab"><strong>Basic</strong></a></li>
+                        <li><a href="#devices" data-toggle="tab"><strong>Devices</strong></a></li>
+                    </ul>
+
+                    <div class="tab-content">
+                        <!-- version tab-pane -->
+                        <div class="tab-pane active" id="basic">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <ul class="list-group routerStatusInfo">
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- system tab-pane -->
+                        <div class="tab-pane" id="devices">
+                            <div class="row">
+
+                                    <!--ul class="list-group routerStatusInfo">
+                                    </ul-->
+
+                            </div>
+                        </div>
+
+                    </div><!-- /.tab-content -->
+                </div><!-- /.panel-body -->
+            </div><!-- /.panel -->
+        </div><!-- /.col-md-12 -->
+    </div>
+</div><!-- /.contentpanel -->
+
+<script>
+    var username = "${userName ?if_exists}";
+    var USER_INFO_URL = "${viewHelper.getPath()}/hfuser/user/" + username + "/info";
+
+    $(function() {
+
+        loadUserInfo();
+        $("button[name=refresh]").click(function() {
+            clearHistoryInfo();
+            loadUserInfo();
+        })
+
+    })
+
+    function loadUserInfo() {
+        $.ajax({
+            cache: false,
+            url: USER_INFO_URL,
+            type: "get",
+            success: function(result) {
+                processUserInfo(result);
+            },
+            error: function() {
+                alert("error");
+            }
+        });
+    }
+
+    function clearHistoryInfo() {
+        $(".routerStatusInfo").empty();
+        $("#devices .row").empty();
+    }
+
+    function processUserInfo(result) {
+        processUserDetails(result.hfUser);
+        processDeviceInfo(result.routers);
+    }
+
+    function processUserDetails(user) {
+        var dom = "#basic .routerStatusInfo";
+
+        if(!user) {
+            return;
+        }
+
+        appendDom(dom, "Name", user.name);
+        appendDom(dom, "Token", user.token);
+        appendDom(dom, "Username", user.username);
+        appendDom(dom, "Gender", user.userGender);
+        appendDom(dom, "Phone Number", user.userCell);
+        appendDom(dom, "VID", user.userVid);
+    }
+
+    function processDeviceInfo(routers) {
+        var dom = "#devices .row";
+        var header = '<div class="col-md-6"><div class="panel panel-default"><div class="panel-body">';
+        var tail = '</div></div></div>';
+        var i;
+
+        if(routers && routers instanceof Array) {
+            for(i in routers) {
+                var bod = '';
+
+                bod = strDeviceInfo(routers[i]);
+                $(dom).append(header + bod + tail);
+            }
+        }
+    }
+
+
+    function strDeviceInfo(router) {
+        var str = '<ul class="list-group">';
+
+        str += '<li class="list-group-item">' + 'UDID' + '<span>' + router.udid + '</span></li>';
+        str += '<li class="list-group-item">' + 'Owner' + '<span>' + router.owner + '</span></li>';
+        str += '<li class="list-group-item">' + 'Shared' + '<span>' + router.shared + '</span></li>';
+        str += '<li class="list-group-item">' + 'Token' + '<span>' + router.token + '</span></li>';
+
+        str += '</ul>';
+
+        return str;
+    }
+
+
+    function appendDom(selector, key, value) {
+
+        if(!selector || !key || !value) {
+            return;
+        }
+
+        $(selector).append(
+                '<li class="list-group-item">'
+                + key
+                + '<span>'
+                + value
+                + '</span></li>');
+    }
+
+</script>
+
+
+<#include "../layout/footer.html" >
