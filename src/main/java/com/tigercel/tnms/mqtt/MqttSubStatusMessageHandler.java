@@ -25,6 +25,6 @@ public class MqttSubStatusMessageHandler implements MessageHandler {
                 "====== header: " + message.getHeaders().toString() +
                 "====== body: " + message.getPayload().toString() +
                 "====== Status end =======");
-        mqttMsgReceiver.NMSMsgSingleAPStatus(message);
+        mqttMsgReceiver.TNMSMsgSingleAPStatus(message);
     }
 }

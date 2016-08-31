@@ -19,12 +19,18 @@ public class WebLogAspect {
 
     private Logger logger = Logger.getLogger(getClass());
 
-    @Pointcut("execution(public * com.tigercel.heathstone..*.*(..))")
+    @Pointcut("execution(public * com.tigercel.tnms.web.*.*(..))")
     public void webLog() {}
 
     @Before("webLog()")
     public void doBefore(JoinPoint joinPoint) throws Throwable {
         ServletRequestAttributes attributes = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
+
+        if(attributes == null) {
+            logger.info("attributes          : null");
+            return;
+        }
+
         HttpServletRequest request = attributes.getRequest();
 
         logger.info("URL          : " + request.getRequestURL().toString());

@@ -25,7 +25,12 @@
         <thead>
           <th data-formatter="runningFormatter">No.</th>
           <th data-field="groupId" data-align="center" data-visible="false"><@spring.message "device.group.groupid" /></th>
-          <th data-field="name" data-align="center" data-sortable="true" ><@spring.message "deivce.group.name" /></th>
+          <th data-field="groupName" data-align="center" data-sortable="true" ><@spring.message "deivce.group.name" /></th>
+          <th data-field="productModel" data-align="center" data-sortable="true">Model</th>
+          <th data-field="firmwareVersion" data-align="center" data-visible="false">Version</th>
+          <th data-field="firmwareFileName" data-align="center" data-visible="false">File Name</th>
+          <th data-field="firmwareMd5" data-align="center" data-visible="false">File MD5</th>
+          <th data-field="firmwareUrl" data-align="center" data-visible="false">File URL</th>
           <th data-field="groupWanName" data-align="center" ><@spring.message "temp.wan.text" /></th>
           <th data-field="groupLanName" data-align="center" ><@spring.message "temp.lan.text" /></th>
           <th data-field="groupWifiName" data-align="center" ><@spring.message "temp.wifi.text" /></th>
@@ -52,12 +57,43 @@
                 </div>
                 <div class="modal-body form-horizontal m-t required-validate">
 
+                  <div class="form-group" style="margin-top:-15px;">
+                    <div class="progress-bar", role="progressbar", aria-valuenow="60",
+                         aria-valuemin="0", aria-valuemax="100", style="width: 0%;", id="progressbar">
+                      <span class="sr-only", id="pcenttext">0%</span>
+                    </div>
+                  </div>
+
                   <div class="form-group">
                     <label class="col-md-3 control-label"><@spring.message "deivce.group.name" /> </label>
                     <div class="col-md-7">
-                      <input type="text" class="form-control" name="name" id="name" >
+                      <input type="text" class="form-control" name="groupName" id="groupName" >
                     </div>
                   </div>
+
+
+                  <div class="form-group">
+                    <label class="col-md-3 control-label">Model</label>
+                    <div class="col-md-7">
+                      <input type="text" class="form-control" name="productModel" id="productModel" >
+                    </div>
+                  </div>
+
+                  <div class="form-group">
+                    <label class="col-md-3 control-label">Version</label>
+                    <div class="col-md-7">
+                      <input type="text" class="form-control" name="firmwareVersion" id="firmwareVersion" >
+                    </div>
+                  </div>
+
+                  <div class="form-group">
+                    <label class="col-md-3 control-label">File</label>
+                    <div class="col-md-7">
+                      <button id="pickfiles" type="button" class="btn btn-primary">Select File</button>
+                      <label class="col-sm-8 control-label" id="filelist" style="float:right;"></label>
+                    </div>
+                  </div>
+
 
                   <!-- wan -->
                   <div class="form-group">
@@ -209,7 +245,7 @@
       showModal($(this).text());
     });
 
-    $modal.find('.submit').click(function() {
+    /*$modal.find('.submit').click(function() {
       var data;
       var title;
       var url;
@@ -248,8 +284,84 @@
           showAlert(title + '<@spring.message "common.msg.failed" />', 'danger');
         }
       });
+    });*/
+
+
+    var uploader = new plupload.Uploader({
+      runtimes : 'html5,flash,silverlight,html4',
+      browse_button : 'pickfiles',
+      url : GROUP_EDIT,
+      flash_swf_url : '${viewHelper.getPath()}/js/Moxie.swf',
+      silverlight_xap_url : '${viewHelper.getPath()}/js/Moxie.xap',
+
+      init: {
+        PostInit: function() {
+
+          $modal.find('.submit').click(function() {
+            var rurl;
+
+
+            if(validator.form() == false) {
+              return false;
+            }
+
+            if($modal.data('id') && $modal.data('id') >=0) {
+              rurl = GROUP_EDIT + '?' + $("#config").serialize() +
+                      "&id=" + $modal.data('id') + '&_csrf=' + _csrf;
+              title = '<@spring.message "common.action.alter" />';
+            }
+            else {
+              rurl = GROUP_BASE + '?' + $("#config").serialize() +
+                      '&_csrf=' + _csrf;
+              title = '<@spring.message "common.action.add" />';
+            }
+
+            clearUploadInfo();
+            uploader.setOption("url", rurl);
+            uploader.start();
+            return false;
+          });
+        },
+
+        FilesAdded: function(up, files) {
+          plupload.each(files, function(file) {
+            $('#filelist').html(file.name + ' (' + plupload.formatSize(file.size) + ')');
+          });
+
+          if(uploader.files.length >= 2) {
+            uploader.files.splice(0, 1);
+          }
+        },
+
+        UploadProgress: function(up, file) {
+          $("#progressbar").width(file.percent + "%");
+          $("#pcenttext").html(file.percent + "%");
+        },
+
+        FileUploaded: function(up, file, result) {
+          var ret = $.parseJSON(result.response);
+          if(ret.result == "success") {
+            $modal.modal('hide');
+            clearUploadInfo();
+            $table.bootstrapTable('refresh');
+            showAlert(title + '<@spring.message "common.msg.success" />', 'success');
+          }
+          else {
+            $modal.modal('hide');
+            clearUploadInfo();
+            showAlert(title + '<@spring.message "common.msg.failed" />', 'danger');
+          }
+        },
+
+        Error: function(up, err) {
+          $modal.modal('hide');
+          clearUploadInfo();
+          showAlert(title + '<@spring.message "common.msg.failed" />', 'danger');
+        }
+      }
     });
 
+    uploader.init();
   });
 
 
@@ -283,7 +395,7 @@
 
   function showModal(title, row) {
     row = row || {
-        name: '',
+        groupName: '',
         groupWanName: '',
         groupLanName: '',
         groupWifiName: '',
@@ -325,7 +437,7 @@
   /* static */
   function actionFormatter(value, row, index) {
     var config = "${viewHelper.getPath()}/device/ap/group/" + row.id + "/configuration";
-    var node = "${viewHelper.getPath()}/device/ap/group/node?groupName=" + row.name;
+    var node = "${viewHelper.getPath()}/device/ap/group/node?groupName=" + row.groupName;
 
     return [
       '<div class="btn-group" role="group">',
@@ -367,6 +479,13 @@
     return index + 1;
   }
   /* page formatter - end */
+
+
+  function clearUploadInfo() {
+    $('#filelist').empty();
+    $("#progressbar").width("0%");
+    $("#pcenttext").html("0%");
+  };
 
 </script>
 

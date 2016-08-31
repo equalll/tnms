@@ -15,6 +15,8 @@
   <script src="${viewHelper.getPath()}/js/respond.min.js"></script>
   <![endif]-->
 
+  <script src="${viewHelper.getPath()}/js/plupload.full.min.js"></script>
+
   <script src="${viewHelper.getPath()}/js/jquery-1.11.1.min.js"></script>
   <script src="${viewHelper.getPath()}/js/jquery-migrate-1.2.1.min.js"></script>
   <script src="${viewHelper.getPath()}/js/bootstrap.min.js"></script>
@@ -102,15 +104,15 @@
             <li id="menuTemplateWiFi">
               <a href="${viewHelper.getPath()}/device/ap/template/wifi"><@spring.message "menu.template.wifi.text" /></a>
             </li>
-            <li id="menuTemplateFirewall">
+            <!--li id="menuTemplateFirewall">
               <a href="${viewHelper.getPath()}/device/ap/template/firewall"><@spring.message "menu.template.firewall.text" /></a>
-            </li>
+            </li-->
             <li id="menuTemplateOTA">
               <a href="${viewHelper.getPath()}/device/ap/template/ota"><@spring.message "menu.template.ota.text" /></a>
             </li>
-            <li id="menuTemplateQoS">
+            <!--li id="menuTemplateQoS">
               <a href="${viewHelper.getPath()}/device/ap/template/qos"><@spring.message "menu.template.qos.text" /></a>
-            </li>
+            </li-->
           </ul>
         </li>
         <li id="menuGroup" class="nav-parent">
@@ -126,6 +128,18 @@
               <a href="${viewHelper.getPath()}/device/ap/group/node"><@spring.message "menu.group.node.text" /></a>
             </li>
           </ul>
+        </li>
+        <li id="menuApp">
+          <a href="${viewHelper.getPath()}/app/index">
+            <i class="fa fa-file"></i>
+            <span>App</span>
+          </a>
+        </li>
+        <li id="menuHFUser">
+          <a href="${viewHelper.getPath()}/hfuser/index">
+            <i class="fa fa-users"></i>
+            <span>App User Management</span>
+          </a>
         </li>
         <li class="nav-parent">
         </li>

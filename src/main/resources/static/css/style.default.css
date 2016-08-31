@@ -315,7 +315,7 @@ a:focus, a:active { outline: none; }
 }
 
 .headermenu .dropdown-menu li a:hover {
-    background: #1caf9a;
+    background: #00697d;
     color: #fff;
 }
 
@@ -468,16 +468,16 @@ a:focus, a:active { outline: none; }
 }
 
 .logopanel h1 {
-    font-size: 30px;
+    font-size: 29px;
     font-family: 'LatoBold', 'Lucida Grande', 'Lucida Sans Unicode', Helvetica, sans-serif;
-    letter-spacing: -1.5px;
+    /*letter-spacing: -1.5px;*/
     color: #1d2939;
     line-height: 30px;
     margin: 0;
 }
 
 .logopanel h1 span {
-    color: #1caf9a;
+    color: #00697d;
 }
 
 .leftpanelinner {
@@ -519,7 +519,7 @@ a:focus, a:active { outline: none; }
     -webkit-border-radius: 100px;
     border-radius: 100px;
     float: left;
-    border: 2px solid #1CAF9A;
+    border: 2px solid #00697d;
     padding: 2px;
     margin-left: 2px;
 }
@@ -611,7 +611,7 @@ a:focus, a:active { outline: none; }
 .nav-bracket > li.active > a,
 .nav-bracket > li.active > a:hover,
 .nav-bracket > li.active > a:focus {
-    background-color: #1caf9a;
+    background-color: #00697d;
     color: #fff;
 }
 
@@ -671,7 +671,7 @@ a:focus, a:active { outline: none; }
 .nav-bracket .children > li > a:active,
 .nav-bracket .children > li > a:focus {
     text-decoration: none;
-    color: #1caf9a;
+    color: #00697d;
 }
 
 .nav-bracket .children > li .fa {
@@ -684,7 +684,7 @@ a:focus, a:active { outline: none; }
 }
 
 .nav-bracket .children > li.active > a {
-    color: #1caf9a;
+    color: #00697d;
 }
 
 .nav-bracket .children ul {
@@ -752,12 +752,12 @@ a:focus, a:active { outline: none; }
 
 .mainpanel {
     margin-left: 220px;
-    background: #e4e7ea;
+    background: #f7f7f7;
     min-height: 1000px;
 }
 
 .pageheader {
-    padding: 15px;
+    padding: 10px;
     border-bottom: 1px solid #d3d7db;
     border-top: 1px solid #eee;
     background: #f7f7f7;
@@ -1056,8 +1056,8 @@ p {
 }
 
 .ckbox-success input[type="checkbox"]:checked + label:before {
-    border-color: #1CAF9A;
-    background-color: #1CAF9A;
+    border-color: #00697d;
+    background-color: #00697d;
 }
 
 .ckbox-danger input[type="checkbox"]:checked + label:before {
@@ -1124,11 +1124,11 @@ p {
 }
 
 .rdio-success input[type="radio"]:checked + label:before {
-    border-color: #1CAF9A;
+    border-color: #00697d;
 }
 
 .rdio-success input[type="radio"]:checked + label::after {
-    background-color: #1CAF9A;
+    background-color: #00697d;
 }
 
 .rdio-danger input[type="radio"]:checked + label:before {
@@ -1619,7 +1619,7 @@ div.error label.error:before {
 }
 
 .widget-weather .temp {
-    background-color: #1CAF9A;
+    background-color: #00697d;
     color: #fff;
     padding: 10px 0;
 }
@@ -1997,7 +1997,7 @@ div.error label.error:before {
 }
 
 .table-success thead tr th {
-    background-color: #1CAF9A;
+    background-color: #00697d;
 }
 
 .table-warning thead tr th {
@@ -2605,7 +2605,7 @@ div.error label.error:before {
 }
 
 .blog-quote .quote-success a {
-    background-color: #1CAF9A;
+    background-color: #00697d;
     color: #fff;
 }
 
@@ -3387,7 +3387,7 @@ div.error label.error:before {
 }
 
 .leftpanel-collapsed .nav-bracket > li.nav-hover.active > a {
-    background: #1CAF9A;
+    background: #00697d;
     color: #fff;
 }
 
@@ -3396,7 +3396,7 @@ div.error label.error:before {
 }
 
 .leftpanel-collapsed .nav-bracket > li.nav-hover.active > a > span:last-child {
-    background: #1CAF9A;
+    background: #00697d;
     color: #fff;
 }
 
@@ -3547,7 +3547,7 @@ div.error label.error:before {
 }
 
 .chatuserlist .online .media-thumb {
-    border-color: #1CAF9A;
+    border-color: #00697d;
 }
 
 .chatuserlist .media-object {
@@ -3650,8 +3650,8 @@ div.error label.error:before {
 .headerbar .topnav > ul > li > a:focus,
 .headerbar .topnav > ul > li.open > a,
 .headerbar .topnav > ul > li.active > a {
-    box-shadow: 0 3px 0 #1CAF9A;
-    color: #1CAF9A;
+    box-shadow: 0 3px 0 #00697d;
+    color: #00697d;
     background: none;
 }
 
@@ -3676,7 +3676,7 @@ div.error label.error:before {
 }
 
 .headerbar .topnav > ul > li .dropdown-menu > li > a:hover {
-    background: #1CAF9A;
+    background: #00697d;
     color: #fff;
 }
 
@@ -3851,7 +3851,7 @@ div.error label.error:before {
 }
 
 .table-buglist .fa-magic {
-    color: #1CAF9A;
+    color: #00697d;
 }
 
 .table-buglist .btn-group {

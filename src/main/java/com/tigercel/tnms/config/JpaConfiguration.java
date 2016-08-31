@@ -45,7 +45,7 @@ class JpaConfiguration implements TransactionManagementConfigurer {
 
 
     @Bean
-    public DataSource configureHSDataSource() {
+    public DataSource configureTNMSDataSource() {
 
         HikariConfig config = new HikariConfig();
         config.setDriverClassName(driver);
@@ -66,8 +66,8 @@ class JpaConfiguration implements TransactionManagementConfigurer {
     @Bean
     public LocalContainerEntityManagerFactoryBean entityManagerFactory() {
         LocalContainerEntityManagerFactoryBean entityManagerFactoryBean = new LocalContainerEntityManagerFactoryBean();
-        entityManagerFactoryBean.setDataSource(configureHSDataSource());
-        entityManagerFactoryBean.setPackagesToScan("com.nms");
+        entityManagerFactoryBean.setDataSource(configureTNMSDataSource());
+        entityManagerFactoryBean.setPackagesToScan("com.tigercel.tnms.model");
         entityManagerFactoryBean.setJpaVendorAdapter(new HibernateJpaVendorAdapter());
 
         Properties jpaProperties = new Properties();

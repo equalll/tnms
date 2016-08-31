@@ -26,7 +26,7 @@ public class HFDevRouter extends HFDevice {
     @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private HFDevRouterStatus status;
 
-    @ManyToMany(fetch = FetchType.LAZY)
+    @ManyToMany(fetch = FetchType.LAZY, cascade = {CascadeType.MERGE, CascadeType.PERSIST})
     @JoinTable(name = "hf_user_router",
             joinColumns = {@JoinColumn(name = "router_id", referencedColumnName = "id")},
             inverseJoinColumns = {@JoinColumn(name = "user_id", referencedColumnName ="id")})
@@ -53,6 +53,5 @@ public class HFDevRouter extends HFDevice {
 
     @ManyToOne(fetch = FetchType.LAZY)
     private HFDevRouterGroup group;
-
 
 }

@@ -7,10 +7,11 @@ import com.tigercel.tnms.model.router.setup.HFDevRouterLanSetup;
 import com.tigercel.tnms.model.router.setup.HFDevRouterOtaSetup;
 import com.tigercel.tnms.model.router.setup.HFDevRouterWanSetup;
 import com.tigercel.tnms.model.router.setup.HFDevRouterWiFiSetup;
-import com.tigercel.tnms.model.router.support.HFDevRouterLan;
 import com.tigercel.tnms.repository.DevRouterRepository;
 import com.tigercel.tnms.service.support.MqttMsgSender;
-import com.tigercel.tnms.service.support.NMSJsonBuilder;
+import com.tigercel.tnms.service.support.TNMSJsonBodyBuilder;
+import com.tigercel.tnms.service.support.TNMSJsonBuilder;
+import com.tigercel.tnms.utils.ClutterUtils;
 import com.tigercel.tnms.utils.DTOUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheEvict;
@@ -43,6 +44,10 @@ public class DevRouterService {
     */
     @Autowired
     private MqttMsgSender mqttMsgSender;
+
+
+    @Autowired
+    private TNMSJsonBuilder tnmsJsonBuilder;
 
     //@Cacheable(value = CACHE_NAME)
     public Page<HFDevRouter> findAll(PageBean pb) {
@@ -129,36 +134,26 @@ public class DevRouterService {
         routerRepository.save(router);
     }
 
-    public void effect(HFDevRouter router, String scope) {
+    public void effect(HFDevRouter router, String scope, String userToken) {
         ObjectNode  node;
-        String[]    sc = scope.split(",");
-        int         count = 0;
 
+        if(scope.equalsIgnoreCase("wan")) {        /* topic - wan */
+            node = tnmsJsonBuilder.JsonDataBuilder(router.getWan(), userToken, router.getUdid(), "config", scope);
+        }
+        else if(scope.equalsIgnoreCase("lan")) {        /* topic - lan */
+            node = tnmsJsonBuilder.JsonDataBuilder(router.getLan(), userToken, router.getUdid(), "config", scope);
+        }
+        else if(scope.equalsIgnoreCase("wifi")) {       /* topic - wifi */
+            node = tnmsJsonBuilder.JsonDataBuilder(router.getWifi(), userToken, router.getUdid(), "config", scope);
+        }
+        else if(scope.equalsIgnoreCase("ota")) {       /* topic - ota */
+            node = tnmsJsonBuilder.JsonDataBuilder(router.getOta(), userToken, router.getUdid(), "config", scope);
+        }
+        else {
+            node = tnmsJsonBuilder.JsonDataBuilder(router, userToken, router.getUdid(), "config", scope);
+        }
 
-        if(NMSJsonBuilder.contains(sc, "all") >= 0) {   /* topic - all */
-            node = NMSJsonBuilder.AllJsonBuilder(router);
-            mqttMsgSender.MqttMsgRouterSingleSetup(router.getUdid(), node.toString());
-        }
-        else if(sc.length > 1) {                        /* topic - all */
-            node = NMSJsonBuilder.AllJsonBuilder(sc, router);
-            mqttMsgSender.MqttMsgRouterSingleSetup(router.getUdid(), node.toString());
-        }
-        else if(sc[0].equalsIgnoreCase("wan")) {        /* topic - wan */
-            node = NMSJsonBuilder.WANJsonBuilder(router.getWan());
-            mqttMsgSender.MqttMsgRouterSingleSetup(router.getUdid(), node.toString());
-        }
-        else if(sc[0].equalsIgnoreCase("lan")) {        /* topic - lan */
-            node = NMSJsonBuilder.LANJsonBuilder(router.getLan());
-            mqttMsgSender.MqttMsgRouterSingleSetup(router.getUdid(), node.toString());
-        }
-        else if(sc[0].equalsIgnoreCase("wifi")) {       /* topic - wifi */
-            node = NMSJsonBuilder.WiFiJsonBuilder(router.getWifi());
-            mqttMsgSender.MqttMsgRouterSingleSetup(router.getUdid(), node.toString());
-        }
-        else if(sc[0].equalsIgnoreCase("ota")) {       /* topic - ota */
-            node = NMSJsonBuilder.OTAJsonBuilder(router.getOta());
-            mqttMsgSender.MqttMsgRouterSingleSetup(router.getUdid(), node.toString());
-        }
+        mqttMsgSender.MqttMsgRouterSingleSetup(router.getUdid(), node.toString());
     }
 
     /* topic - reset */

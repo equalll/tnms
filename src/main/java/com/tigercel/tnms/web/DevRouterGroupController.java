@@ -2,25 +2,32 @@ package com.tigercel.tnms.web;
 
 import com.tigercel.tnms.dto.PageBean;
 import com.tigercel.tnms.dto.RouterGroupBean;
+import com.tigercel.tnms.model.User;
 import com.tigercel.tnms.model.router.HFDevRouterGroup;
 import com.tigercel.tnms.model.router.template.HFDevRouterLanTmp;
 import com.tigercel.tnms.model.router.template.HFDevRouterOtaTmp;
 import com.tigercel.tnms.model.router.template.HFDevRouterWanTmp;
 import com.tigercel.tnms.model.router.template.HFDevRouterWiFiTmp;
 import com.tigercel.tnms.service.DevRouterGroupService;
+import com.tigercel.tnms.service.UserService;
 import com.tigercel.tnms.service.template.DevRouterLANService;
 import com.tigercel.tnms.service.template.DevRouterOTAService;
 import com.tigercel.tnms.service.template.DevRouterWANService;
 import com.tigercel.tnms.service.template.DevRouterWiFiService;
 import com.tigercel.tnms.utils.DTOUtil;
+import com.tigercel.tnms.utils.IDGenerator;
+import org.apache.catalina.servlet4preview.http.HttpServletRequest;
 import org.hibernate.Hibernate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.security.core.context.SecurityContextImpl;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
@@ -48,6 +55,12 @@ public class DevRouterGroupController {
     @Autowired
     private DevRouterOTAService deviceRouterOTAService;
 
+    @Autowired
+    private UserService userService;
+
+
+
+
     @RequestMapping(value = "", method = GET)
     public String index(Model model) {
         List<HFDevRouterWanTmp> wan = deviceRouterWANService.findAll();
@@ -66,24 +79,49 @@ public class DevRouterGroupController {
 
 
     @RequestMapping(value = "", method = POST)
-    public String add(Model model, RouterGroupBean group) {
-        HFDevRouterGroup tmp = deviceRouterGroupService.findOneByName(group.getName());
+    public String add(Model model,
+                      RouterGroupBean rgb,
+                      @RequestParam(value = "file", required = false) MultipartFile file,
+                      HttpServletRequest request) {
+        HFDevRouterGroup group = deviceRouterGroupService.findOneByName(rgb.getGroupName());
 
-        if(tmp != null) {
+        if(group != null) {
             model.addAttribute("result", "error");
             model.addAttribute("msg", "group name is already exist");
             return "jsonTemplate";
         }
 
-        if(group.getGroupWanName() == null || group.getGroupLanName() == null
-                || group.getGroupWifiName() == null) {
+
+        if(StringUtils.isEmpty(rgb.getGroupWanName()) ||
+                StringUtils.isEmpty(rgb.getGroupLanName()) ||
+                StringUtils.isEmpty(rgb.getGroupWifiName()) ||
+                StringUtils.isEmpty(rgb.getGroupOTAName())) {
+
             model.addAttribute("result", "error");
-            model.addAttribute("msg", "invalid template id");
+            model.addAttribute("msg", "invalid template name");
             return "jsonTemplate";
         }
 
-        deviceRouterGroupService.save(group);
-        model.addAttribute("result", "success");
+        group = new HFDevRouterGroup();
+        group.setGroupId(IDGenerator.getID());
+        DTOUtil.mapTo(rgb, group);
+
+        if(file == null) {
+            deviceRouterGroupService.update(group);
+            model.addAttribute("result", "success");
+        }
+        else {
+            //DTOUtil.mapTo(rgb, group);
+            Boolean ret = deviceRouterGroupService.createFile(group, file, request);
+            if(ret == false) {
+                model.addAttribute("result", "error");
+            }
+            else {
+                deviceRouterGroupService.update(group);
+                model.addAttribute("result", "success");
+            }
+        }
+
         return "jsonTemplate";
     }
 
@@ -108,50 +146,66 @@ public class DevRouterGroupController {
         return "jsonTemplate";
     }
 
-    @RequestMapping(value = "edit", method = POST)
-    public String edit(Model model, RouterGroupBean group) {
 
-        HFDevRouterGroup g;
+    @RequestMapping(value = "edit", method = POST)
+    public String edit(Model model, RouterGroupBean rgb,
+                       @RequestParam(value = "file", required = false) MultipartFile file,
+                       HttpServletRequest request) {
+
+        HFDevRouterGroup group;
         HFDevRouterGroup tmp;
 
-        if(group.getGroupWanName() == null || group.getGroupLanName() == null
-                || group.getGroupWifiName() == null) {
+        if(StringUtils.isEmpty(rgb.getGroupWanName()) ||
+                StringUtils.isEmpty(rgb.getGroupLanName()) ||
+                StringUtils.isEmpty(rgb.getGroupWifiName()) ||
+                StringUtils.isEmpty(rgb.getGroupOTAName())) {
+
             model.addAttribute("result", "error");
-            model.addAttribute("msg", "invalid template id");
+            model.addAttribute("msg", "invalid template name");
             return "jsonTemplate";
         }
 
-        if(group.getId() <= 0) {
+        if(rgb.getId() <= 0) {
+            model.addAttribute("result", "error");
+            model.addAttribute("msg", "id :" + rgb.getId() + " is invalid");
+            return "jsonTemplate";
+        }
+
+        group = deviceRouterGroupService.findOne(rgb.getId());
+        if(group == null) {
             model.addAttribute("result", "error");
             model.addAttribute("msg", "id :" + group.getId() + " is invalid");
             return "jsonTemplate";
         }
-
-        g = deviceRouterGroupService.findOne(group.getId());
-        if(g == null) {
-            model.addAttribute("result", "error");
-            model.addAttribute("msg", "id :" + g.getId() + " is invalid");
-            return "jsonTemplate";
-        }
         else {
-            if(group.getName().equals(g.getName()) == false) {
-                tmp = deviceRouterGroupService.findOneByName(group.getName());
+            if(rgb.getGroupName().equals(group.getGroupName()) == false) {
+                tmp = deviceRouterGroupService.findOneByName(rgb.getGroupName());
                 if(tmp != null) {
                     model.addAttribute("result", "error");
-                    model.addAttribute("msg", "group name :" + group.getName()
+                    model.addAttribute("msg", "group name :" + rgb.getGroupName()
                             + " is already exist");
                     return "jsonTemplate";
                 }
             }
         }
 
-        DTOUtil.mapTo(group, g);
-        deviceRouterGroupService.update(g,
-                group.getGroupWanName(),
-                group.getGroupLanName(),
-                group.getGroupWifiName(),
-                group.getGroupOTAName());
-        model.addAttribute("result", "success");
+        //DTOUtil.mapTo(rgb, group);
+        if(file != null) {
+            Boolean ret = deviceRouterGroupService.createFile(group, file, request);
+            if(!ret) {
+                model.addAttribute("result", "error");
+            }
+            else {
+                DTOUtil.mapTo(rgb, group);
+                deviceRouterGroupService.update(group);
+                model.addAttribute("result", "success");
+            }
+        }
+        else {
+            DTOUtil.mapTo(rgb, group);
+            deviceRouterGroupService.update(group);
+            model.addAttribute("result", "success");
+        }
 
         return "jsonTemplate";
     }
@@ -174,16 +228,19 @@ public class DevRouterGroupController {
     /* Make the settigns take effect */
     @RequestMapping(value="{group}/config", method = POST)
     public String config(Model model, @PathVariable(value = "group") String groupName,
-                         @RequestParam(name = "scope", defaultValue = "all") String scope) {
+                         @RequestParam(name = "scope", defaultValue = "all") String scope,
+                         javax.servlet.http.HttpServletRequest request) {
 
         HFDevRouterGroup group = deviceRouterGroupService.findOneByName(groupName);
-
 
         if(group == null) {
             model.addAttribute("result", "error");
         }
         else {
-            deviceRouterGroupService.effect(group, scope);
+            SecurityContextImpl securityContextImpl = (SecurityContextImpl) request
+                    .getSession().getAttribute("SPRING_SECURITY_CONTEXT");
+            User user = userService.findByUsername(securityContextImpl.getAuthentication().getName());
+            deviceRouterGroupService.effect(group, scope, user.getToken());
             model.addAttribute("result", "success");
         }
 
@@ -191,7 +248,7 @@ public class DevRouterGroupController {
     }
 
 
-    @RequestMapping(value="{groupId}/configuration")
+    @RequestMapping(value="{groupId}/configuration", method = GET)
     public String configuration(Model model,
                                 @PathVariable(value = "groupId") Long groupId) {
 
@@ -202,7 +259,7 @@ public class DevRouterGroupController {
         return "device/ap/group/configuration";
     }
 
-    @RequestMapping(value="{groupId}/configuration/show")
+    @RequestMapping(value="{groupId}/configuration/show", method = GET)
     public String configurationShow(Model model,
                                     @PathVariable(value = "groupId") Long groupId) {
 

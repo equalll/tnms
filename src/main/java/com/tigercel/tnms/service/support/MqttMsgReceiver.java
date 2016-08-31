@@ -40,13 +40,16 @@ public class MqttMsgReceiver {
 
     private static Logger logger = LoggerFactory.getLogger(MqttMsgReceiver.class);
 
-    public void NMSMsgSingleAPStatus(Message<?> message) {
-        //NMSMsgHeaderProcessor(message.getHeaders());
+    public void TNMSMsgSingleAPStatus(Message<?> message) {
+        //TNMSMsgHeaderProcessor(message.getHeaders());
 
-        JsonNode            root;
         ObjectMapper        mapper;
+        JsonNode            root;
+        JsonNode            head;
+        JsonNode            body;
+
         String              id;
-        String              scope;
+        String              type;
         HFDevRouter         router;
         HFDevRouterGroup    group;
 
@@ -55,11 +58,22 @@ public class MqttMsgReceiver {
             mapper = new ObjectMapper();
             root = mapper.readTree(message.getPayload().toString());
 
-            id = root.path("id").asText();
-            scope = root.path("scope").asText();
+            head = root.path("head");
+            body = root.path("body");
+
+            if(head == null || body == null) {
+                return;
+            }
+
+            id = head.path("srcid").asText();
+            type = head.path("type").asText();
 
             if(id.length() < 17) {
                 logger.info("====== invalid id: " + id);
+                return;
+            }
+            if(type.equals("status") == false) {
+                logger.info("====== invalid type: " + type);
                 return;
             }
 
@@ -79,26 +93,15 @@ public class MqttMsgReceiver {
                 router.setGroup(group);
                 router.setStatus(status);
 
-                if(scope.equals("all")) {
-                    NMSMsgAllStatusSave(root, scope, status, router, mapper);
-                }
-                else {
-                    NMSMsgSingleStatusOnlySave(root, scope, status);
-                }
+                saveStatusInfo(body, status, router, mapper);
 
                 deviceRouterService.save(router);
             }
             else {
                 logger.info("====== id: " + id + " found");
                 //router.setOnline(true);
-                HFDevRouterStatus status = router.getStatus();
 
-                if(scope.equals("all")) {
-                    NMSMsgAllStatusOnlySave(root, scope, status);
-                }
-                else {
-                    NMSMsgSingleStatusOnlySave(root, scope, status);
-                }
+                saveStatusInfo(root, router.getStatus());
                 deviceRouterService.save(router);
             }
         }
@@ -121,8 +124,8 @@ public class MqttMsgReceiver {
      }
      * @param message
      */
-    public void NMSMsgSysConnected(Message<?> message) {
-        //NMSMsgHeaderProcessor(message.getHeaders());
+    public void TNMSMsgSysConnected(Message<?> message) {
+        //TNMSMsgHeaderProcessor(message.getHeaders());
         JsonNode            root;
         ObjectMapper        mapper;
         String              client;
@@ -176,8 +179,8 @@ public class MqttMsgReceiver {
      *              11:22:33:44:55:66-pub-0
      * @param message
      */
-    public void NMSMsgSysDisconnected(Message<?> message) {
-        //NMSMsgHeaderProcessor(message.getHeaders());
+    public void TNMSMsgSysDisconnected(Message<?> message) {
+        //TNMSMsgHeaderProcessor(message.getHeaders());
 
         JsonNode            root;
         ObjectMapper        mapper;
@@ -220,7 +223,7 @@ public class MqttMsgReceiver {
     }
 
 
-    private void NMSMsgHeaderProcessor(MessageHeaders headers) {
+    private void TNMSMsgHeaderProcessor(MessageHeaders headers) {
 
         /*
         Iterator<Map.Entry<String, Object>> entries = headers.entrySet().iterator();
@@ -235,45 +238,11 @@ public class MqttMsgReceiver {
     }
 
     /**
-     *  only save single status field
-     * @param root
-     * @param scope
-     * @param status
-     */
-    private void NMSMsgSingleStatusOnlySave(JsonNode root, String scope, HFDevRouterStatus status) {
-        JsonNode node;
-
-        node = root.path(scope);
-        if(scope.equals("wan")) {
-            status.setWan(node.toString());
-        }
-        else if(scope.equals("lan")) {
-            status.setLan(node.toString());
-        }
-        else if(scope.equals("wifi")) {
-            status.setWifi(node.toString());
-        }
-        else if(scope.equals("version")) {
-            status.setVersion(node.toString());
-        }
-        else if(scope.equals("system")) {
-            status.setSystem(node.toString());
-        }
-        else if(scope.equals("ota")) {
-            status.setOta(node.toString());
-        }
-        else if(scope.equals("client")) {
-            status.setClient(node.toString());
-        }
-    }
-
-    /**
      * only save all status fields
      * @param root
-     * @param scope
      * @param status
      */
-    private void NMSMsgAllStatusOnlySave(JsonNode root, String scope, HFDevRouterStatus status) {
+    private void saveStatusInfo(JsonNode root, HFDevRouterStatus status) {
         JsonNode node;
 
         node = root.path("wan");
@@ -312,60 +281,63 @@ public class MqttMsgReceiver {
         }
     }
 
+
     /**
-     * save all status and settings
-     * @param root
-     * @param scope
+     *
+     * @param body
      * @param status
      * @param router
      * @param mapper
      */
-    private void NMSMsgAllStatusSave(JsonNode root, String scope, HFDevRouterStatus status,
-                                     HFDevRouter router, ObjectMapper mapper) {
+    private void saveStatusInfo(JsonNode body, HFDevRouterStatus status,
+                                HFDevRouter router, ObjectMapper mapper) {
+
         JsonNode node;
 
         try {
-            node = root.path("wan");
+
+            node = body.path("wan");
             if(node != null) {
                 router.setWan(mapper.readValue(node.toString(), HFDevRouterWanSetup.class));
                 status.setWan(node.toString());
             }
 
-            node = root.path("lan");
+            node = body.path("lan");
             if(node != null) {
                 router.setLan(mapper.readValue(node.toString(), HFDevRouterLanSetup.class));
                 status.setLan(node.toString());
             }
 
-            node = root.path("wifi");
+            node = body.path("wifi");
             if(node != null) {
                 router.setWifi(mapper.readValue(node.toString(), HFDevRouterWiFiSetup.class));
                 status.setWifi(node.toString());
             }
 
-            node = root.path("ota");
+            node = body.path("ota");
             if(node != null) {
                 router.setOta(mapper.readValue(node.toString(), HFDevRouterOtaSetup.class));
                 status.setOta(node.toString());
             }
 
-            node = root.path("version");
+            node = body.path("version");
             if(node != null) {
                 status.setVersion(node.toString());
             }
 
-            node = root.path("system");
+            node = body.path("system");
             if(node != null) {
                 status.setSystem(node.toString());
             }
 
-            node = root.path("client");
+            node = body.path("client");
             if(node != null) {
                 status.setClient(node.toString());
             }
         }
         catch (Exception e) {
-            return;
+
         }
     }
+
 }

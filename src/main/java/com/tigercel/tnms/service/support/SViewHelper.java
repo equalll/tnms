@@ -3,6 +3,7 @@ package com.tigercel.tnms.service.support;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
+import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -56,6 +57,30 @@ public class SViewHelper {
 
     public String getFormattedDate(Date date){
         return date == null ? "" : DATE_FORMAT.format(date);
+    }
+
+    public String getFormattedDate(Long timestamp) {
+        return DATE_FORMAT.format(new Date(timestamp));
+    }
+
+    public String getFormattedSize(Long length) {
+        DecimalFormat df = new DecimalFormat("#.00");
+        String size = "";
+
+        if(length < 1024) {
+            size = df.format((double) length) + " B";
+        }
+        else if (length < 1024 * 1024) {
+            size = df.format((double) length / 1024) + " KB";
+        }
+        else if (length < 1024 * 1024 * 1024) {
+            size = df.format((double) length / 1024 / 1024) + " MB";
+        }
+        else {
+            size = df.format((double) length / 1024 / 1024 /1024) + " GB";
+        }
+
+        return size;
     }
 
     public String getMonthAndDay(Date date){

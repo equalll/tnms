@@ -17,10 +17,16 @@ public class IDGenerator {
 
 
     public static String getID() {
+        return UUID.randomUUID().toString();
+    }
+
+    /*
+    public static String getID() {
         String id = UUID.randomUUID().toString();
 
         return id.replace("-", "");
     }
+    */
     /*
     public static String getID() {
         String id = null;

@@ -26,6 +26,9 @@ public class User extends BaseModel {
     @Column(nullable = false)
     private String role = ROLE_USER;
 
+    @Column(nullable = false, length = 128)
+    private String token;
+
     @Column(length = 256)
     private String description;
 
@@ -34,10 +37,11 @@ public class User extends BaseModel {
 
     }
 
-    public User(String name, String password, String role) {
+    public User(String name, String password, String role, String token) {
         this.username = name;
         this.password = password;
         this.role = role;
+        this.token = token;
     }
 
 }

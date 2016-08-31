@@ -25,6 +25,6 @@ public class MqttSubSYSConnectedHandler implements MessageHandler {
                 "====== header: " + message.getHeaders().toString() +
                 "====== body: " + message.getPayload().toString() +
                 "====== connected end =======");
-        mqttMsgReceiver.NMSMsgSysConnected(message);
+        mqttMsgReceiver.TNMSMsgSysConnected(message);
     }
 }

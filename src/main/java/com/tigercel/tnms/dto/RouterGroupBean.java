@@ -15,7 +15,19 @@ public class RouterGroupBean {
 
     @NotNull
     @Length(min = 1, max = 32)
-    private String name;
+    private String groupName;
+/*
+
+    @NotNull
+    private String groupName;
+*/
+    @NotNull
+    private String productModel;
+
+    @NotNull
+    private String firmwareVersion;
+
+
 
     @Length(max = 256)
     private String description;

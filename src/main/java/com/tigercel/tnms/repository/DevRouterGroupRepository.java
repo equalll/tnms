@@ -14,6 +14,6 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional
 public interface DevRouterGroupRepository extends JpaRepository<HFDevRouterGroup, Long> {
 
-    Page<HFDevRouterGroup> findAllByName(String name, Pageable pageable);
-    HFDevRouterGroup findOneByName(String name);
+    Page<HFDevRouterGroup> findAllByGroupName(String name, Pageable pageable);
+    HFDevRouterGroup findOneByGroupName(String name);
 }

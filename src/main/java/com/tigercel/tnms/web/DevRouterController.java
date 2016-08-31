@@ -1,18 +1,23 @@
 package com.tigercel.tnms.web;
 
 import com.tigercel.tnms.dto.*;
+import com.tigercel.tnms.model.User;
 import com.tigercel.tnms.model.router.HFDevRouter;
 import com.tigercel.tnms.service.DevRouterService;
+import com.tigercel.tnms.service.UserService;
 import org.hibernate.Hibernate;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.security.core.context.SecurityContextImpl;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+
+import javax.servlet.http.HttpServletRequest;
 
 import static org.springframework.web.bind.annotation.RequestMethod.*;
 
@@ -25,6 +30,12 @@ public class DevRouterController {
 
     @Autowired
     private DevRouterService deviceRouterService;
+
+
+    @Autowired
+    private UserService userService;
+
+
 
     private static Logger logger = LoggerFactory.getLogger(DevRouterController.class);
 
@@ -40,7 +51,7 @@ public class DevRouterController {
     @RequestMapping(value = "ap/show", method = GET)
     public String show(@RequestParam(value = "search", required = false) String search,
                        PageBean pb, Model model) {
-        Page<HFDevRouter> routers = null;
+        Page<HFDevRouter> routers;
 
         if(search != null && search.length() != 0) {
             routers = deviceRouterService.findAllByMac(pb, search);
@@ -216,7 +227,8 @@ public class DevRouterController {
     /* Make the settigns take effect */
     @RequestMapping(value="ap/{id}/settings/config", method = POST)
     public String config(Model model, @PathVariable(value = "id") Long id,
-                         @RequestParam(name = "scope", defaultValue = "all") String scope) {
+                         @RequestParam(name = "scope", defaultValue = "all") String scope,
+                         HttpServletRequest request) {
 
         HFDevRouter router = deviceRouterService.findOne(id);
 
@@ -225,7 +237,10 @@ public class DevRouterController {
             model.addAttribute("result", "error");
         }
         else {
-            deviceRouterService.effect(router, scope);
+            SecurityContextImpl securityContextImpl = (SecurityContextImpl) request
+                    .getSession().getAttribute("SPRING_SECURITY_CONTEXT");
+            User   user = userService.findByUsername(securityContextImpl.getAuthentication().getName());
+            deviceRouterService.effect(router, scope, user.getToken());
             model.addAttribute("result", "success");
         }
 

@@ -15,7 +15,7 @@ public abstract class HFDevice extends BaseModel {
     @Column(nullable = false, length = 64)
     private String udid;
 
-    @Column(unique = true,length = 64)
+    @Column(length = 64)
     private String owner;
 
     private Boolean shared = false;

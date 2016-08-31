@@ -3,6 +3,7 @@ package com.tigercel.tnms.service;
 import com.tigercel.tnms.config.Constants;
 import com.tigercel.tnms.model.User;
 import com.tigercel.tnms.repository.UserRepository;
+import com.tigercel.tnms.utils.IDGenerator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -64,7 +65,7 @@ public class UserService implements UserDetailsService {
         if(user == null) {
             user = createUser(new User(Constants.DEFAULT_ADMIN_NAME,
                     Constants.DEFAULT_ADMIN_PASSWORD,
-                    User.ROLE_ADMIN));
+                    User.ROLE_ADMIN, "server-" + IDGenerator.getID()));
         }
 
         return user;
@@ -74,4 +75,11 @@ public class UserService implements UserDetailsService {
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         return userRepository.save(user);
     }
+
+
+    /***************************/
+    public User findByUsername(String name) {
+        return userRepository.findByUsername(name);
+    }
+
 }

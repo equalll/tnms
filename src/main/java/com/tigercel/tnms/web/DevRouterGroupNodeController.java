@@ -94,7 +94,7 @@ public class DevRouterGroupNodeController {
                 model.addAttribute("rows", "");
             }
             else {
-                node.setGroupName(node.getGroup().getName());
+                node.setGroupName(node.getGroup().getGroupName());
                 ArrayList<HFDevRouterNode> tmp = new ArrayList<>();
                 tmp.add(node);
                 model.addAttribute("total", 1);
@@ -143,7 +143,7 @@ public class DevRouterGroupNodeController {
     private void setGroupName(Page<HFDevRouterNode> nodes) {
         for(HFDevRouterNode node : nodes.getContent()) {
             if(node.getGroup() != null) {
-                node.setGroupName(node.getGroup().getName());
+                node.setGroupName(node.getGroup().getGroupName());
             }
         }
     }

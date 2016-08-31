@@ -201,16 +201,16 @@ h4, .h4 {
 }
 
 .btn-success {
-   background-color: #259dab;
-   border-color: #17a08c;
+   background-color: #00697d;
+   border-color: #00697d;
 }
 
 .btn-success:hover,
 .btn-success:active,
 .btn-success.active,
 .open .dropdown-toggle.btn-success {
-   background-color: #17a08c;
-   border-color: #119380;
+   background-color: #00697d;
+   border-color: #00697d;
 }
 
 .btn-white {
@@ -261,8 +261,8 @@ h4, .h4 {
 }
 
 .btn-success-alt {
-   border: 2px solid #259dab;
-   color: #259dab;
+   border: 2px solid #00697d;
+   color: #00697d;
    text-transform: uppercase;
    font-family: 'LatoBold';
    font-size: 12px;
@@ -271,8 +271,8 @@ h4, .h4 {
 .btn-success-alt:hover,
 .btn-success-alt:active,
 .btn-success-alt:focus {
-   border-color: #17a08c;
-   color: #17a08c;
+   border-color: #00697d;
+   color: #00697d;
 }
 
 .btn-warning-alt {
@@ -611,7 +611,7 @@ h4, .h4 {
 }
 
 .panel-success .panel-heading {
-   background-color: #259dab;
+   background-color: #00697d;
 }
 
 .panel-warning .panel-heading {
@@ -940,7 +940,7 @@ h4, .h4 {
 }
 
 .label-success {
-   background-color: #259dab;
+   background-color: #00697d;
 }
 
 .badge-primary {
@@ -952,7 +952,7 @@ h4, .h4 {
 }
 
 .badge-success {
-   background-color: #259dab;
+   background-color: #00697d;
 }
 
 .badge-danger {
@@ -981,7 +981,7 @@ h4, .h4 {
 }
 
 .progress-bar-success {
-   background-color: #259dab;
+   background-color: #00697d;
 }
 
 .progress-sm {
@@ -1198,8 +1198,8 @@ h4, .h4 {
 .pagination > .active > span:hover,
 .pagination > .active > a:focus,
 .pagination > .active > span:focus {
-   background-color: #259dab;
-   border-color: #259dab;
+   background-color: #00697d;
+   border-color: #00697d;
 }
 
 .pager li > a, .pager li > span {
@@ -1245,7 +1245,7 @@ small.media-desc {
 }
 
 .text-success {
-   color: #259dab;
+   color: #00697d;
 }
 
 .table {

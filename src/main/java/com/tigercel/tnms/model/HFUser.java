@@ -17,7 +17,7 @@ import java.util.Collection;
 @Entity
 @Data
 @Table(name = "hf_user")
-@JsonIgnoreProperties(value = {"password"})
+@JsonIgnoreProperties(value = {"password", "routers"})
 public class HFUser extends BaseModel {
 
     @Column(nullable = false)
@@ -63,6 +63,6 @@ public class HFUser extends BaseModel {
 
     }
 
-    @ManyToMany(fetch = FetchType.LAZY, mappedBy = "users")
+    @ManyToMany(fetch = FetchType.LAZY, mappedBy = "users", cascade = {CascadeType.MERGE, CascadeType.PERSIST})
     private Collection<HFDevRouter> routers = new ArrayList<>();
 }

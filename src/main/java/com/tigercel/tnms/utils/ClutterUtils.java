@@ -36,6 +36,12 @@ public class ClutterUtils {
     }
 
     public static String MD5(String str) {
+
+        return MD5(str.getBytes());
+    }
+
+
+    public static String MD5(byte[] str) {
         MessageDigest   md5     = null;
         byte[]          digest;
         String          hashString ;
@@ -48,9 +54,18 @@ public class ClutterUtils {
             return null;
         }
 
-        digest = md5.digest(str.getBytes());
+        digest = md5.digest(str);
         hashString = new BigInteger(1, digest).toString(16);
 
         return hashString;
+    }
+
+    public static int contains(String[] arry, String str) {
+        for(int i = 0; i < arry.length; i++) {
+            if(arry[i].equalsIgnoreCase(str)) {
+                return i;
+            }
+        }
+        return -1;
     }
 }

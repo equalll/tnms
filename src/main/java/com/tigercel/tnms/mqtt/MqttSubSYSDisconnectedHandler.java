@@ -25,6 +25,6 @@ public class MqttSubSYSDisconnectedHandler implements MessageHandler {
                 "====== header: " + message.getHeaders().toString() +
                 "====== body: " + message.getPayload().toString() +
                 "====== Disconnected end =======");
-        mqttMsgReceiver.NMSMsgSysDisconnected(message);
+        mqttMsgReceiver.TNMSMsgSysDisconnected(message);
     }
 }

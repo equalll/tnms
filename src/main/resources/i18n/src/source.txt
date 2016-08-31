@@ -1,257 +1,257 @@
-account.text=ÕË»§
-account.settings=ÕË»§ÉèÖÃ
-help.text=°ïÖú
-logout.text=×¢Ïú
-logout.confirm=È·¶¨ÍË³öµÇÂ¼ ?
-form.confirm=È·¶¨
-form.cancel=È¡Ïû
+account.text=ï¿½Ë»ï¿½
+account.settings=ï¿½Ë»ï¿½ï¿½ï¿½ï¿½ï¿½
+help.text=ï¿½ï¿½ï¿½ï¿½
+logout.text=×¢ï¿½ï¿½
+logout.confirm=È·ï¿½ï¿½ï¿½Ë³ï¿½ï¿½ï¿½Â¼ ?
+form.confirm=È·ï¿½ï¿½
+form.cancel=È¡ï¿½ï¿½
 
 
 ### menu ###
-menu.text=²Ëµ¥
-menu.device.list=Éè±¸ÁĞ±í
-menu.template.text=Ä£°å
-menu.template.wan.text=¹ãÓòÍø
-menu.template.lan.text=¾ÖÓòÍø
-menu.template.wifi.text=ÎŞÏß
-menu.template.ota.text=Ô¶³ÌÉı¼¶
-menu.template.firewall.text=·À»ğÇ½
-menu.template.qos.text=QoSÏŞËÙ
-menu.group.text=·Ö×é
-menu.group.list.text=ÁĞ±í
-menu.group.node.text=½Úµã
+menu.text=ï¿½Ëµï¿½
+menu.device.list=ï¿½è±¸ï¿½Ğ±ï¿½
+menu.template.text=Ä£ï¿½ï¿½
+menu.template.wan.text=ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+menu.template.lan.text=ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+menu.template.wifi.text=ï¿½ï¿½ï¿½ï¿½
+menu.template.ota.text=Ô¶ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+menu.template.firewall.text=ï¿½ï¿½ï¿½ï¿½Ç½
+menu.template.qos.text=QoSï¿½ï¿½ï¿½ï¿½
+menu.group.text=ï¿½ï¿½ï¿½ï¿½
+menu.group.list.text=ï¿½Ğ±ï¿½
+menu.group.node.text=ï¿½Úµï¿½
 
 
 ### login ###
-login.text=µÇÂ¼
-login.failed.text=µÇÂ¼Ê§°Ü£¡
-login.failed.msg=Çë¼ì²éÄúµÄÓÃ»§ÃûºÍÃÜÂëÊÇ·ñÕıÈ·
-login.success=µÇ³ö³É¹¦£¡
-login.password.change.success=ĞŞ¸ÄÃÜÂë³É¹¦£¡
-login.system.name=Íø¹ÜÏµÍ³
-login.username.text=ÓÃ»§Ãû
-login.password.text=ÃÜÂë
+login.text=ï¿½ï¿½Â¼
+login.failed.text=ï¿½ï¿½Â¼Ê§ï¿½Ü£ï¿½
+login.failed.msg=ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ã»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ç·ï¿½ï¿½ï¿½È·
+login.success=ï¿½Ç³ï¿½ï¿½É¹ï¿½ï¿½ï¿½
+login.password.change.success=ï¿½Ş¸ï¿½ï¿½ï¿½ï¿½ï¿½É¹ï¿½ï¿½ï¿½
+login.system.name=ï¿½ï¿½ï¿½ï¿½ÏµÍ³
+login.username.text=ï¿½Ã»ï¿½ï¿½ï¿½
+login.password.text=ï¿½ï¿½ï¿½ï¿½
 
 
 ### password ###
-password.title.text=ÕË»§ÉèÖÃ
-password.change.text=¸ü¸ÄÃÜÂë
-password.change.error0.text=¸ü¸ÄÃÜÂëÊ§°Ü
-password.change.error1.text=ÓÃ»§²»´æÔÚ
-password.change.error2.text=¾ÉÃÜÂë´íÎó
-password.old.text=¾ÉÃÜÂë
-password.new.text=ĞÂÃÜÂë
-password.twice.text=ÔÙ´ÎÊäÈëĞÂÃÜÂë
-password.submit.text=Ìá½»
-password.old.msg=ÇëÊäÈë¾ÉÃÜÂë
-password.new.msg0=ÇëÊäÈëÃÜÂë
-password.new.msg1=ÃÜÂë³¤¶È²»ÄÜĞ¡ÓÚ 5 ¸ö×ÖÄ¸
-password.twice.msg0=ÇëÊäÈëÃÜÂë
-password.twice.msg1=ÃÜÂë³¤¶È²»ÄÜĞ¡ÓÚ 5 ¸ö×ÖÄ¸
-password.twice.msg2=Á½´ÎÃÜÂëÊäÈë²»Ò»ÖÂ
-password.strength.vweak.text=ºÜÈõ
-password.strength.weak.text=Èõ
-password.strength.normale.text=Õı³£
-password.strength.medium.text=ÖĞµÈ
+password.title.text=ï¿½Ë»ï¿½ï¿½ï¿½ï¿½ï¿½
+password.change.text=ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+password.change.error0.text=ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê§ï¿½ï¿½
+password.change.error1.text=ï¿½Ã»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+password.change.error2.text=ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+password.old.text=ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+password.new.text=ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+password.twice.text=ï¿½Ù´ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+password.submit.text=ï¿½á½»
+password.old.msg=ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+password.new.msg0=ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+password.new.msg1=ï¿½ï¿½ï¿½ë³¤ï¿½È²ï¿½ï¿½ï¿½Ğ¡ï¿½ï¿½ 5 ï¿½ï¿½ï¿½ï¿½Ä¸
+password.twice.msg0=ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+password.twice.msg1=ï¿½ï¿½ï¿½ë³¤ï¿½È²ï¿½ï¿½ï¿½Ğ¡ï¿½ï¿½ 5 ï¿½ï¿½ï¿½ï¿½Ä¸
+password.twice.msg2=ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ë²»Ò»ï¿½ï¿½
+password.strength.vweak.text=ï¿½ï¿½ï¿½ï¿½
+password.strength.weak.text=ï¿½ï¿½
+password.strength.normale.text=ï¿½ï¿½ï¿½ï¿½
+password.strength.medium.text=ï¿½Ğµï¿½
 password.strength.strong.text=Ç¿
-password.strength.vstrong.text=ºÜÇ¿
+password.strength.vstrong.text=ï¿½ï¿½Ç¿
 
 
 ### device ###
-device.text=Éè±¸
-device.ap.status.text=Á¬½Ó×´Ì¬
-device.ap.search.text=¸ù¾İMACËÑË÷ ...
-device.ap.reboot.confirm.text=È·¶¨ÒªÖØÆôÂğ?
-device.ap.msg.success.text=ÏûÏ¢ÒÑ·¢ËÍ!
-device.ap.msg.error.text=ÏûÏ¢·¢ËÍ³ö´í!
-device.ap.reset.confirm.text=È·¶¨Òª¸´Î»Âğ?
+device.text=ï¿½è±¸
+device.ap.status.text=ï¿½ï¿½ï¿½ï¿½×´Ì¬
+device.ap.search.text=ï¿½ï¿½ï¿½ï¿½MACï¿½ï¿½ï¿½ï¿½ ...
+device.ap.reboot.confirm.text=È·ï¿½ï¿½Òªï¿½ï¿½ï¿½ï¿½ï¿½ï¿½?
+device.ap.msg.success.text=ï¿½ï¿½Ï¢ï¿½Ñ·ï¿½ï¿½ï¿½!
+device.ap.msg.error.text=ï¿½ï¿½Ï¢ï¿½ï¿½ï¿½Í³ï¿½ï¿½ï¿½!
+device.ap.reset.confirm.text=È·ï¿½ï¿½Òªï¿½ï¿½Î»ï¿½ï¿½?
 device.ap.action.status=×´Ì¬
-device.ap.action.setup=ÅäÖÃ
-device.ap.action.reboot=ÖØÆô
-device.ap.action.reset=¸´Î»
-device.ap.status.online=ÉÏÏß
-device.ap.status.offline=ÀëÏß
+device.ap.action.setup=ï¿½ï¿½ï¿½ï¿½
+device.ap.action.reboot=ï¿½ï¿½ï¿½ï¿½
+device.ap.action.reset=ï¿½ï¿½Î»
+device.ap.status.online=ï¿½ï¿½ï¿½ï¿½
+device.ap.status.offline=ï¿½ï¿½ï¿½ï¿½
 
 
 ### ap ###
-ap.text=Â·ÓÉÆ÷
-ap.version.text=°æ±¾
+ap.text=Â·ï¿½ï¿½ï¿½ï¿½
+ap.version.text=ï¿½æ±¾
 ap.system.text=ÏµÍ³
-ap.wan.text=¹ãÓòÍø
-ap.lan.text=¾ÖÓòÍø
-ap.wifi.text=ÎŞÏß
-ap.ota.text=Ô¶³ÌÉı¼¶
-ap.client.text=¾ÖÓòÍøÓÃ»§
-ap.info.error=»ñÈ¡ĞÅÏ¢Ê§°Ü
+ap.wan.text=ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+ap.lan.text=ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+ap.wifi.text=ï¿½ï¿½ï¿½ï¿½
+ap.ota.text=Ô¶ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+ap.client.text=ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ã»ï¿½
+ap.info.error=ï¿½ï¿½È¡ï¿½ï¿½Ï¢Ê§ï¿½ï¿½
 
 
 ### wifi ###
-ap.wifi.open.text=¿ªÆôWiFi
-ap.wifi.on=¿ªÆô
-ap.wifi.off=¹Ø±Õ
-ap.wifi.channel=ĞÅµÀ
-ap.wifi.channel0=×Ô¶¯
-ap.wifi.channel1=ĞÅµÀ 1
-ap.wifi.channel2=ĞÅµÀ 2
-ap.wifi.channel3=ĞÅµÀ 3
-ap.wifi.channel4=ĞÅµÀ 4
-ap.wifi.channel5=ĞÅµÀ 5
-ap.wifi.channel6=ĞÅµÀ 6
-ap.wifi.channel7=ĞÅµÀ 7
-ap.wifi.channel8=ĞÅµÀ 8
-ap.wifi.channel9=ĞÅµÀ 9
-ap.wifi.channel10=ĞÅµÀ 10
-ap.wifi.channel11=ĞÅµÀ 11
-ap.wifi.maxconnection=×î´óÁ¬½ÓÊı
-ap.wifi.encryption=¼ÓÃÜ·½Ê½
-ap.wifi.enc.none=Î´¼ÓÃÜ
-ap.wifi.enc.wpamixed=WPA-PSK/WPA2-PSK »ìºÏÄ£Ê½
-ap.wifi.key=ÃÜÂë
-ap.wifi.cipher=Ëã·¨
+ap.wifi.open.text=ï¿½ï¿½ï¿½ï¿½WiFi
+ap.wifi.on=ï¿½ï¿½ï¿½ï¿½
+ap.wifi.off=ï¿½Ø±ï¿½
+ap.wifi.channel=ï¿½Åµï¿½
+ap.wifi.channel0=ï¿½Ô¶ï¿½
+ap.wifi.channel1=ï¿½Åµï¿½ 1
+ap.wifi.channel2=ï¿½Åµï¿½ 2
+ap.wifi.channel3=ï¿½Åµï¿½ 3
+ap.wifi.channel4=ï¿½Åµï¿½ 4
+ap.wifi.channel5=ï¿½Åµï¿½ 5
+ap.wifi.channel6=ï¿½Åµï¿½ 6
+ap.wifi.channel7=ï¿½Åµï¿½ 7
+ap.wifi.channel8=ï¿½Åµï¿½ 8
+ap.wifi.channel9=ï¿½Åµï¿½ 9
+ap.wifi.channel10=ï¿½Åµï¿½ 10
+ap.wifi.channel11=ï¿½Åµï¿½ 11
+ap.wifi.maxconnection=ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+ap.wifi.encryption=ï¿½ï¿½ï¿½Ü·ï¿½Ê½
+ap.wifi.enc.none=Î´ï¿½ï¿½ï¿½ï¿½
+ap.wifi.enc.wpamixed=WPA-PSK/WPA2-PSK ï¿½ï¿½ï¿½Ä£Ê½
+ap.wifi.key=ï¿½ï¿½ï¿½ï¿½
+ap.wifi.cipher=ï¿½ã·¨
 
 
 ### lan ###
-ap.lan.gateway=Íø¹Ø
-ap.lan.netmask=×ÓÍøÑÚÂë
-ap.lan.dhcp.text=¿ªÆôDHCP
-ap.lan.dhcp.off=¹Ø±Õ
-ap.lan.dhcp.on=¿ªÆô
-ap.lan.dhcp.start=¿ªÊ¼
-ap.lan.dhcp.limit=¿Í»§Êı
-ap.lan.dhcp.leasetime=×âÓÃÊ±¼ä
+ap.lan.gateway=ï¿½ï¿½ï¿½ï¿½
+ap.lan.netmask=ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+ap.lan.dhcp.text=ï¿½ï¿½ï¿½ï¿½DHCP
+ap.lan.dhcp.off=ï¿½Ø±ï¿½
+ap.lan.dhcp.on=ï¿½ï¿½ï¿½ï¿½
+ap.lan.dhcp.start=ï¿½ï¿½Ê¼
+ap.lan.dhcp.limit=ï¿½Í»ï¿½ï¿½ï¿½
+ap.lan.dhcp.leasetime=ï¿½ï¿½ï¿½ï¿½Ê±ï¿½ï¿½
 
 
 ### wan ###
 ap.wan.protocol=Ä£Ê½
-ap.wan.static.netmask=×ÓÍøÑÚÂë
-ap.wan.static.gateway=Íø¹Ø
-ap.wan.pppoe.username=ÓÃ»§Ãû
-ap.wan.pppoe.password=ÃÜÂë
-ap.wan.g3.modem=µ÷ÖÆ½âµ÷Æ÷½Úµã
-ap.wan.g3.service=·şÎñÀàĞÍ
-ap.wan.g3.sv.auto=×Ô¶¯
-ap.wan.g3.sv.lte=½öLTE
-ap.wan.g3.sv.umts=½öUMTS(WCDMA)
-ap.wan.g3.sv.gprs=½öGPRS
+ap.wan.static.netmask=ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+ap.wan.static.gateway=ï¿½ï¿½ï¿½ï¿½
+ap.wan.pppoe.username=ï¿½Ã»ï¿½ï¿½ï¿½
+ap.wan.pppoe.password=ï¿½ï¿½ï¿½ï¿½
+ap.wan.g3.modem=ï¿½ï¿½ï¿½Æ½ï¿½ï¿½ï¿½ï¿½ï¿½Úµï¿½
+ap.wan.g3.service=ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+ap.wan.g3.sv.auto=ï¿½Ô¶ï¿½
+ap.wan.g3.sv.lte=ï¿½ï¿½LTE
+ap.wan.g3.sv.umts=ï¿½ï¿½UMTS(WCDMA)
+ap.wan.g3.sv.gprs=ï¿½ï¿½GPRS
 ap.wan.g3.sv.evdo=CDMA/EV-DO
 
 
 ### ota ###
 ap.ota.mode.text=Ä£Ê½
-ap.ota.mode.m0=´Ó²»¼ì²é¸üĞÂ
-ap.ota.mode.m1=Ê¼ÖÕ¼ì²é¸üĞÂ
-ap.ota.mode.m2=ÔÚÊ±¼ä´°¿ÚÄÚ¼ì²é¸üĞÂ
-ap.ota.url=OTA ·şÎñÆ÷µØÖ·
-ap.ota.delay=Éı¼¶¼ì²â¼ä¸ô
-ap.ota.min=·ÖÖÓ
-ap.ota.reset.text=Éı¼¶ºóÊÇ·ñ»¹Ô­³ö³§ÅäÖÃ
-ap.ota.retst.test1=Éı¼¶ºó¸´Î»
-ap.ota.reset.on=ÊÇ
-ap.ota.reset.off=·ñ
-ap.ota.window.start=Ê±¼ä´°¿ÚÆğÊ¼Ê±¼ä
-ap.ota.window.size=Ê±¼ä´°¿Ú´óĞ¡
+ap.ota.mode.m0=ï¿½Ó²ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+ap.ota.mode.m1=Ê¼ï¿½Õ¼ï¿½ï¿½ï¿½ï¿½ï¿½
+ap.ota.mode.m2=ï¿½ï¿½Ê±ï¿½ä´°ï¿½ï¿½ï¿½Ú¼ï¿½ï¿½ï¿½ï¿½ï¿½
+ap.ota.url=OTA ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö·
+ap.ota.delay=ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+ap.ota.min=ï¿½ï¿½ï¿½ï¿½
+ap.ota.reset.text=ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ç·ï¿½Ô­ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+ap.ota.retst.test1=ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Î»
+ap.ota.reset.on=ï¿½ï¿½
+ap.ota.reset.off=ï¿½ï¿½
+ap.ota.window.start=Ê±ï¿½ä´°ï¿½ï¿½ï¿½ï¿½Ê¼Ê±ï¿½ï¿½
+ap.ota.window.size=Ê±ï¿½ä´°ï¿½Ú´ï¿½Ğ¡
 ap.ota.hour=Ğ¡Ê±
 
 
 ### version ###
-ap.version.product=²úÆ·
-ap.version.firmware=¹Ì¼ş°æ±¾
-ap.version.hardware=Ó²¼ş°æ±¾
-ap.version.kernel=ÄÚºË°æ±¾
-ap.version.os=ÏµÍ³°æ±¾
+ap.version.product=ï¿½ï¿½Æ·
+ap.version.firmware=ï¿½Ì¼ï¿½ï¿½æ±¾
+ap.version.hardware=Ó²ï¿½ï¿½ï¿½æ±¾
+ap.version.kernel=ï¿½ÚºË°æ±¾
+ap.version.os=ÏµÍ³ï¿½æ±¾
 
 
 ### system ###
-ap.system.uptime=ÒÑÆô¶¯
-ap.system.load=¸ºÔØ
-ap.system.mem.total=×ÜÄÚ´æ
-ap.system.mem.free=Ê£ÓàÄÚ´æ
-ap.system.mem.cache=»º´æ
-ap.system.mem.buff=»º³å
+ap.system.uptime=ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+ap.system.load=ï¿½ï¿½ï¿½ï¿½
+ap.system.mem.total=ï¿½ï¿½ï¿½Ú´ï¿½
+ap.system.mem.free=Ê£ï¿½ï¿½ï¿½Ú´ï¿½
+ap.system.mem.cache=ï¿½ï¿½ï¿½ï¿½
+ap.system.mem.buff=ï¿½ï¿½ï¿½ï¿½
 
 
 ### jquery validate ###
-ap.msg.wan.protocol.required=ÇëÑ¡Ôñ¹ãÓòÍøÁ¬½ÓÄ£Ê½
-ap.msg.wan.addr.ipv4=ÇëÊäÈëÓĞĞ§µÄ IP
-ap.msg.wan.netmask.ipv4=ÇëÊäÈëÓĞĞ§µÄ×ÓÍøÑÚÂë
-ap.msg.wan.gateway.ipv4=ÇëÊäÈëÓĞĞ§µÄÍø¹Ø
+ap.msg.wan.protocol.required=ï¿½ï¿½Ñ¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä£Ê½
+ap.msg.wan.addr.ipv4=ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ğ§ï¿½ï¿½ IP
+ap.msg.wan.netmask.ipv4=ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ğ§ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+ap.msg.wan.gateway.ipv4=ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ğ§ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 
-ap.msg.lan.lanaddr.ipv4=ÇëÊäÈëÓĞĞ§µÄ IP
-ap.msg.lan.lannetmask.ipv4=ÇëÊäÈëÓĞĞ§µÄ×ÓÍøÑÚÂë
+ap.msg.lan.lanaddr.ipv4=ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ğ§ï¿½ï¿½ IP
+ap.msg.lan.lannetmask.ipv4=ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ğ§ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 
-ap.msg.wifi.channel.digits=ÇëÑ¡ÔñĞÅµÀ
-ap.msg.wifi.encryption.required=ÇëÑ¡Ôñ¼ÓÃÜ·½Ê½
-ap.msg.wifi.cipher.required=ÇëÑ¡ÔñËã·¨
-ap.msg.wifi.key.ranglen=ÃÜÂë³¤¶ÈÓ¦ÔÚ {0} - {1} Ö®¼ä
+ap.msg.wifi.channel.digits=ï¿½ï¿½Ñ¡ï¿½ï¿½ï¿½Åµï¿½
+ap.msg.wifi.encryption.required=ï¿½ï¿½Ñ¡ï¿½ï¿½ï¿½ï¿½Ü·ï¿½Ê½
+ap.msg.wifi.cipher.required=ï¿½ï¿½Ñ¡ï¿½ï¿½ï¿½ã·¨
+ap.msg.wifi.key.ranglen=ï¿½ï¿½ï¿½ë³¤ï¿½ï¿½Ó¦ï¿½ï¿½ {0} - {1} Ö®ï¿½ï¿½
 
-ap.msg.ota.mode.digits=ÇëÑ¡Ôñ OTA Ä£Ê½
-ap.msg.ota.server.url=ÇëÊäÈëÓĞĞ§µÄURLµØÖ·
-ap.msg.ota.delay.min=×îĞ¡{0}·ÖÖÓ
+ap.msg.ota.mode.digits=ï¿½ï¿½Ñ¡ï¿½ï¿½ OTA Ä£Ê½
+ap.msg.ota.server.url=ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ğ§ï¿½ï¿½URLï¿½ï¿½Ö·
+ap.msg.ota.delay.min=ï¿½ï¿½Ğ¡{0}ï¿½ï¿½ï¿½ï¿½
 
-ap.msg.common.range=ÇëÊäÈë {0} - {1} ÕûÊı
-ap.msg.common.digits=ÇëÊäÈëÕıÕûÊı
-ap.msg.common.required=´ËÏî±ØÌî
-ap.msg.common.maxlen=×î´ó³¤¶È{0}×Ö½Ú
+ap.msg.common.range=ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ {0} - {1} ï¿½ï¿½ï¿½ï¿½
+ap.msg.common.digits=ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+ap.msg.common.required=ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+ap.msg.common.maxlen=ï¿½ï¿½ó³¤¶ï¿½{0}ï¿½Ö½ï¿½
 
-ap.msg.save.success=ÅäÖÃ±£´æ³É¹¦
-ap.msg.save.error=ÅäÖÃ±£´æÊ§°Ü
-ap.msg.effect.success=ÅäÖÃÏÂ·¢³É¹¦
-ap.msg.effect.error=ÅäÖÃÏÂ·¢Ê§°Ü
+ap.msg.save.success=ï¿½ï¿½ï¿½Ã±ï¿½ï¿½ï¿½É¹ï¿½
+ap.msg.save.error=ï¿½ï¿½ï¿½Ã±ï¿½ï¿½ï¿½Ê§ï¿½ï¿½
+ap.msg.effect.success=ï¿½ï¿½ï¿½ï¿½ï¿½Â·ï¿½ï¿½É¹ï¿½
+ap.msg.effect.error=ï¿½ï¿½ï¿½ï¿½ï¿½Â·ï¿½Ê§ï¿½ï¿½
 
 
 ### settings ###
-ap.settings.setup=ÉèÖÃ
-ap.settings.scope.text=Ñ¡ÔñÓò ...
-ap.settings.scope.all=È«²¿
-ap.settings.effect=ÏÂ·¢ÅäÖÃ
-ap.settings.save=±£´æÅäÖÃ
-ap.settings.refresh=Ë¢ĞÂ
+ap.settings.setup=ï¿½ï¿½ï¿½ï¿½
+ap.settings.scope.text=Ñ¡ï¿½ï¿½ï¿½ï¿½ ...
+ap.settings.scope.all=È«ï¿½ï¿½
+ap.settings.effect=ï¿½Â·ï¿½ï¿½ï¿½ï¿½ï¿½
+ap.settings.save=ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+ap.settings.refresh=Ë¢ï¿½ï¿½
 
 
 ### template ###
-temp.lan.text=¾ÖÓòÍøÄ£°å
-temp.ota.text=OTA Ä£°å
-temp.wan.text=¹ãÓòÍøÄ£°å
-temp.wifi.text=ÎŞÏßÄ£°å
+temp.lan.text=ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä£ï¿½ï¿½
+temp.ota.text=OTA Ä£ï¿½ï¿½
+temp.wan.text=ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä£ï¿½ï¿½
+temp.wifi.text=ï¿½ï¿½ï¿½ï¿½Ä£ï¿½ï¿½
 
-temp.common.search=¸ù¾İÄ£°åÃû×ÖËÑË÷ ...
-temp.common.name=Ãû³Æ
+temp.common.search=ï¿½ï¿½ï¿½ï¿½Ä£ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ...
+temp.common.name=ï¿½ï¿½ï¿½ï¿½
 
 
 ### common ###
-common.update.text=¸üĞÂÊ±¼ä
-common.create.text=´´½¨Ê±¼ä
-common.description.text=ÃèÊö
-common.action.text=²Ù×÷
-common.action.alter=ĞŞ¸Ä
-common.action.add=Ìí¼Ó
-common.action.delete=É¾³ı
-common.action.close=¹Ø±Õ
-common.action.submit=Ìá½»
-common.msg.success=³É¹¦!
-common.msg.failed=Ê§°Ü!
-common.msg.delete.text=È·¶¨ÒªÉ¾³ıÕâÒ»ÏîÂğ?
-common.msg.delete.success=É¾³ı³É¹¦!
-common.msg.delete.error=É¾³ı´íÎó!
+common.update.text=ï¿½ï¿½ï¿½ï¿½Ê±ï¿½ï¿½
+common.create.text=ï¿½ï¿½ï¿½ï¿½Ê±ï¿½ï¿½
+common.description.text=ï¿½ï¿½ï¿½ï¿½
+common.action.text=ï¿½ï¿½ï¿½ï¿½
+common.action.alter=ï¿½Ş¸ï¿½
+common.action.add=ï¿½ï¿½ï¿½
+common.action.delete=É¾ï¿½ï¿½
+common.action.close=ï¿½Ø±ï¿½
+common.action.submit=ï¿½á½»
+common.msg.success=ï¿½É¹ï¿½!
+common.msg.failed=Ê§ï¿½ï¿½!
+common.msg.delete.text=È·ï¿½ï¿½ÒªÉ¾ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½ï¿½ï¿½?
+common.msg.delete.success=É¾ï¿½ï¿½ï¿½É¹ï¿½!
+common.msg.delete.error=É¾ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½!
 common.msg.page.perpage=Ã¿Ò³
-common.msg.page.total=Ïî¼ÇÂ¼
+common.msg.page.total=ï¿½ï¿½ï¿½Â¼
 
 
 ### group ###
-device.group.text=·Ö×é
-device.group.groupid=·Ö×éID
-deivce.group.name=Ãû³Æ
-device.group.description=ÃèÊö
-device.group.temp.title=Ñ¡ÔñÄ£°å ...
-device.group.temp.none=Ä¿Ç°»¹Ã»ÓĞÄ£°å
-device.group.search=¸ù¾İ·Ö×éÃûËÑË÷ ...
-device.group.details=²é¿´
-device.group.configuration=·Ö×éÅäÖÃ
+device.group.text=ï¿½ï¿½ï¿½ï¿½
+device.group.groupid=ï¿½ï¿½ï¿½ï¿½ID
+deivce.group.name=ï¿½ï¿½ï¿½ï¿½
+device.group.description=ï¿½ï¿½ï¿½ï¿½
+device.group.temp.title=Ñ¡ï¿½ï¿½Ä£ï¿½ï¿½ ...
+device.group.temp.none=Ä¿Ç°ï¿½ï¿½Ã»ï¿½ï¿½Ä£ï¿½ï¿½
+device.group.search=ï¿½ï¿½ï¿½İ·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ...
+device.group.details=ï¿½é¿´
+device.group.configuration=ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 
-device.group.node.text=½ÚµãĞÅÏ¢
-device.group.effect=×éÄÚÏÂ·¢ÅäÖÃ
-device.group.node.start=ÆğÊ¼MACµØÖ·
-device.group.node.end=½áÊøMACµØÖ·
-device.group.node.big=ÆğÊ¼MACµØÖ·±ØĞë²»´óÓÚ½áÊøMACµØÖ·
+device.group.node.text=ï¿½Úµï¿½ï¿½ï¿½Ï¢
+device.group.effect=ï¿½ï¿½ï¿½ï¿½ï¿½Â·ï¿½ï¿½ï¿½ï¿½ï¿½
+device.group.node.start=ï¿½ï¿½Ê¼MACï¿½ï¿½Ö·
+device.group.node.end=ï¿½ï¿½ï¿½ï¿½MACï¿½ï¿½Ö·
+device.group.node.big=ï¿½ï¿½Ê¼MACï¿½ï¿½Ö·ï¿½ï¿½ï¿½ë²»ï¿½ï¿½ï¿½Ú½ï¿½ï¿½ï¿½MACï¿½ï¿½Ö·
 
 

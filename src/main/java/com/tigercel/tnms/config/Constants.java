@@ -9,4 +9,7 @@ public class Constants {
 
     public static final String CONNECTION_CLIENT_APP = "app";
     public static final String CONNECTION_CLIENT_BROWSER = "browser";
+
+    public static final String UPLOAD_PATH_APP = "/upload/app/";
+    public static final String UPLOAD_PATH_ROUTER = "/upload/router/";
 }

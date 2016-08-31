@@ -12,7 +12,7 @@
     <div class="col-md-12">
       <div class="panel">
         <div class="panel-heading">
-          ${group.getName()} - <@spring.message "device.group.effect" />
+          ${group.getGroupName()} - <@spring.message "device.group.effect" />
         </div>
         <div class="panel-body">
           <div class="form-group">
@@ -136,7 +136,7 @@
   var _csrf = "${_csrf.token ?if_exists}";
   var groupName = "";
   <#if group ??>
-    groupName = "${group.getName()}";
+    groupName = "${group.getGroupName()}";
   </#if>
 
   var GROUP_CONFIG_URL = "${viewHelper.getPath()}/device/ap/group/" + groupName + "/config";
